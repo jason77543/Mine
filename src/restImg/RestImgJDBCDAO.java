@@ -251,40 +251,34 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		RestImgJDBCDAO restImgJDBCDAO = new RestImgJDBCDAO();
 		
 		RestImg restImg = new RestImg();
-		restImg.setRestImgNo(3);
-		restImg.setRestId("AAA");
-		restImg.setRestImgName("我是相片名稱");
-		restImg.setRestImgIntro("我是寵物餐廳相片");
-		restImgJDBCDAO.add(restImg);
+//		restImg.setRestImgNo(3);
+//		restImg.setRestId("AAA");
+//		restImg.setRestImgName("我是相片名稱");
+//		restImg.setRestImgIntro("我是寵物餐廳相片");
+//		restImgJDBCDAO.add(restImg);
 		
-//		restList.setRestListNo(1);
-//		restList.setRestListName("中大寵參1111");
-//		restList.setRestListAdd("中央大學111");
-//		restList.setRestListPhone("03-9999111");
-//		restList.setRestListIntro("測試用111");
-//		restList.setRestListKind(11111);	
-//		byte[]	restImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\1.jpg");
-//		restList.setRestListImg(restImg);
-//		restListJDBCDAO.update(restList);
+//		restImg.setRestId("AAA");
+//		restImg.setRestImgName("我是相片名稱33");
+//		restImg.setRestImgIntro("我是寵物餐廳相片33");
+//		restImg.setRestImgNo(3);
+//		restImgJDBCDAO.update(restImg);
 		
-//		restListJDBCDAO.delete(1);
+//		restImgJDBCDAO.delete(1);
 		
-//		restList = restListJDBCDAO.findByPK(1);
-//		System.out.println(restList.getRestListNo());
-//		System.out.println(restList.getRestListName());
-//		System.out.println(restList.getRestListAdd());
-//		System.out.println(restList.getRestListPhone());
-//		System.out.println(restList.getRestListIntro());
-//		System.out.println(restList.getRestListKind());
+//		restImg = restImgJDBCDAO.findByPK(2);
+//		System.out.println(restImg.getRestImgNo());
+//		System.out.println(restImg.getRestId());
+//		System.out.println(restImg.getRestImgName());
+//		System.out.println(restImg.getRestImgIntro());
 		
-//		List<RestList> RestList = restListJDBCDAO.getAll();
-//		for(RestList restListE : RestList){
-//			System.out.println(restListE.getRestListNo());
-//			System.out.println(restListE.getRestListName());
-//			System.out.println(restListE.getRestListAdd());
-//			System.out.println(restListE.getRestListPhone());
-//			System.out.println(restListE.getRestListIntro());
-//			System.out.println(restListE.getRestListKind());
+		
+		
+//		List<RestImg> restImgList = restImgJDBCDAO.getAll();
+//		for(RestImg restImgListE : restImgList){
+//			System.out.println(restImgListE.getRestImgNo());
+//			System.out.println(restImgListE.getRestId());
+//			System.out.println(restImgListE.getRestImgName());
+//			System.out.println(restImgListE.getRestImgIntro());
 //		}
 	}
 
