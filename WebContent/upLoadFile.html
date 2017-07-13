@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=Big5">
+<title>Test Upload File</title>
+</head>
+<body>
+	<form action="upLoad1" method="post" enctype="multipart/form-data">
+		<input type="file" onchange='openfile(event)' name='upload'><br>
+		<img id="img" width="10%"><br>
+		<input type="file" onchange='openfile1(event)' name='upload1'><br>
+		<img id="img1" width="10%"><br>
+		<input type="submit" value="upLoad">
+		
+		<script>
+			var openfile = function(e) {
+				var input = e.target;
+				var reader = new FileReader();
+				reader.onload = function(){
+					var dateURL = reader.result;
+					var output = document.getElementById('img');
+					output.src = dateURL;
+				};
+				reader.readAsDataURL(input.files[0]);
+			};
+			
+			var openfile1 = function(e) {
+				var input = e.target;
+				var reader = new FileReader();
+				reader.onload = function(){
+					var dateURL = reader.result;
+					var output = document.getElementById('img1');
+					output.src = dateURL;
+				};
+				reader.readAsDataURL(input.files[0]);
+			};
+		</script>
+	</form>
+</body>
+</html>
