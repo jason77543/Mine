@@ -14,11 +14,14 @@ public class Activity implements Serializable{
 	private Integer actStatus;
 	private Integer actULimit;
 	private Integer actLLimit;
-	private String actKind;
-	private byte[] actImg;
+	private Integer actKind;
+	private String actAnotherKind;
+	
+	
 	
 	public Activity(Integer actNo, String restId, String actName, String actContent, Date actDate, Date actFDate,
-			Integer actStatus, Integer actULimit, Integer actLLimit, String actKind, byte[] actImg) {
+			Integer actStatus, Integer actULimit, Integer actLLimit, Integer actKind, String actAnotherKind,
+			byte[] actImg) {
 		super();
 		this.actNo = actNo;
 		this.restId = restId;
@@ -30,6 +33,7 @@ public class Activity implements Serializable{
 		this.actULimit = actULimit;
 		this.actLLimit = actLLimit;
 		this.actKind = actKind;
+		this.actAnotherKind = actAnotherKind;
 		this.actImg = actImg;
 	}
 	
@@ -92,11 +96,17 @@ public class Activity implements Serializable{
 	public void setActLLimit(Integer actLLimit) {
 		this.actLLimit = actLLimit;
 	}
-	public String getActKind() {
+	public Integer getActKind() {
 		return actKind;
 	}
-	public void setActKind(String actKind) {
+	public void setActKind(Integer actKind) {
 		this.actKind = actKind;
+	}
+	public String getActAnotherKind() {
+		return actAnotherKind;
+	}
+	public void setActAnotherKind(String actAnotherKind) {
+		this.actAnotherKind = actAnotherKind;
 	}
 	public byte[] getActImg() {
 		return actImg;
@@ -104,4 +114,7 @@ public class Activity implements Serializable{
 	public void setActImg(byte[] actImg) {
 		this.actImg = actImg;
 	}
+	private byte[] actImg;
+	
+	
 }

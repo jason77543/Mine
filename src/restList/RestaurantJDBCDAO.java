@@ -17,23 +17,23 @@ import javax.swing.ListModel;
 
 import restImg.RestImg;
 
-public class RestListJDBCDAO implements RestListDAO_Interface {
+public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "huang";
 	String passwd = "g122003744";
 
-	private static final String INSERT_RESTLIST = "INSERT INTO RESTLIST (RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,"
-			+ "RESTLISTINTRO,RESTLISTKIND) " + "VALUES(?,?,?,?,?,?)";
-	private static final String UPDATE_RESTLIST = "UPDATE RESTLIST SET RESTLISTNAME=?,RESTLISTADD=?,RESTLISTPHONE=?"
-			+ ",RESTLISTINTRO=?,RESTLISTKIND=?,RESTLISTIMG=? WHERE RESTLISTNO=?";
-	private static final String DELETE_RESTLIST = "DELETE FROM RESTLIST WHERE RESTLISTNO=?";
-	private static final String FIND_BY_PK = "SELECT * FROM RESTLIST WHERE RESTLISTNO=?";
-	private static final String GET_ALL = "SELECT * FROM RESTLIST";
+	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
+			+ "RESTINTRO,RESTKIND,RESTIMG,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
+			+ ",RESTINTRO=?,RESTKIND=?,RESTIMG=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
+	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
+	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
+	private static final String GET_ALL = "SELECT * FROM REST";
 
 	@Override
-	public void add(RestList restList) {
+	public void add(Restaurant rest) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -42,60 +42,71 @@ public class RestListJDBCDAO implements RestListDAO_Interface {
 			conn = DriverManager.getConnection(url, userid, passwd);
 			
 
-			pstmt = conn.prepareStatement(INSERT_RESTLIST);
-			pstmt.setInt(1, restList.getRestListNo());
-			pstmt.setString(2, restList.getRestListName());
-			pstmt.setString(3, restList.getRestListAdd());
-			pstmt.setString(4, restList.getRestListPhone());
-			pstmt.setString(5, restList.getRestListIntro());
-			pstmt.setInt(6, restList.getRestListKind());
-
+			pstmt = conn.prepareStatement(INSERT_REST);
+			pstmt.setInt(1, rest.getRestNo());
+			pstmt.setString(2, rest.getRestName());
+			pstmt.setString(3, rest.getRestAdd());
+			pstmt.setString(4, rest.getRestPhone());
+			pstmt.setString(5, rest.getRestIntro());
+			pstmt.setInt(6, rest.getRestKind());
 			
-
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	@Override
-	public void update(RestList restList) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
-			pstmt = conn.prepareStatement(UPDATE_RESTLIST);
-
-			pstmt.setString(1, restList.getRestListName());
-			pstmt.setString(2, restList.getRestListAdd());
-			pstmt.setString(3, restList.getRestListPhone());
-			pstmt.setString(4, restList.getRestListIntro());
-			pstmt.setInt(5, restList.getRestListKind());
-
 			Blob blob = conn.createBlob();
-			blob.setBytes(1, restList.getRestListImg());
-			pstmt.setBlob(6, blob);
+			blob.setBytes(1, rest.getRestImg());
+			pstmt.setBlob(7, blob);
+			pstmt.setInt(8, rest.getRestReviewStatus());
+			pstmt.setFloat(9, rest.getRestLongtitude());
+			pstmt.setFloat(10, rest.getRestLatitude());
 
-			pstmt.setInt(7, restList.getRestListNo());
+			
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update(Restaurant rest) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(UPDATE_REST);
+
+			
+			pstmt.setString(1, rest.getRestName());
+			pstmt.setString(2, rest.getRestAdd());
+			pstmt.setString(3, rest.getRestPhone());
+			pstmt.setString(4, rest.getRestIntro());
+			pstmt.setInt(5, rest.getRestKind());
+			
+			Blob blob = conn.createBlob();
+			blob.setBytes(1, rest.getRestImg());
+			pstmt.setBlob(6, blob);
+			pstmt.setInt(7, rest.getRestReviewStatus());
+			pstmt.setFloat(8, rest.getRestLongtitude());
+			pstmt.setFloat(9, rest.getRestLatitude());
+			
+			pstmt.setInt(10, rest.getRestNo());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -123,15 +134,15 @@ public class RestListJDBCDAO implements RestListDAO_Interface {
 	}
 
 	@Override
-	public void delete(Integer restListNo) {
+	public void delete(Integer restNo) {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userid, passwd);
-			pstmt = conn.prepareStatement(DELETE_RESTLIST);
-			pstmt.setInt(1, restListNo);
+			pstmt = conn.prepareStatement(DELETE_REST);
+			pstmt.setInt(1, restNo);
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -159,28 +170,89 @@ public class RestListJDBCDAO implements RestListDAO_Interface {
 	}
 
 	@Override
-	public RestList findByPK(Integer restListNo) {
+	public Restaurant findByPK(Integer restNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		RestList restList = null;
+		Restaurant rest = null;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userid, passwd);
 			pstmt = conn.prepareStatement(FIND_BY_PK);
-			pstmt.setInt(1, restListNo);
+			pstmt.setInt(1, restNo);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				restList = new RestList();
-				restList.setRestListNo(rs.getInt("RESTLISTNO"));
-				restList.setRestListName(rs.getString("RESTLISTNAME"));
-				restList.setRestListAdd(rs.getString("RESTLISTADD"));
-				restList.setRestListPhone(rs.getString("RESTLISTPHONE"));
-				restList.setRestListIntro(rs.getString("RESTLISTINTRO"));
-				restList.setRestListKind(rs.getInt("RESTLISTKIND"));
-				restList.setRestListImg(rs.getBytes("RESTLISTIMG"));
+			while(rs.next()){
+				rest = new Restaurant();
+				rest.setRestNo(rs.getInt("RESTNO"));
+				rest.setRestName(rs.getString("RESTNAME"));
+				rest.setRestAdd(rs.getString("RESTADD"));
+				rest.setRestPhone(rs.getString("RESTPHONE"));
+				rest.setRestIntro(rs.getString("RESTINTRO"));
+				rest.setRestKind(rs.getInt("RESTKIND"));
+				rest.setRestImg(rs.getBytes("RESTIMG"));
+				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
+				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
 			}
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return rest;
+	}
+
+	@Override
+	public List<Restaurant> getAll() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Restaurant rest = null;
+		List<Restaurant> restList = new ArrayList<Restaurant>();
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(GET_ALL);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				rest = new Restaurant();
+				rest.setRestNo(rs.getInt("RESTNO"));
+				rest.setRestName(rs.getString("RESTNAME"));
+				rest.setRestAdd(rs.getString("RESTADD"));
+				rest.setRestPhone(rs.getString("RESTPHONE"));
+				rest.setRestIntro(rs.getString("RESTINTRO"));
+				rest.setRestKind(rs.getInt("RESTKIND"));
+				rest.setRestImg(rs.getBytes("RESTIMG"));
+				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
+				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				restList.add(rest);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -212,61 +284,6 @@ public class RestListJDBCDAO implements RestListDAO_Interface {
 		}
 		return restList;
 	}
-
-	@Override
-	public List<RestList> getAll() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		RestList restList = null;
-		List<RestList> restListAll = new ArrayList<RestList>();
-		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
-			pstmt = conn.prepareStatement(GET_ALL);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				restList = new RestList();
-				restList.setRestListNo(rs.getInt("RESTLISTNO"));
-				restList.setRestListName(rs.getString("RESTLISTNAME"));
-				restList.setRestListAdd(rs.getString("RESTLISTADD"));
-				restList.setRestListPhone(rs.getString("RESTLISTPHONE"));
-				restList.setRestListIntro(rs.getString("RESTLISTINTRO"));
-				restList.setRestListKind(rs.getInt("RESTLISTKIND"));
-				restList.setRestListImg(rs.getBytes("RESTLISTIMG"));
-				restListAll.add(restList);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return restListAll;
-	}
 	
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
@@ -285,48 +302,48 @@ public class RestListJDBCDAO implements RestListDAO_Interface {
 	}
 
 	public static void main(String[] args) throws IOException {
-		RestListJDBCDAO restListJDBCDAO = new RestListJDBCDAO();
+		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
 		
-		RestList restList = new RestList();
-//		restList.setRestListNo(4);
-//		restList.setRestListName("い胐把");
-//		restList.setRestListAdd("いァ厩");
-//		restList.setRestListPhone("03-9999");
-//		restList.setRestListIntro("代刚ノ");
-//		restList.setRestListKind(1);	
+		Restaurant rest = new Restaurant();
+//		rest.setRestNo(4);
+//		rest.setRestName("い胐把");
+//		rest.setRestAdd("いァ厩");
+//		rest.setRestPhone("03-9999");
+//		rest.setRestIntro("代刚ノ");
+//		rest.setRestKind(1);	
 //		byte[]	restImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\1.jpg");
-//		restList.setRestListImg(restImg);
-//		restListJDBCDAO.add(restList);
+//		rest.setRestImg(restImg);
+//		restJDBCDAO.add(rest);
 		
 		
-//		restList.setRestListNo(1);
-//		restList.setRestListName("い胐把1111");
-//		restList.setRestListAdd("いァ厩111");
-//		restList.setRestListPhone("03-9999111");
-//		restList.setRestListIntro("代刚ノ111");
-//		restList.setRestListKind(11111);	
+//		rest.setRestNo(1);
+//		rest.setRestName("い胐把1111");
+//		rest.setRestAdd("いァ厩111");
+//		rest.setRestPhone("03-9999111");
+//		rest.setRestIntro("代刚ノ111");
+//		rest.setRestKind(11111);	
 //		byte[]	restImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\1.jpg");
-//		restList.setRestListImg(restImg);
-//		restListJDBCDAO.update(restList);
+//		rest.setrestImg(restImg);
+//		restJDBCDAO.update(rest);
 		
-//		restListJDBCDAO.delete(1);
+//		restJDBCDAO.delete(1);
 		
-//		restList = restListJDBCDAO.findByPK(1);
-//		System.out.println(restList.getRestListNo());
-//		System.out.println(restList.getRestListName());
-//		System.out.println(restList.getRestListAdd());
-//		System.out.println(restList.getRestListPhone());
-//		System.out.println(restList.getRestListIntro());
-//		System.out.println(restList.getRestListKind());
+//		rest = restJDBCDAO.findByPK(1);
+//		System.out.println(rest.getRestNo());
+//		System.out.println(rest.getRestName());
+//		System.out.println(rest.getRestAdd());
+//		System.out.println(rest.getRestPhone());
+//		System.out.println(rest.getRestIntro());
+//		System.out.println(rest.getRestKind());
 		
-//		List<RestList> RestList = restListJDBCDAO.getAll();
-//		for(RestList restListE : RestList){
-//			System.out.println(restListE.getRestListNo());
-//			System.out.println(restListE.getRestListName());
-//			System.out.println(restListE.getRestListAdd());
-//			System.out.println(restListE.getRestListPhone());
-//			System.out.println(restListE.getRestListIntro());
-//			System.out.println(restListE.getRestListKind());
+//		List<Restaurant> restList = restJDBCDAO.getAll();
+//		for(RestList restE : restList){
+//			System.out.println(restE.getRestNo());
+//			System.out.println(restE.getRestName());
+//			System.out.println(restE.getRestAdd());
+//			System.out.println(restE.getRestPhone());
+//			System.out.println(restE.getRestIntro());
+//			System.out.println(restE.getRestKind());
 //		}
 	}
 

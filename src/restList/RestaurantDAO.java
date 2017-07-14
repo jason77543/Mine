@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 
 
-public class RestListDAO implements RestListDAO_Interface {
+public class RestaurantDAO implements RestaurantDAO_Interface {
 	private static DataSource ds = null;
 	static {
 		try {
@@ -28,32 +28,36 @@ public class RestListDAO implements RestListDAO_Interface {
 
 	}
 
-	private static final String INSERT_RESTLIST = "INSERT INTO RESTLIST (RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,"
-												+ "RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG)" + "VALUES(RESTLIST_SEQ.NEXTVAL,?,?,?,?,?,?)";
-	private static final String UPDATE_RESTLIST = "UPDATE RESTLIST SET RESTLISTNAME=?,RESTLISTADD=?,RESTLISTPHONE=?"
-												+ ",RESTLISTINTRO=?,RESTLISTKIND=?,RESTLISTIMG=? WHERE RESTLISTNO=?";
-	private static final String DELETE_RESTLIST = "DELETE FROM RESTLIST WHERE RESTLISTNO=?";
-	private static final String FIND_BY_PK = "SELECT * FROM RESTLIST WHERE RESTLISTNO=?";
-	private static final String GET_ALL = "SELECT * FROM RESTLIST";
+	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
+												+ "RESTINTRO,RESTKIND,RESTIMG,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
+												+ ",RESTINTRO=?,RESTKIND=?,RESTIMG=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
+	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
+	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
+	private static final String GET_ALL = "SELECT * FROM REST";
 	@Override
-	public void add(RestList restList) {
+	public void add(Restaurant rest) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = ds.getConnection();
-			String[] cols = {"RESTLISTNO"};
+			String[] cols = {"RESTNO"};
 			
-			pstmt = conn.prepareStatement(INSERT_RESTLIST,cols);
-			pstmt.setString(1, restList.getRestListName());
-			pstmt.setString(2, restList.getRestListAdd());
-			pstmt.setString(3, restList.getRestListPhone());
-			pstmt.setString(4, restList.getRestListIntro());
-			pstmt.setInt(5, restList.getRestListKind());
+			pstmt = conn.prepareStatement(INSERT_REST,cols);
+			pstmt.setString(1, rest.getRestName());
+			pstmt.setString(2, rest.getRestAdd());
+			pstmt.setString(3, rest.getRestPhone());
+			pstmt.setString(4, rest.getRestIntro());
+			pstmt.setInt(5, rest.getRestKind());
 			
 			Blob blob = conn.createBlob();
-			blob.setBytes(1, restList.getRestListImg());
+			blob.setBytes(1, rest.getRestImg());
 			pstmt.setBlob(6, blob);
+			pstmt.setInt(7, rest.getRestReviewStatus());
+			pstmt.setFloat(8, rest.getRestLongtitude());
+			pstmt.setFloat(9, rest.getRestLatitude());
+			
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -80,25 +84,28 @@ public class RestListDAO implements RestListDAO_Interface {
 	}
 
 	@Override
-	public void update(RestList restList) {
+	public void update(Restaurant rest) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(UPDATE_RESTLIST);
+			pstmt = conn.prepareStatement(UPDATE_REST);
 			
-			pstmt.setString(1, restList.getRestListName());
-			pstmt.setString(2, restList.getRestListAdd());
-			pstmt.setString(3, restList.getRestListPhone());
-			pstmt.setString(4, restList.getRestListIntro());
-			pstmt.setInt(5, restList.getRestListKind());
+			pstmt.setString(1, rest.getRestName());
+			pstmt.setString(2, rest.getRestAdd());
+			pstmt.setString(3, rest.getRestPhone());
+			pstmt.setString(4, rest.getRestIntro());
+			pstmt.setInt(5, rest.getRestKind());
 			
 			Blob blob = conn.createBlob();
-			blob.setBytes(1, restList.getRestListImg());
+			blob.setBytes(1, rest.getRestImg());
 			pstmt.setBlob(6, blob);
+			pstmt.setInt(7, rest.getRestReviewStatus());
+			pstmt.setFloat(8, rest.getRestLongtitude());
+			pstmt.setFloat(9, rest.getRestLatitude());
 			
-			pstmt.setInt(7, restList.getRestListNo());
+			pstmt.setInt(10, rest.getRestNo());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -126,14 +133,14 @@ public class RestListDAO implements RestListDAO_Interface {
 	}
 
 	@Override
-	public void delete(Integer restListNo) {
+	public void delete(Integer restNo) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(DELETE_RESTLIST);
-			pstmt.setInt(1, restListNo);
+			pstmt = conn.prepareStatement(DELETE_REST);
+			pstmt.setInt(1, restNo);
 			pstmt.executeUpdate();
 			
 			
@@ -163,28 +170,88 @@ public class RestListDAO implements RestListDAO_Interface {
 	}
 
 	@Override
-	public RestList findByPK(Integer restListNo) {
+	public Restaurant findByPK(Integer restNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		RestList restList = null;
+		Restaurant rest = null;
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(FIND_BY_PK);
-			pstmt.setInt(1, restListNo);
+			pstmt.setInt(1, restNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				restList = new RestList();
-				restList.setRestListNo(rs.getInt("RESTLISTNO"));
-				restList.setRestListName(rs.getString("RESTLISTNAME"));
-				restList.setRestListAdd(rs.getString("RESTLISTADD"));
-				restList.setRestListPhone(rs.getString("RESTLISTPHONE"));
-				restList.setRestListIntro(rs.getString("RESTLISTINTRO"));
-				restList.setRestListKind(rs.getInt("RESTLISTKIND"));
-				restList.setRestListImg(rs.getBytes("RESTLISTIMG"));
+				rest = new Restaurant();
+				rest.setRestNo(rs.getInt("RESTNO"));
+				rest.setRestName(rs.getString("RESTNAME"));
+				rest.setRestAdd(rs.getString("RESTADD"));
+				rest.setRestPhone(rs.getString("RESTPHONE"));
+				rest.setRestIntro(rs.getString("RESTINTRO"));
+				rest.setRestKind(rs.getInt("RESTKIND"));
+				rest.setRestImg(rs.getBytes("RESTIMG"));
+				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
+				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
 			}
 			
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return rest;
+	}
+
+	@Override
+	public List<Restaurant> getAll() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Restaurant rest = null;
+		List<Restaurant> restList = new ArrayList<Restaurant>();
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(GET_ALL);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				rest = new Restaurant();
+				rest.setRestNo(rs.getInt("restNO"));
+				rest.setRestName(rs.getString("restNAME"));
+				rest.setRestAdd(rs.getString("restADD"));
+				rest.setRestPhone(rs.getString("RestPHONE"));
+				rest.setRestIntro(rs.getString("restINTRO"));
+				rest.setRestKind(rs.getInt("restKIND"));
+				rest.setRestImg(rs.getBytes("restIMG"));
+				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
+				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				restList.add(rest);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,60 +282,6 @@ public class RestListDAO implements RestListDAO_Interface {
 			}
 		}
 		return restList;
-	}
-
-	@Override
-	public List<RestList> getAll() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		RestList restList = null;
-		List<RestList> RestList = new ArrayList<RestList>();
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(GET_ALL);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
-				restList = new RestList();
-				restList.setRestListNo(rs.getInt("RESTLISTNO"));
-				restList.setRestListName(rs.getString("RESTLISTNAME"));
-				restList.setRestListAdd(rs.getString("RESTLISTADD"));
-				restList.setRestListPhone(rs.getString("RESTLISTPHONE"));
-				restList.setRestListIntro(rs.getString("RESTLISTINTRO"));
-				restList.setRestListKind(rs.getInt("RESTLISTKIND"));
-				restList.setRestListImg(rs.getBytes("RESTLISTIMG"));
-				RestList.add(restList);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(rs!=null){
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(pstmt!=null){
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(conn!=null){
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return RestList;
 	}
 	
 	

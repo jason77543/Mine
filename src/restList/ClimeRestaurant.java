@@ -31,7 +31,7 @@ import org.jsoup.select.Elements;
 
 
 @WebServlet("/ClimeRestList")
-public class ClimeRestList extends HttpServlet {
+public class ClimeRestaurant extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static BufferedReader reader;
@@ -53,7 +53,7 @@ public class ClimeRestList extends HttpServlet {
 	List<String> list1=  new ArrayList<String>();;
 	List<String> list2=  new ArrayList<String>();;
     
-    public ClimeRestList() {
+    public ClimeRestaurant() {
         super();
     }
 
