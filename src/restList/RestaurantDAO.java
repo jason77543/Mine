@@ -29,9 +29,9 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 	}
 
 	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
-												+ "RESTINTRO,RESTKIND,RESTIMG,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
+												+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
-												+ ",RESTINTRO=?,RESTKIND=?,RESTIMG=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
+												+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
 	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
 	private static final String GET_ALL = "SELECT * FROM REST";
@@ -50,13 +50,9 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			pstmt.setString(3, rest.getRestPhone());
 			pstmt.setString(4, rest.getRestIntro());
 			pstmt.setInt(5, rest.getRestKind());
-			
-			Blob blob = conn.createBlob();
-			blob.setBytes(1, rest.getRestImg());
-			pstmt.setBlob(6, blob);
-			pstmt.setInt(7, rest.getRestReviewStatus());
-			pstmt.setFloat(8, rest.getRestLongtitude());
-			pstmt.setFloat(9, rest.getRestLatitude());
+			pstmt.setInt(6, rest.getRestReviewStatus());
+			pstmt.setFloat(7, rest.getRestLongtitude());
+			pstmt.setFloat(8, rest.getRestLatitude());
 			
 			
 			pstmt.executeUpdate();
@@ -97,15 +93,11 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			pstmt.setString(3, rest.getRestPhone());
 			pstmt.setString(4, rest.getRestIntro());
 			pstmt.setInt(5, rest.getRestKind());
+			pstmt.setInt(6, rest.getRestReviewStatus());
+			pstmt.setFloat(7, rest.getRestLongtitude());
+			pstmt.setFloat(8, rest.getRestLatitude());
 			
-			Blob blob = conn.createBlob();
-			blob.setBytes(1, rest.getRestImg());
-			pstmt.setBlob(6, blob);
-			pstmt.setInt(7, rest.getRestReviewStatus());
-			pstmt.setFloat(8, rest.getRestLongtitude());
-			pstmt.setFloat(9, rest.getRestLatitude());
-			
-			pstmt.setInt(10, rest.getRestNo());
+			pstmt.setInt(9, rest.getRestNo());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -188,7 +180,6 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				rest.setRestPhone(rs.getString("RESTPHONE"));
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
-				rest.setRestImg(rs.getBytes("RESTIMG"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
 				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
 				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
@@ -246,7 +237,6 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				rest.setRestPhone(rs.getString("RestPHONE"));
 				rest.setRestIntro(rs.getString("restINTRO"));
 				rest.setRestKind(rs.getInt("restKIND"));
-				rest.setRestImg(rs.getBytes("restIMG"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
 				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
 				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));

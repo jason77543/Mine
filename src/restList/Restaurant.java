@@ -9,13 +9,12 @@ public class Restaurant implements Serializable{
 	private String restPhone;
 	private String restIntro;
 	private Integer restKind;
-	private byte[] restImg;
 	private Integer restReviewStatus;
 	private Float restLongtitude;
 	private Float restLatitude;
 	
 	public Restaurant(Integer restNo, String restName, String restAdd, String restPhone, String restIntro,
-			Integer restKind, byte[] restImg, Integer restReviewStatus, Float restLongtitude, Float restLatitude) {
+			Integer restKind,  Integer restReviewStatus, Float restLongtitude, Float restLatitude) {
 		super();
 		this.restNo = restNo;
 		this.restName = restName;
@@ -23,7 +22,6 @@ public class Restaurant implements Serializable{
 		this.restPhone = restPhone;
 		this.restIntro = restIntro;
 		this.restKind = restKind;
-		this.restImg = restImg;
 		this.restReviewStatus = restReviewStatus;
 		this.restLongtitude = restLongtitude;
 		this.restLatitude = restLatitude;
@@ -77,13 +75,6 @@ public class Restaurant implements Serializable{
 		this.restKind = restKind;
 	}
 
-	public byte[] getRestImg() {
-		return restImg;
-	}
-
-	public void setRestImg(byte[] restImg) {
-		this.restImg = restImg;
-	}
 
 	public Integer getRestReviewStatus() {
 		return restReviewStatus;
