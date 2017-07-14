@@ -72,7 +72,7 @@ public class ClimeRestList extends HttpServlet {
 			conn = ds.getConnection();
 			
 
-			FileWriter writer = new FileWriter("/img/restname.csv");
+			FileWriter writer = new FileWriter("D://restname.csv");
 
 			Elements tr = xmlDoc.select("tr");
 			for (int i = 2; i < 85; i++) {
@@ -81,7 +81,7 @@ public class ClimeRestList extends HttpServlet {
 			}
 			writer.close();
 
-			reader = new BufferedReader(new FileReader("/img/restname.csv"));
+			reader = new BufferedReader(new FileReader("D://restname.csv"));
 			String name = reader.readLine().replaceAll("[?]", "");
 			String name0 = name.replace("(誠品中山店內)", "誠品中山店內-");
 			String name1 = name0.replace("(亞米雅米寵物生活館)", "亞米雅米寵物生活館-");
@@ -100,7 +100,7 @@ public class ClimeRestList extends HttpServlet {
 			String name14 = name13.replace("新竹", ",新竹");
 			String name15 = name14.replace("桃園", ",桃園");
 
-			FileWriter writer1 = new FileWriter("/img/Trestname.csv");
+			FileWriter writer1 = new FileWriter("D://Trestname.csv");
 			writer1.write(name15);
 			writer1.close();
 
@@ -123,10 +123,12 @@ public class ClimeRestList extends HttpServlet {
 			Iterator<String> itr1 = list1.iterator();
 			Iterator<String> itr2 = list2.iterator();
 			
-			String[] cols = { "RESTLISTNO" };
-			pstmt = conn.prepareStatement(INSERT_RESTLIST_STMT, cols);
+			
+			
 			
 			for (int k = 0; k < 77; k++) {
+				String[] cols = { "RESTLISTNO" };
+				pstmt = conn.prepareStatement(INSERT_RESTLIST_STMT, cols);
 				int kindOfPet = (int) (Math.random() * 3);
 				pstmt.setString(1,itr.next());
 				pstmt.setString(2,itr1.next());
