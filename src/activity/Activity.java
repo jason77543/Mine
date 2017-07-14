@@ -3,6 +3,8 @@ package activity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import sun.awt.image.BytePackedRaster;
+
 
 public class Activity implements Serializable{
 	private Integer actNo;
@@ -16,12 +18,16 @@ public class Activity implements Serializable{
 	private Integer actLLimit;
 	private Integer actKind;
 	private String actAnotherKind;
+	private byte[] actInitImg;
 	
 	
-	
+	public Activity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Activity(Integer actNo, String restId, String actName, String actContent, Date actDate, Date actFDate,
 			Integer actStatus, Integer actULimit, Integer actLLimit, Integer actKind, String actAnotherKind,
-			byte[] actImg) {
+			byte[] actInitImg) {
 		super();
 		this.actNo = actNo;
 		this.restId = restId;
@@ -34,14 +40,8 @@ public class Activity implements Serializable{
 		this.actLLimit = actLLimit;
 		this.actKind = actKind;
 		this.actAnotherKind = actAnotherKind;
-		this.actImg = actImg;
+		this.actInitImg = actInitImg;
 	}
-	
-	public Activity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 	public Integer getActNo() {
 		return actNo;
 	}
@@ -108,13 +108,10 @@ public class Activity implements Serializable{
 	public void setActAnotherKind(String actAnotherKind) {
 		this.actAnotherKind = actAnotherKind;
 	}
-	public byte[] getActImg() {
-		return actImg;
+	public byte[] getActInitImg() {
+		return actInitImg;
 	}
-	public void setActImg(byte[] actImg) {
-		this.actImg = actImg;
+	public void setActInitImg(byte[] actInitImg) {
+		this.actInitImg = actInitImg;
 	}
-	private byte[] actImg;
-	
-	
 }

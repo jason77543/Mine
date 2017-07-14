@@ -29,10 +29,10 @@ public class ActivityDAO implements ActivityDAO_Interface{
 	}
 	
 	private static final String INSERT_ACTIVITY = "INSERT INTO ACTIVITY (ACTNO,RESTID,ACTNAME,ACTCONTENT,ACTDATE,ACTFDATE,"
-											+ "ACTSTATUS,ACTULIMIT,ACTLLIMIT,ACTKIND,ACTIMG)"
-											+ "VALUES(ACTIVITY_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+											+ "ACTSTATUS,ACTULIMIT,ACTLLIMIT,ACTKIND,ACTANOTHERKIND,ACTINITIMG)"
+											+ "VALUES(ACTIVITY_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_ACTIVITY = "UPDATE ACTIVITY SET RESTID=?,ACTNAME=?,ACTCONTENT=?,ACTDATE=?"
-											+ ",ACTFDATE=?,ACTSTATUS=?,ACTULIMIT=?,ACTLLIMIT=?,ACTKIND=?,ACTIMG=? WHERE ACTNO=?";
+											+ ",ACTFDATE=?,ACTSTATUS=?,ACTULIMIT=?,ACTLLIMIT=?,ACTKIND=?,ACTANOTHERKIND=?,ACTINITIMG=? WHERE ACTNO=?";
 	private static final String DELETE_ACTIVITY = "DELETE FROM ACTIVITY WHERE ACTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM ACTIVITY WHERE ACTNO=?";
 	private static final String GET_ALL = "SELECT * FROM ACTIVITY";
@@ -54,11 +54,12 @@ public class ActivityDAO implements ActivityDAO_Interface{
 			pstmt.setInt(6, activity.getActStatus());
 			pstmt.setInt(7, activity.getActULimit());
 			pstmt.setInt(8, activity.getActLLimit());
-			pstmt.setString(9, activity.getActKind());
+			pstmt.setInt(9, activity.getActKind());
+			pstmt.setString(10, activity.getActAnotherKind());
 			
 			Blob blob = conn.createBlob();
-			blob.setBytes(1, activity.getActImg());
-			pstmt.setBlob(10, blob);
+			blob.setBytes(1, activity.getActInitImg());
+			pstmt.setBlob(11, blob);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -100,13 +101,13 @@ public class ActivityDAO implements ActivityDAO_Interface{
 			pstmt.setInt(6, activity.getActStatus());
 			pstmt.setInt(7, activity.getActULimit());
 			pstmt.setInt(8, activity.getActLLimit());
-			pstmt.setString(9, activity.getActKind());
+			pstmt.setInt(9, activity.getActKind());
 			
 			Blob blob = conn.createBlob();
-			blob.setBytes(1, activity.getActImg());
+			blob.setBytes(1, activity.getActInitImg());
 			pstmt.setBlob(10, blob);
-			
-			pstmt.setInt(11, activity.getActNo());
+			pstmt.setString(11, activity.getActAnotherKind());
+			pstmt.setInt(12, activity.getActNo());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -191,8 +192,9 @@ public class ActivityDAO implements ActivityDAO_Interface{
 				activity.setActStatus(rs.getInt("ACTSTATUS"));
 				activity.setActULimit(rs.getInt("ACTULIMIT"));
 				activity.setActLLimit(rs.getInt("ACTLLIMIT"));
-				activity.setActKind(rs.getString("ACTKIND"));
-				activity.setActImg(rs.getBytes("ACTIMG"));
+				activity.setActKind(rs.getInt("ACTKIND"));
+				activity.setActAnotherKind(rs.getString("ACTANOTHERKIND"));
+				activity.setActInitImg(rs.getBytes("ACTINITIMG"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -248,8 +250,9 @@ public class ActivityDAO implements ActivityDAO_Interface{
 				activity.setActStatus(rs.getInt("ACTSTATUS"));
 				activity.setActULimit(rs.getInt("ACTULIMIT"));
 				activity.setActLLimit(rs.getInt("ACTLLIMIT"));
-				activity.setActKind(rs.getString("ACTKIND"));
-				activity.setActImg(rs.getBytes("ACTIMG"));
+				activity.setActKind(rs.getInt("ACTKIND"));
+				activity.setActAnotherKind(rs.getString("ACTANOTHERKIND"));
+				activity.setActInitImg(rs.getBytes("ACTINITIMG"));
 				activityList.add(activity);
 			}
 		} catch (SQLException e) {
