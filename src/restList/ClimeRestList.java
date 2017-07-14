@@ -45,8 +45,8 @@ public class ClimeRestList extends HttpServlet {
 		}
 	}
 
-	private static final String INSERT_RESTLIST_STMT = "INSERT INTO RESTLIST(RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG)"
-			+ "VALUES(RESTLIST_SEQ.NEXTVAL,?, ?, ?, ?, ?, ?)"; 
+	private static final String INSERT_RESTLIST_STMT = "INSERT INTO RESTLIST(RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG,RESTLISTRECCSTATUS)"
+			+ "VALUES(RESTLIST_SEQ.NEXTVAL,?, ?, ?, ?, ?, ?,?)"; 
 	Connection conn;
 	PreparedStatement pstmt;
 	List<String> list =  new ArrayList<String>();;
@@ -123,11 +123,10 @@ public class ClimeRestList extends HttpServlet {
 			Iterator<String> itr1 = list1.iterator();
 			Iterator<String> itr2 = list2.iterator();
 			
-			
+			String[] cols = { "RESTLISTNO" };
 			
 			
 			for (int k = 0; k < 77; k++) {
-				String[] cols = { "RESTLISTNO" };
 				pstmt = conn.prepareStatement(INSERT_RESTLIST_STMT, cols);
 				int kindOfPet = (int) (Math.random() * 3);
 				pstmt.setString(1,itr.next());
@@ -136,6 +135,7 @@ public class ClimeRestList extends HttpServlet {
 				pstmt.setString(4, "petRestaurant");
 				pstmt.setInt(5, kindOfPet);
 				pstmt.setBlob(6, blob);
+				pstmt.setInt(7, k);
 				pstmt.executeUpdate();
 			}
 			
