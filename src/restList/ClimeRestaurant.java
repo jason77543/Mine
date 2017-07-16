@@ -45,7 +45,7 @@ public class ClimeRestaurant extends HttpServlet {
 		}
 	}
 
-	private static final String INSERT_RESTLIST_STMT = "INSERT INTO RESTLIST(RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG,RESTLISTRECCSTATUS)"
+	private static final String INSERT_RESTLIST_STMT = "INSERT INTO RESTLIST(RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG,RESTREVIEWSTATUS)"
 			+ "VALUES(RESTLIST_SEQ.NEXTVAL,?, ?, ?, ?, ?, ?,?)"; 
 	Connection conn;
 	PreparedStatement pstmt;
@@ -132,10 +132,10 @@ public class ClimeRestaurant extends HttpServlet {
 				pstmt.setString(1,itr.next());
 				pstmt.setString(2,itr1.next());
 				pstmt.setString(3,itr2.next());
-				pstmt.setString(4, "petRestaurant");
+				pstmt.setString(4, "petRestaurant"+k);
 				pstmt.setInt(5, kindOfPet);
 				pstmt.setBlob(6, blob);
-				pstmt.setInt(7, k);
+				pstmt.setInt(7, 0);
 				pstmt.executeUpdate();
 			}
 			

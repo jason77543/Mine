@@ -21,11 +21,11 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "huang";
-	String passwd = "g122003744";
+	String userid = "petym";
+	String passwd = "123456";
 
 	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
-			+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
+			+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
 			+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
 	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
@@ -295,21 +295,27 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
 		
 		Restaurant rest = new Restaurant();
-//		rest.setRestNo(4);
-//		rest.setRestName("中大寵參");
-//		rest.setRestAdd("中央大學");
-//		rest.setRestPhone("03-9999");
-//		rest.setRestIntro("測試用");
+//		rest.setRestNo(2);
+//		rest.setRestName("餐廳名稱1");
+//		rest.setRestAdd("餐廳地址1");
+//		rest.setRestPhone("餐廳電話1");
+//		rest.setRestIntro("餐廳介紹1");
 //		rest.setRestKind(1);	
+//		rest.setRestReviewStatus(0);
+//		rest.setRestLongtitude((float) 1.0);
+//		rest.setRestLatitude((float) 2.0);
 //		restJDBCDAO.add(rest);
 		
 		
 //		rest.setRestNo(1);
-//		rest.setRestName("中大寵參1111");
-//		rest.setRestAdd("中央大學111");
-//		rest.setRestPhone("03-9999111");
-//		rest.setRestIntro("測試用111");
-//		rest.setRestKind(11111);	
+//		rest.setRestName("餐廳名稱1up");
+//		rest.setRestAdd("餐廳地址1up");
+//		rest.setRestPhone("餐廳電話1up");
+//		rest.setRestIntro("餐廳介紹1up");
+//		rest.setRestKind(1);	
+//		rest.setRestReviewStatus(0);
+//		rest.setRestLongtitude((float) 1.0);
+//		rest.setRestLatitude((float) 2.0);
 //		restJDBCDAO.update(rest);
 		
 //		restJDBCDAO.delete(1);
@@ -323,7 +329,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		System.out.println(rest.getRestKind());
 		
 //		List<Restaurant> restList = restJDBCDAO.getAll();
-//		for(RestList restE : restList){
+//		for(Restaurant restE : restList){
 //			System.out.println(restE.getRestNo());
 //			System.out.println(restE.getRestName());
 //			System.out.println(restE.getRestAdd());
