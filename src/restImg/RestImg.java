@@ -8,7 +8,7 @@ public class RestImg implements Serializable{
 	private String restId;
 	private String restImgName;
 	private String restImgIntro;
-	
+	private byte[] restImg;
 	
 	
 	public RestImg() {
@@ -16,14 +16,31 @@ public class RestImg implements Serializable{
 		
 	}
 
-	public RestImg(Integer restImgNo, String restId, String restImgName, String restImgIntro) {
+	
+	
+	public RestImg(Integer restImgNo, String restId, String restImgName, String restImgIntro, byte[] restImg) {
 		super();
 		this.restImgNo = restImgNo;
 		this.restId = restId;
 		this.restImgName = restImgName;
 		this.restImgIntro = restImgIntro;
+		this.restImg = restImg;
 	}
-	
+
+
+
+	public byte[] getRestImg() {
+		return restImg;
+	}
+
+
+
+	public void setRestImg(byte[] restImg) {
+		this.restImg = restImg;
+	}
+
+
+
 	public Integer getRestImgNo() {
 		return restImgNo;
 	}

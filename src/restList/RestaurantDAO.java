@@ -20,7 +20,7 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 	static {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/petym");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

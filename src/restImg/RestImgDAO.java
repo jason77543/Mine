@@ -18,15 +18,15 @@ public class RestImgDAO implements RestImgDAO_interface{
 	static{
 		try{
 			Context ctx = new javax.naming.InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petym");
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO)"
-			+ "VALUES(RESTIMG_SEQ.NEXTVAL,?, ?, ?)";
-	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=? WHERE RESTIMGNO=?";	
+	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO,RESTIMG)"
+			+ "VALUES(RESTIMG_SEQ.NEXTVAL,?, ?, ? ,?)";
+	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=?,RESTIMG=? WHERE RESTIMGNO=?";	
 	private static final String DELETE_RESTIMG = "DELETE FROM RESTIMG WHERE RESTIMGNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM RESTIMG WHERE RESTIMGNO = ?";
 	private static final String GET_ALL = "SELECT * FROM RESTIMG";
@@ -43,6 +43,7 @@ public class RestImgDAO implements RestImgDAO_interface{
 			pstmt.setString(1, restImg.getRestId());
 			pstmt.setString(2, restImg.getRestImgName());
 			pstmt.setString(3, restImg.getRestImgIntro());
+			pstmt.setBytes(4, restImg.getRestImg());
 			
 			pstmt.executeUpdate();
 			
@@ -82,7 +83,9 @@ public class RestImgDAO implements RestImgDAO_interface{
 			pstmt.setString(1, restImg.getRestId());
 			pstmt.setString(2, restImg.getRestImgName());
 			pstmt.setString(3, restImg.getRestImgIntro());
-			pstmt.setInt(4, restImg.getRestImgNo());
+			pstmt.setBytes(4, restImg.getRestImg());
+			pstmt.setInt(5, restImg.getRestImgNo());
+			
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -162,6 +165,7 @@ public class RestImgDAO implements RestImgDAO_interface{
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
+				restImg.setRestImg(rs.getBytes("RESTIMG"));
 			}
 		} catch (Exception e){
 			e.getMessage();
@@ -212,6 +216,7 @@ public class RestImgDAO implements RestImgDAO_interface{
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
+				restImg.setRestImg(rs.getBytes("RESTIMG"));
 				restImgList.add(restImg);
 			}
 		} catch (Exception e){

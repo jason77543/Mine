@@ -19,9 +19,9 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 	String userid = "huang";
 	String passwd = "g122003744";
 
-	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO)"
+	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO,RESTIMG)"
 			+ "VALUES(?,?, ?, ?)";
-	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=? WHERE RESTIMGNO=?";	
+	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=?,RESTIMG=? WHERE RESTIMGNO=?";	
 	private static final String DELETE_RESTIMG = "DELETE FROM RESTIMG WHERE RESTIMGNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM RESTIMG WHERE RESTIMGNO = ?";
 	private static final String GET_ALL = "SELECT * FROM RESTIMG";
@@ -39,7 +39,7 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 			pstmt.setString(2, restImg.getRestId());
 			pstmt.setString(3, restImg.getRestImgName());
 			pstmt.setString(4, restImg.getRestImgIntro());
-			
+			pstmt.setBytes(5, restImg.getRestImg());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -79,7 +79,8 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 			pstmt.setString(1, restImg.getRestId());
 			pstmt.setString(2, restImg.getRestImgName());
 			pstmt.setString(3, restImg.getRestImgIntro());
-			pstmt.setInt(4, restImg.getRestImgNo());
+			pstmt.setBytes(4, restImg.getRestImg());
+			pstmt.setInt(5, restImg.getRestImgNo());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -159,6 +160,7 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
+				restImg.setRestImg(rs.getBytes("RESTIMG"));
 			}
 		} catch (Exception e){
 			e.getMessage();
@@ -210,6 +212,7 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
+				restImg.setRestImg(rs.getBytes("RESTIMG"));
 				restImgList.add(restImg);
 			}
 		} catch (Exception e){
