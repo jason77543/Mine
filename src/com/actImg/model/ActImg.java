@@ -24,7 +24,7 @@ public class ActImg implements Serializable{
 	public String getActImgName() {
 		return actImgName;
 	}
-	public void setActIngName(String actImgName) {
+	public void setActImgName(String actImgName) {
 		this.actImgName = actImgName;
 	}
 	public String getActImgIntro() {

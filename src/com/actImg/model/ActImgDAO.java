@@ -166,7 +166,7 @@ public class ActImgDAO implements ActImgDAO_Interface{
 				actImg = new ActImg();
 				actImg.setActImgNo(rs.getInt("ACTIMGNO"));
 				actImg.setActNo(rs.getInt("ACTNO"));
-				actImg.setActIngName(rs.getString("ACTIMGNAME"));
+				actImg.setActImgName(rs.getString("ACTIMGNAME"));
 				actImg.setActImgIntro(rs.getString("ACTIMGINTRO"));
 				actImg.setActImg(rs.getBytes("ACTIMG"));
 			}
@@ -215,7 +215,7 @@ public class ActImgDAO implements ActImgDAO_Interface{
 				actImg = new ActImg();
 				actImg.setActImgNo(rs.getInt("ACTIMGNO"));
 				actImg.setActNo(rs.getInt("ACTNO"));
-				actImg.setActIngName(rs.getString("ACTIMGNAME"));
+				actImg.setActImgName(rs.getString("ACTIMGNAME"));
 				actImg.setActImgIntro(rs.getString("ACTIMGINTRO"));
 				actImg.setActImg(rs.getBytes("ACTIMG"));
 				actImgList.add(actImg);
