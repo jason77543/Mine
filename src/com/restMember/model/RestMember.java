@@ -1,4 +1,4 @@
-package restMember;
+package com.restMember.model;
 
 import java.io.Serializable;
 

@@ -1,7 +1,5 @@
-package restList;
+package com.restMember.model;
 
-
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,133 +13,41 @@ import javax.sql.DataSource;
 
 
 
-public class RestaurantDAO implements RestaurantDAO_Interface {
+public class RestMemberDAO implements RestMemberDAO_Interface{
+
 	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/petym");
+			ds = (DataSource)ctx.lookup("java:/comp/env/jdbc/petym");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-	}
-
-	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
-												+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
-												+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
-	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
-	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
-	private static final String GET_ALL = "SELECT * FROM REST";
-	@Override
-	public void add(Restaurant rest) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = ds.getConnection();
-			String[] cols = {"RESTNO"};
-			
-			pstmt = conn.prepareStatement(INSERT_REST,cols);
-			pstmt.setString(1, rest.getRestName());
-			pstmt.setString(2, rest.getRestAdd());
-			pstmt.setString(3, rest.getRestPhone());
-			pstmt.setString(4, rest.getRestIntro());
-			pstmt.setInt(5, rest.getRestKind());
-			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setFloat(7, rest.getRestLongtitude());
-			pstmt.setFloat(8, rest.getRestLatitude());
-			
-			
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			
-			if(pstmt!=null){
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(conn!=null){
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	@Override
-	public void update(Restaurant rest) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(UPDATE_REST);
-			
-			pstmt.setString(1, rest.getRestName());
-			pstmt.setString(2, rest.getRestAdd());
-			pstmt.setString(3, rest.getRestPhone());
-			pstmt.setString(4, rest.getRestIntro());
-			pstmt.setInt(5, rest.getRestKind());
-			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setFloat(7, rest.getRestLongtitude());
-			pstmt.setFloat(8, rest.getRestLatitude());
-			
-			pstmt.setInt(9, rest.getRestNo());
-			
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			
-			if(pstmt!=null){
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(conn!=null){
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	@Override
-	public void delete(Integer restNo) {
 		
+	}
+	private static final String INSERT_RESTMEMBER = "INSERT INTO RESTMEMBER (RESTMEMID,RESTNO,RESTMEMPSW VALUES(?,?,?)";
+	private static final String UPDATE_RESTMEMBER = "UPDATE RESTMEMBER SET RESTNO=?,RESTMEMPSW=? WHERE RESTMEMID=?";			
+	private static final String DELETE_RESTMEMBER = "DELETE FROM RESTMEMBER WHERE RESTMEMID=?";
+	private static final String FIND_BY_PK = "SELECT * FROM RESTMEMBER WHERE RESTMEMID=?";
+	private static final String GET_ALL = "SELECT * FROM RESTMEMBER";
+	@Override
+	public void add(RestMember restMember) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(DELETE_REST);
-			pstmt.setInt(1, restNo);
+			pstmt = conn.prepareStatement(INSERT_RESTMEMBER);
+			pstmt.setString(1, restMember.getRestMemId());
+			pstmt.setInt(2, restMember.getRestNo());
+			pstmt.setString(3, restMember.getRestMemPsw());
 			pstmt.executeUpdate();
 			
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			
 			if(pstmt!=null){
 				try {
 					pstmt.close();
@@ -162,30 +68,92 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 	}
 
 	@Override
-	public Restaurant findByPK(Integer restNo) {
+	public void update(RestMember restMember) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		Restaurant rest = null;
+		
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(FIND_BY_PK);
-			pstmt.setInt(1, restNo);
-			rs = pstmt.executeQuery();
-			while(rs.next()){
-				rest = new Restaurant();
-				rest.setRestNo(rs.getInt("RESTNO"));
-				rest.setRestName(rs.getString("RESTNAME"));
-				rest.setRestAdd(rs.getString("RESTADD"));
-				rest.setRestPhone(rs.getString("RESTPHONE"));
-				rest.setRestIntro(rs.getString("RESTINTRO"));
-				rest.setRestKind(rs.getInt("RESTKIND"));
-				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
-			}
+			pstmt = conn.prepareStatement(UPDATE_RESTMEMBER);
+			pstmt.setInt(1, restMember.getRestNo());
+			pstmt.setString(2, restMember.getRestMemPsw());
+			pstmt.setString(3, restMember.getRestMemId());
+			pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
+	@Override
+	public void delete(String restMemId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(DELETE_RESTMEMBER);
+			pstmt.setString(1, restMemId);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public RestMember findByPK(String restMemId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		RestMember restMember = null ;
+		ResultSet rs = null;
+		try {
+		conn = ds.getConnection();
+		pstmt = conn.prepareStatement(FIND_BY_PK);
+		pstmt.setString(1, restMemId);
+		rs = pstmt.executeQuery();
+			while(rs.next()){
+				restMember = new RestMember();
+				restMember.setRestMemId(rs.getString("RESTMEMID"));
+				restMember.setRestNo(rs.getInt("RESTNO"));
+				restMember.setRestMemPsw(rs.getString("RESTMEMPSW"));
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,32 +183,26 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				}
 			}
 		}
-		return rest;
+		return restMember;
 	}
 
 	@Override
-	public List<Restaurant> getAll() {
+	public List<RestMember> getAll() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		RestMember restMember = null ;
 		ResultSet rs = null;
-		Restaurant rest = null;
-		List<Restaurant> restList = new ArrayList<Restaurant>();
+		List<RestMember> restMemberList = new ArrayList<RestMember>();
 		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(GET_ALL);
-			rs = pstmt.executeQuery();
+		conn = ds.getConnection();
+		pstmt = conn.prepareStatement(GET_ALL);
+		rs = pstmt.executeQuery();
 			while(rs.next()){
-				rest = new Restaurant();
-				rest.setRestNo(rs.getInt("restNO"));
-				rest.setRestName(rs.getString("restNAME"));
-				rest.setRestAdd(rs.getString("restADD"));
-				rest.setRestPhone(rs.getString("RestPHONE"));
-				rest.setRestIntro(rs.getString("restINTRO"));
-				rest.setRestKind(rs.getInt("restKIND"));
-				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
-				restList.add(rest);
+				restMember = new RestMember();
+				restMember.setRestMemId(rs.getString("RESTMEMID"));
+				restMember.setRestNo(rs.getInt("RESTNO"));
+				restMember.setRestMemPsw(rs.getString("RESTMEMPSW"));
+				restMemberList.add(restMember);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -271,15 +233,7 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				}
 			}
 		}
-		return restList;
+		return restMemberList;
 	}
 	
-	
-
 }
-
-
-
-
-
-

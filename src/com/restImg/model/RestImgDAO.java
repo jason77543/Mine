@@ -1,48 +1,53 @@
-package restImg;
-
-
-import java.io.IOException;
+package com.restImg.model;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.sql.DataSource;
 
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
-public class RestImgJDBCDAO implements RestImgDAO_interface{
-
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "huang";
-	String passwd = "g122003744";
-
-	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO,RESTIMG)"
-			+ "VALUES(?,?, ?, ?)";
-	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=?,RESTIMG=? WHERE RESTIMGNO=?";	
+public class RestImgDAO implements RestImgDAO_interface{
+	
+	private static DataSource ds = null;
+	
+	static{
+		try{
+			Context ctx = new javax.naming.InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petym");
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTMEMID,RESTIMGNAME,RESTIMGINTRO,RESTIMG)"
+			+ "VALUES(RESTIMG_SEQ.NEXTVAL,?, ?, ? ,?)";
+	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTMEMID=?,RESTIMGNAME=?,RESTIMGINTRO=?,RESTIMG=? WHERE RESTIMGNO=?";	
 	private static final String DELETE_RESTIMG = "DELETE FROM RESTIMG WHERE RESTIMGNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM RESTIMG WHERE RESTIMGNO = ?";
 	private static final String GET_ALL = "SELECT * FROM RESTIMG";
-
+	
 	@Override
 	public void add(RestImg restImg) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
+			conn = ds.getConnection();
 			
-			pstmt = conn.prepareStatement(INSERT_RESTIMG);
-			pstmt.setInt(1, restImg.getRestImgNo());
-			pstmt.setString(2, restImg.getRestId());
-			pstmt.setString(3, restImg.getRestImgName());
-			pstmt.setString(4, restImg.getRestImgIntro());
-			pstmt.setBytes(5, restImg.getRestImg());
+			String[] cols = {"RESTIMGNO"};
+			pstmt = conn.prepareStatement(INSERT_RESTIMG,cols);
+			pstmt.setString(1, restImg.getRestMemId());
+			pstmt.setString(2, restImg.getRestImgName());
+			pstmt.setString(3, restImg.getRestImgIntro());
+			pstmt.setBytes(4, restImg.getRestImg());
+			
 			pstmt.executeUpdate();
 			
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
@@ -72,15 +77,15 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {	
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
+			conn = ds.getConnection();
 			
 			pstmt = conn.prepareStatement(UPDATE_RESTIMG);
-			pstmt.setString(1, restImg.getRestId());
+			pstmt.setString(1, restImg.getRestMemId());
 			pstmt.setString(2, restImg.getRestImgName());
 			pstmt.setString(3, restImg.getRestImgIntro());
 			pstmt.setBytes(4, restImg.getRestImg());
 			pstmt.setInt(5, restImg.getRestImgNo());
+			
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -113,8 +118,8 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {	
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(DELETE_RESTIMG);
 			pstmt.setInt(1, restImgNo);
 			pstmt.executeUpdate();
@@ -149,15 +154,15 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
+			conn = ds.getConnection();
+			
 			pstmt = conn.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, restImgNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				restImg = new RestImg();
-				restImg.setRestId(rs.getString("RESTID"));
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
+				restImg.setRestMemId(rs.getString("RESTMEMID"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
 				restImg.setRestImg(rs.getBytes("RESTIMG"));
@@ -202,14 +207,14 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		ResultSet rs = null;
 		
 		try{
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(GET_ALL);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				restImg = new RestImg();
-				restImg.setRestId(rs.getString("RESTID"));
+				
 				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
+				restImg.setRestMemId(rs.getString("RESTMEMID"));
 				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
 				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
 				restImg.setRestImg(rs.getBytes("RESTIMG"));
@@ -247,43 +252,10 @@ public class RestImgJDBCDAO implements RestImgDAO_interface{
 		return restImgList;
 	}
 
-	
-	
-
-	public static void main(String[] args) throws IOException {
-		RestImgJDBCDAO restImgJDBCDAO = new RestImgJDBCDAO();
-		
-		RestImg restImg = new RestImg();
-//		restImg.setRestImgNo(3);
-//		restImg.setRestId("AAA");
-//		restImg.setRestImgName("我是相片名稱");
-//		restImg.setRestImgIntro("我是寵物餐廳相片");
-//		restImgJDBCDAO.add(restImg);
-		
-//		restImg.setRestId("AAA");
-//		restImg.setRestImgName("我是相片名稱33");
-//		restImg.setRestImgIntro("我是寵物餐廳相片33");
-//		restImg.setRestImgNo(3);
-//		restImgJDBCDAO.update(restImg);
-		
-//		restImgJDBCDAO.delete(1);
-		
-//		restImg = restImgJDBCDAO.findByPK(2);
-//		System.out.println(restImg.getRestImgNo());
-//		System.out.println(restImg.getRestId());
-//		System.out.println(restImg.getRestImgName());
-//		System.out.println(restImg.getRestImgIntro());
-		
-		
-		
-//		List<RestImg> restImgList = restImgJDBCDAO.getAll();
-//		for(RestImg restImgListE : restImgList){
-//			System.out.println(restImgListE.getRestImgNo());
-//			System.out.println(restImgListE.getRestId());
-//			System.out.println(restImgListE.getRestImgName());
-//			System.out.println(restImgListE.getRestImgIntro());
-//		}
-	}
-
-
 }
+
+
+
+
+
+

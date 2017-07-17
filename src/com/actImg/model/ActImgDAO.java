@@ -1,5 +1,8 @@
-package restImg;
+package com.actImg.model;
+
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,47 +10,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
-public class RestImgDAO implements RestImgDAO_interface{
-	
+public class ActImgDAO implements ActImgDAO_Interface{
 	private static DataSource ds = null;
 	
 	static{
-		try{
+		try {
 			Context ctx = new javax.naming.InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petym");
-		} catch(Exception e){
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	private static final String INSERT_RESTIMG = "INSERT INTO RESTIMG(RESTIMGNO,RESTID,RESTIMGNAME,RESTIMGINTRO,RESTIMG)"
-			+ "VALUES(RESTIMG_SEQ.NEXTVAL,?, ?, ? ,?)";
-	private static final String UPDATE_RESTIMG = "UPDATE RESTIMG SET RESTID=?,RESTIMGNAME=?,RESTIMGINTRO=?,RESTIMG=? WHERE RESTIMGNO=?";	
-	private static final String DELETE_RESTIMG = "DELETE FROM RESTIMG WHERE RESTIMGNO=?";
-	private static final String FIND_BY_PK = "SELECT * FROM RESTIMG WHERE RESTIMGNO = ?";
-	private static final String GET_ALL = "SELECT * FROM RESTIMG";
+	private static final String INSERT_ACTIMG = "INSERT INTO ACTIMG(ACTIMGNO,ACTNO,ACTIMGNAME,ACTIMGINTRO,ACTIMG)"
+			+ "VALUES(ACTIMG_SEQ.NEXTVAL,?,?,?,?)";
+	private static final String UPDATE_ACTIMG = "UPDATE ACTIMG SET ACTNO=?,ACTIMGNAME=?,ACTIMGINTRO=?,ACTIMG=? WHERE ACTIMGNO=?";	
+	private static final String DELETE_ACTIMG = "DELETE FROM ACTIMG WHERE ACTIMGNO=?";
+	private static final String FIND_BY_PK = "SELECT * FROM ACTIMG WHERE ACTIMGNO = ?";
+	private static final String GET_ALL = "SELECT * FROM ACTIMG";
+	
 	
 	@Override
-	public void add(RestImg restImg) {
+	public void add(ActImg actImg) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(INSERT_ACTIMG);
+			pstmt.setInt(1, actImg.getActNo());
+			pstmt.setString(2, actImg.getActImgName());
+			pstmt.setString(3, actImg.getActImgIntro());
 			
-			String[] cols = {"RESTIMGNO"};
-			pstmt = conn.prepareStatement(INSERT_RESTIMG,cols);
-			pstmt.setString(1, restImg.getRestId());
-			pstmt.setString(2, restImg.getRestImgName());
-			pstmt.setString(3, restImg.getRestImgIntro());
-			pstmt.setBytes(4, restImg.getRestImg());
+			Blob blob = conn.createBlob();	
+			blob.setBytes(1, actImg.getActImg());
+			pstmt.setBlob(4, blob);
 			
 			pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
@@ -71,26 +75,28 @@ public class RestImgDAO implements RestImgDAO_interface{
 			}
 		}
 	}
-
 	@Override
-	public void update(RestImg restImg) {
+	public void update(ActImg actImg) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		try {	
+		try {
 			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(UPDATE_ACTIMG);
+			pstmt.setInt(1, actImg.getActNo());
+			pstmt.setString(2, actImg.getActImgName());
+			pstmt.setString(3, actImg.getActImgIntro());
 			
-			pstmt = conn.prepareStatement(UPDATE_RESTIMG);
-			pstmt.setString(1, restImg.getRestId());
-			pstmt.setString(2, restImg.getRestImgName());
-			pstmt.setString(3, restImg.getRestImgIntro());
-			pstmt.setBytes(4, restImg.getRestImg());
-			pstmt.setInt(5, restImg.getRestImgNo());
+			Blob blob = conn.createBlob();	
+			blob.setBytes(1, actImg.getActImg());
+			pstmt.setBlob(4, blob);
 			
+			pstmt.setInt(5, actImg.getActImgNo());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} finally {
 			
 			if(pstmt!=null){
@@ -110,22 +116,21 @@ public class RestImgDAO implements RestImgDAO_interface{
 				}
 			}
 		}
-			
 	}
-
 	@Override
-	public void delete(Integer restImgNo) {
+	public void delete(Integer actImgNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		try {	
+		try {
 			conn = ds.getConnection();
-			
-			pstmt = conn.prepareStatement(DELETE_RESTIMG);
-			pstmt.setInt(1, restImgNo);
+			pstmt = conn.prepareStatement(DELETE_ACTIMG);
+			pstmt.setInt(1, actImgNo);
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
-			e.getMessage();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
 		} finally {
 			
 			if(pstmt!=null){
@@ -146,26 +151,24 @@ public class RestImgDAO implements RestImgDAO_interface{
 			}
 		}
 	}
-
 	@Override
-	public RestImg findByPK(Integer restImgNo) {
-		RestImg restImg = null;
+	public ActImg findByPK(Integer actImgNo) {
+		ActImg actImg = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
 			conn = ds.getConnection();
-			
 			pstmt = conn.prepareStatement(FIND_BY_PK);
-			pstmt.setInt(1, restImgNo);
+			pstmt.setInt(1, actImgNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				restImg = new RestImg();
-				restImg.setRestId(rs.getString("RESTID"));
-				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
-				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
-				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
-				restImg.setRestImg(rs.getBytes("RESTIMG"));
+				actImg = new ActImg();
+				actImg.setActImgNo(rs.getInt("ACTIMGNO"));
+				actImg.setActNo(rs.getInt("ACTNO"));
+				actImg.setActIngName(rs.getString("ACTIMGNAME"));
+				actImg.setActImgIntro(rs.getString("ACTIMGINTRO"));
+				actImg.setActImg(rs.getBytes("ACTIMG"));
 			}
 		} catch (Exception e){
 			e.getMessage();
@@ -195,29 +198,27 @@ public class RestImgDAO implements RestImgDAO_interface{
 				}
 			}
 		}
-		return restImg;
+		return actImg;
 	}
-
 	@Override
-	public List<RestImg> getAll() {
-		List<RestImg> restImgList = new ArrayList<RestImg>();
-		RestImg restImg = null;
+	public List<ActImg> getAll() {
+		ActImg actImg = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+		List<ActImg> actImgList = new ArrayList<ActImg>();
 		try{
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(GET_ALL);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				restImg = new RestImg();
-				restImg.setRestId(rs.getString("RESTID"));
-				restImg.setRestImgNo(rs.getInt("RESTIMGNO"));
-				restImg.setRestImgName(rs.getString("RESTIMGNAME"));
-				restImg.setRestImgIntro(rs.getString("RESTIMGINTRO"));
-				restImg.setRestImg(rs.getBytes("RESTIMG"));
-				restImgList.add(restImg);
+				actImg = new ActImg();
+				actImg.setActImgNo(rs.getInt("ACTIMGNO"));
+				actImg.setActNo(rs.getInt("ACTNO"));
+				actImg.setActIngName(rs.getString("ACTIMGNAME"));
+				actImg.setActImgIntro(rs.getString("ACTIMGINTRO"));
+				actImg.setActImg(rs.getBytes("ACTIMG"));
+				actImgList.add(actImg);
 			}
 		} catch (Exception e){
 			e.getMessage();
@@ -247,14 +248,6 @@ public class RestImgDAO implements RestImgDAO_interface{
 				}
 			}
 		}
-		
-		return restImgList;
+		return actImgList;
 	}
-
 }
-
-
-
-
-
-

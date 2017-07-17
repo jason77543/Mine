@@ -1,4 +1,4 @@
-package restList;
+package another;
 
 
 import java.io.BufferedReader;
@@ -39,7 +39,7 @@ public class ClimeRestaurant extends HttpServlet {
 	static {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petym");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

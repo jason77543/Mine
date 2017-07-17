@@ -1,4 +1,4 @@
-package restList;
+package com.restaurant.model;
 
 import java.io.Serializable;
 

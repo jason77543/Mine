@@ -1,4 +1,4 @@
-package restImg;
+package com.restImg.model;
 
 import java.util.List;
 

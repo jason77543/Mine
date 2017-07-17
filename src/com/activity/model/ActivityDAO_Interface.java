@@ -1,4 +1,4 @@
-package activity;
+package com.activity.model;
 
 import java.util.List;
 

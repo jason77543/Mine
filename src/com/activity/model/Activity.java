@@ -1,14 +1,13 @@
-package activity;
+package com.activity.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.*;
 
-import sun.awt.image.BytePackedRaster;
 
 
 public class Activity implements Serializable{
 	private Integer actNo;
-	private String restId;
+	private String restMemId;
 	private String actName;
 	private String actContent;
 	private Date actDate;
@@ -19,40 +18,17 @@ public class Activity implements Serializable{
 	private Integer actKind;
 	private String actAnotherKind;
 	private byte[] actInitImg;
-	
-	
-	public Activity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Activity(Integer actNo, String restId, String actName, String actContent, Date actDate, Date actFDate,
-			Integer actStatus, Integer actULimit, Integer actLLimit, Integer actKind, String actAnotherKind,
-			byte[] actInitImg) {
-		super();
-		this.actNo = actNo;
-		this.restId = restId;
-		this.actName = actName;
-		this.actContent = actContent;
-		this.actDate = actDate;
-		this.actFDate = actFDate;
-		this.actStatus = actStatus;
-		this.actULimit = actULimit;
-		this.actLLimit = actLLimit;
-		this.actKind = actKind;
-		this.actAnotherKind = actAnotherKind;
-		this.actInitImg = actInitImg;
-	}
 	public Integer getActNo() {
 		return actNo;
 	}
 	public void setActNo(Integer actNo) {
 		this.actNo = actNo;
 	}
-	public String getRestId() {
-		return restId;
+	public String getRestMemId() {
+		return restMemId;
 	}
-	public void setRestId(String restId) {
-		this.restId = restId;
+	public void setRestMemId(String restMemId) {
+		this.restMemId = restMemId;
 	}
 	public String getActName() {
 		return actName;
@@ -114,4 +90,28 @@ public class Activity implements Serializable{
 	public void setActInitImg(byte[] actInitImg) {
 		this.actInitImg = actInitImg;
 	}
+	public Activity(Integer actNo, String restMemId, String actName, String actContent, Date actDate, Date actFDate,
+			Integer actStatus, Integer actULimit, Integer actLLimit, Integer actKind, String actAnotherKind,
+			byte[] actInitImg) {
+		super();
+		this.actNo = actNo;
+		this.restMemId = restMemId;
+		this.actName = actName;
+		this.actContent = actContent;
+		this.actDate = actDate;
+		this.actFDate = actFDate;
+		this.actStatus = actStatus;
+		this.actULimit = actULimit;
+		this.actLLimit = actLLimit;
+		this.actKind = actKind;
+		this.actAnotherKind = actAnotherKind;
+		this.actInitImg = actInitImg;
+	}
+	public Activity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
 }
