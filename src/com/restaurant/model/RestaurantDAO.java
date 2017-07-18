@@ -51,8 +51,8 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			pstmt.setString(4, rest.getRestIntro());
 			pstmt.setInt(5, rest.getRestKind());
 			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setFloat(7, rest.getRestLongtitude());
-			pstmt.setFloat(8, rest.getRestLatitude());
+			pstmt.setDouble(7, rest.getRestLongtitude());
+			pstmt.setDouble(8, rest.getRestLatitude());
 			
 			
 			pstmt.executeUpdate();
@@ -94,8 +94,8 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			pstmt.setString(4, rest.getRestIntro());
 			pstmt.setInt(5, rest.getRestKind());
 			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setFloat(7, rest.getRestLongtitude());
-			pstmt.setFloat(8, rest.getRestLatitude());
+			pstmt.setDouble(7, rest.getRestLongtitude());
+			pstmt.setDouble(8, rest.getRestLatitude());
 			
 			pstmt.setInt(9, rest.getRestNo());
 			
@@ -181,8 +181,8 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				rest.setRestLongtitude(rs.getDouble("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getDouble("RESTLATITUDE"));
 			}
 			
 
@@ -238,8 +238,8 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 				rest.setRestIntro(rs.getString("restINTRO"));
 				rest.setRestKind(rs.getInt("restKIND"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				rest.setRestLongtitude(rs.getDouble("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getDouble("RESTLATITUDE"));
 				restList.add(rest);
 			}
 		} catch (SQLException e) {

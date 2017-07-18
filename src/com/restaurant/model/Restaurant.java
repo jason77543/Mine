@@ -10,11 +10,17 @@ public class Restaurant implements Serializable{
 	private String restIntro;
 	private Integer restKind;
 	private Integer restReviewStatus;
-	private Float restLongtitude;
-	private Float restLatitude;
+	private Double restLongtitude;
+	private Double restLatitude;
 	
+	
+	
+	public Restaurant() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Restaurant(Integer restNo, String restName, String restAdd, String restPhone, String restIntro,
-			Integer restKind,  Integer restReviewStatus, Float restLongtitude, Float restLatitude) {
+			Integer restKind, Integer restReviewStatus, Double restLongtitude, Double restLatitude) {
 		super();
 		this.restNo = restNo;
 		this.restName = restName;
@@ -26,83 +32,62 @@ public class Restaurant implements Serializable{
 		this.restLongtitude = restLongtitude;
 		this.restLatitude = restLatitude;
 	}
-
 	public Integer getRestNo() {
 		return restNo;
 	}
-
 	public void setRestNo(Integer restNo) {
 		this.restNo = restNo;
 	}
-
 	public String getRestName() {
 		return restName;
 	}
-
 	public void setRestName(String restName) {
 		this.restName = restName;
 	}
-
 	public String getRestAdd() {
 		return restAdd;
 	}
-
 	public void setRestAdd(String restAdd) {
 		this.restAdd = restAdd;
 	}
-
 	public String getRestPhone() {
 		return restPhone;
 	}
-
 	public void setRestPhone(String restPhone) {
 		this.restPhone = restPhone;
 	}
-
 	public String getRestIntro() {
 		return restIntro;
 	}
-
 	public void setRestIntro(String restIntro) {
 		this.restIntro = restIntro;
 	}
-
 	public Integer getRestKind() {
 		return restKind;
 	}
-
 	public void setRestKind(Integer restKind) {
 		this.restKind = restKind;
 	}
-
-
 	public Integer getRestReviewStatus() {
 		return restReviewStatus;
 	}
-
 	public void setRestReviewStatus(Integer restReviewStatus) {
 		this.restReviewStatus = restReviewStatus;
 	}
-
-	public Float getRestLongtitude() {
+	public Double getRestLongtitude() {
 		return restLongtitude;
 	}
-
-	public void setRestLongtitude(Float restLongtitude) {
+	public void setRestLongtitude(Double restLongtitude) {
 		this.restLongtitude = restLongtitude;
 	}
-
-	public Float getRestLatitude() {
+	public Double getRestLatitude() {
 		return restLatitude;
 	}
-
-	public void setRestLatitude(Float restLatitude) {
+	public void setRestLatitude(Double restLatitude) {
 		this.restLatitude = restLatitude;
 	}
-
-	public Restaurant() {
-		super();
-	}
+	
+	
 	
 	
 }

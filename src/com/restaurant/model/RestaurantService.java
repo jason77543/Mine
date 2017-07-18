@@ -10,7 +10,7 @@ public class RestaurantService {
 	}
 	
 	public Restaurant addRest(String restName, String restAdd, String restPhone, String restIntro,
-			Integer restKind,  Integer restReviewStatus, Float restLongtitude, Float restLatitude){
+			Integer restKind,  Integer restReviewStatus, Double restLongtitude, Double restLatitude){
 		
 		Restaurant rest = new Restaurant();
 		
@@ -28,7 +28,7 @@ public class RestaurantService {
 	}
 	
 	public Restaurant updateRest(Integer restNo, String restName, String restAdd, String restPhone, String restIntro,
-			Integer restKind,  Integer restReviewStatus, Float restLongtitude, Float restLatitude){
+			Integer restKind,  Integer restReviewStatus, Double restLongtitude, Double restLatitude){
 		
 		Restaurant rest = new Restaurant();
 		

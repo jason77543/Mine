@@ -1,75 +1,53 @@
 package another;
 
-
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-
-@WebServlet("/ClimeRestList")
-public class ClimeRestaurant extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+public class Clime {
 	
-	private static BufferedReader reader;
-	private static DataSource ds = null;
-	static {
-		try {
-			Context ctx = new javax.naming.InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petym");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static final String INSERT_RESTLIST_STMT = "INSERT INTO RESTLIST(RESTLISTNO,RESTLISTNAME,RESTLISTADD,RESTLISTPHONE,RESTLISTINTRO,RESTLISTKIND,RESTLISTIMG,RESTREVIEWSTATUS)"
-			+ "VALUES(RESTLIST_SEQ.NEXTVAL,?, ?, ?, ?, ?, ?,?)"; 
-	Connection conn;
-	PreparedStatement pstmt;
-	List<String> list =  new ArrayList<String>();;
-	List<String> list1=  new ArrayList<String>();;
-	List<String> list2=  new ArrayList<String>();;
-    
-    public ClimeRestaurant() {
-        super();
-    }
-
+	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
+				+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
-	}
+	
+	
+	
+	public static void main(String[] args) {
+		
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String oraUrl = "jdbc:oracle:thin:@localhost:1521:XE";
+		String userid = "petym";
+		String passwd = "123456";
+		
+		
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		BufferedReader reader = null;
+		Connection conn= null;
+		PreparedStatement pstmt= null;
+		
+		List<String> list =  new ArrayList<String>();;
+		List<String> list1=  new ArrayList<String>();;
+		List<String> list2=  new ArrayList<String>();;
 		
 		try {
 			URL url = new URL("http://tinyurl.com/3bp8zf7");
 					
 			Document xmlDoc = Jsoup.parse(url, 3000);
 
-			conn = ds.getConnection();
+			Class.forName(driver);
+			conn = DriverManager.getConnection(oraUrl, userid, passwd);
 			
 
 			FileWriter writer = new FileWriter("D://restname.csv");
@@ -106,9 +84,7 @@ public class ClimeRestaurant extends HttpServlet {
 
 			String[] name16 = name15.split(",");
 
-			Blob blob = conn.createBlob();
-			byte[] restImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\1.jpg");
-			blob.setBytes(1, restImg);
+			
 			
 			for (int j = 0; j < name16.length; j++) {
 				if (j % 3 == 0) {
@@ -123,19 +99,23 @@ public class ClimeRestaurant extends HttpServlet {
 			Iterator<String> itr1 = list1.iterator();
 			Iterator<String> itr2 = list2.iterator();
 			
-			String[] cols = { "RESTLISTNO" };
+			String[] cols = { "RESTNO" };
 			
 			
 			for (int k = 0; k < 77; k++) {
-				pstmt = conn.prepareStatement(INSERT_RESTLIST_STMT, cols);
+				pstmt = conn.prepareStatement(INSERT_REST, cols);
 				int kindOfPet = (int) (Math.random() * 3);
+				int restReviewStatus = (int) (Math.random() * 3);
+				double restLongtitude = 10.12345;
+				double restLatitude = 110.12345;
 				pstmt.setString(1,itr.next());
 				pstmt.setString(2,itr1.next());
 				pstmt.setString(3,itr2.next());
-				pstmt.setString(4, "petRestaurant"+k);
+				pstmt.setString(4, "petRestaurantIntro"+k);
 				pstmt.setInt(5, kindOfPet);
-				pstmt.setBlob(6, blob);
-				pstmt.setInt(7, 0);
+				pstmt.setInt(6, restReviewStatus);
+				pstmt.setDouble(7, restLongtitude);
+				pstmt.setDouble(8, restLatitude);
 				pstmt.executeUpdate();
 			}
 			
@@ -162,23 +142,7 @@ public class ClimeRestaurant extends HttpServlet {
 			}
 		}
 		
-		
-	}
-	
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
-		byte[] buffer = new byte[8192];
-		int i;
-		while ((i = fis.read(buffer)) != -1) {
-			baos.write(buffer, 0, i);
-		}
-		baos.close();
-		fis.close();
 
-		return baos.toByteArray();
 	}
 
 }

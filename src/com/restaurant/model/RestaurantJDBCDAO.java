@@ -50,8 +50,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			pstmt.setString(5, rest.getRestIntro());
 			pstmt.setInt(6, rest.getRestKind());
 			pstmt.setInt(7, rest.getRestReviewStatus());
-			pstmt.setFloat(8, rest.getRestLongtitude());
-			pstmt.setFloat(9, rest.getRestLatitude());
+			pstmt.setDouble(8, rest.getRestLongtitude());
+			pstmt.setDouble(9, rest.getRestLatitude());
 
 			
 
@@ -95,8 +95,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			pstmt.setString(4, rest.getRestIntro());
 			pstmt.setInt(5, rest.getRestKind());
 			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setFloat(7, rest.getRestLongtitude());
-			pstmt.setFloat(8, rest.getRestLatitude());
+			pstmt.setDouble(7, rest.getRestLongtitude());
+			pstmt.setDouble(8, rest.getRestLatitude());
 			
 			pstmt.setInt(9, rest.getRestNo());
 
@@ -182,8 +182,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				rest.setRestLongtitude(rs.getDouble("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getDouble("RESTLATITUDE"));
 			}
 
 		} catch (Exception e) {
@@ -239,8 +239,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
 				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
-				rest.setRestLongtitude(rs.getFloat("RESTLONGTITUDE"));
-				rest.setRestLatitude(rs.getFloat("RESTLATITUDE"));
+				rest.setRestLongtitude(rs.getDouble("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getDouble("RESTLATITUDE"));
 				restList.add(rest);
 			}
 		} catch (Exception e) {
@@ -302,8 +302,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		rest.setRestIntro("À\ÆU¤¶²Ð1");
 //		rest.setRestKind(1);	
 //		rest.setRestReviewStatus(0);
-//		rest.setRestLongtitude((float) 1.0);
-//		rest.setRestLatitude((float) 2.0);
+//		rest.setRestLongtitude( 1.111111);
+//		rest.setRestLatitude( 2.22222);
 //		restJDBCDAO.add(rest);
 		
 		
@@ -314,8 +314,8 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		rest.setRestIntro("À\ÆU¤¶²Ð1up");
 //		rest.setRestKind(1);	
 //		rest.setRestReviewStatus(0);
-//		rest.setRestLongtitude((float) 1.0);
-//		rest.setRestLatitude((float) 2.0);
+//		rest.setRestLongtitude( 1.11111);
+//		rest.setRestLatitude( 2.222222);
 //		restJDBCDAO.update(rest);
 		
 //		restJDBCDAO.delete(1);
