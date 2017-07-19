@@ -277,14 +277,14 @@ public class ActImgJDBCDAO implements ActImgDAO_Interface{
 //		actImg.setActNo(2);
 //		actImg.setActIngName("相片名稱1");
 //		actImg.setActImgIntro("相片介紹1");
-//		byte[] actImg1 = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\2.jpg");
+//		byte[] actImg1 = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\2.jpg");
 //		actImg.setActImg(actImg1);
 //		actImgJDBCDAO.add(actImg);
 		
 //		actImg.setActNo(2);
 //		actImg.setActIngName("相片名稱2");
 //		actImg.setActImgIntro("相片介紹2");
-//		byte[] actImg1 = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\1.jpg");
+//		byte[] actImg1 = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\1.jpg");
 //		actImg.setActImg(actImg1);
 //		actImg.setActImgNo(2);
 //		actImgJDBCDAO.update(actImg);

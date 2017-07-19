@@ -3,7 +3,10 @@ package another;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -83,7 +88,7 @@ public class Clime {
 			writer1.close();
 
 			String[] name16 = name15.split(",");
-
+			
 			
 			
 			for (int j = 0; j < name16.length; j++) {
@@ -95,31 +100,58 @@ public class Clime {
 					list2.add(name16[j]);
 				}
 			}
-			Iterator<String> itr = list.iterator();
-			Iterator<String> itr1 = list1.iterator();
-			Iterator<String> itr2 = list2.iterator();
+			Iterator<String> restNameList = list.iterator();//餐廳名稱
+			Iterator<String> restPhoneList = list1.iterator();//餐廳電話
+			Iterator<String> restAddList = list2.iterator();//餐廳地址
+			Iterator<String> restAddListGMap = list2.iterator();
 			
-			String[] cols = { "RESTNO" };
 			
+			List<Double> lat = new ArrayList<>();
+			List<Double> lng = new ArrayList<>();
+			while(restAddListGMap.hasNext()){
+				String sKeyWord = restAddListGMap.next();
+				URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
+				URLEncoder.encode(sKeyWord, "UTF-8")));//p=%s is KeyWord in	            
+				URLConnection connFromGMap = urlFromGMap.openConnection();
+				String line;
+				StringBuilder builder = new StringBuilder();
+				BufferedReader readerFromGMap = new BufferedReader(new InputStreamReader(connFromGMap.getInputStream(),"utf-8"));
+				while ((line = readerFromGMap.readLine()) != null) {builder.append(line);}
+					JSONObject json = new JSONObject(builder.toString()); //轉換json格式
+				    JSONArray ja = json.getJSONArray("results");//取得json的Array物件
+				        for (int i = 0; i < ja.length(); i++) {
+			                  
+			            lat.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
+			            lng.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+			                 
+				    } 
+				
+			}
+			Iterator<Double> latList = lat.iterator();
+			Iterator<Double> lngList = lng.iterator();
 			
 			for (int k = 0; k < 77; k++) {
-				pstmt = conn.prepareStatement(INSERT_REST, cols);
+				pstmt = conn.prepareStatement(INSERT_REST);
 				int kindOfPet = (int) (Math.random() * 3);
 				int restReviewStatus = (int) (Math.random() * 3);
-				double restLongtitude = 10.12345;
-				double restLatitude = 110.12345;
-				pstmt.setString(1,itr.next());
-				pstmt.setString(2,itr1.next());
-				pstmt.setString(3,itr2.next());
+				pstmt.setString(1,restNameList.next());
+				pstmt.setString(2,restAddList.next());
+				pstmt.setString(3,restPhoneList.next());
 				pstmt.setString(4, "petRestaurantIntro"+k);
 				pstmt.setInt(5, kindOfPet);
 				pstmt.setInt(6, restReviewStatus);
-				pstmt.setDouble(7, restLongtitude);
-				pstmt.setDouble(8, restLatitude);
+				pstmt.setDouble(7, lngList.next());
+				pstmt.setDouble(8, latList.next());
 				pstmt.executeUpdate();
 			}
 			
 			
+			
+			
+				
+			
+			
+			   
 
 		} catch (Exception e) {
 			e.printStackTrace();

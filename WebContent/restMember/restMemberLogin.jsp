@@ -1,63 +1,103 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.restMember.model.RestMember"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="BIG5"%>
 <%@ page import="com.restMember.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+ RestMember restMember =(RestMember)request.getAttribute("restMember"); 
+%>
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Title Page</title>
+<style type="text/css">
+.pwd {
+	margin-top: 20px;
+}
 
-<html >
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<title>Title Page</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<!--[if lt IE 9]>
+.login {
+	margin-top: 15px;
+}
+
+#memIdShow {
+   color: red;
+}
+</style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--[if lt IE 9]>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script> 
-		<![endif]--><style type="text/css">
-			.ad{
-				margin-top: 50%;
-			}
-		</style>
-	</head>
-	<body>
-		
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-					
-					<form method="post" action="restMember.do" name="restMemberForm1">
-						<div class="form-horizontal ad">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									帳號
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="" class="form-control">
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									密碼
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="" class="form-control">
-								</div>
-							</div>
-						</div>		
-	
-							<div class="text-center">
-								<input type="checkbox"  id="">記住我
-								<button class="btn btn-info">忘記密碼</button>
-								<button class="btn btn-info">登入</button>
-							</div>
-						
-					</form>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+
+				<div align="center">
+					<Img src="img/1.jpg" height="250px" width="400px" />
 				</div>
+
+				<form class="" action="restMember.do" method="post">
+
+
+					<div class="form-group">
+						<label for="restMemId" class="cols-sm-2 control-label">帳號</label><span
+							id="restMemIdShow"> <c:if test="${not empty errorMsgs}">
+									&nbsp;&nbsp;帳號密碼錯誤
+							</c:if>
+
+						</span>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa"
+									aria-hidden="true"></i></span> <input type="text" class="form-control"
+									name="restMemId" id="restMemId" value="<%= (restMember==null)?"":restMember.getRestMemId() %>" placeholder="請輸入帳號" required />
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group pwd">
+						<label for="memId" class="cols-sm-2 control-label">密碼</label><span
+							id="restMemIdShow"></span>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa"
+									aria-hidden="true"></i></span> <input type="password"
+									class="form-control" name="restMemPsw" id="restMemPsw" value="<%= (restMember==null)?"":restMember.getRestMemPsw() %>"
+									placeholder="請輸入帳號" required />
+							</div>
+						</div>
+					</div>
+
+					<div class="checkbox">
+						<label> <input type="checkbox"> 記住我
+						</label>
+					</div>
+
+					<input class="btn btn-primary btn-lg btn-block login-button login"
+						type="submit" value="登錄">
+					<div>
+						<a href="#" class="btn btn-link">忘記密碼</a> <a href=""
+							class="btn btn-link">註冊</a>
+					</div>
+				</form>
+
 			</div>
-		</div>	
-		
-		
-		<script src="https://code.jquery.com/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</body>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
 </html>
