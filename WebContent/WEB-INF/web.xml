@@ -16,7 +16,7 @@
   </servlet>
   <servlet-mapping>
   		<servlet-name>restMemberServlet</servlet-name>
-  		<url-pattern>/restMember/restMember.do</url-pattern>
+  		<url-pattern>/restMember/restMember</url-pattern>
   </servlet-mapping>
   
 </web-app>

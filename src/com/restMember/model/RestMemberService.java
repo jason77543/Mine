@@ -38,6 +38,8 @@ public class RestMemberService {
 	public List<RestMember> getAll(){
 		return restMemDao.getAll();
 	}
+	
+	
 }
 
 

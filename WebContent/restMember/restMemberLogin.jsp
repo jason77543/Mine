@@ -43,17 +43,26 @@
 			<div class="col-sm-6 col-sm-offset-3">
 
 				<div align="center">
-					<Img src="img/1.jpg" height="250px" width="400px" />
+					<Img src="../img/1.jpg" height="250px" width="400px" />
 				</div>
 
-				<form class="" action="restMember.do" method="post">
-
+				<form class="" action="restMember"  method="post">
+							<c:if test="${not empty errorMsgs}">
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+									
+										<li>${message.value}</li>
+									</c:forEach>
+									
+								</ul>
+									
+							</c:if>	
+				
 
 					<div class="form-group">
 						<label for="restMemId" class="cols-sm-2 control-label">±b¸¹</label><span
-							id="restMemIdShow"> <c:if test="${not empty errorMsgs}">
-									&nbsp;&nbsp;±b¸¹±K½X¿ù»~
-							</c:if>
+							id="restMemIdShow"> 
+							
 
 						</span>
 						<div class="cols-sm-10">
@@ -68,7 +77,9 @@
 
 					<div class="form-group pwd">
 						<label for="memId" class="cols-sm-2 control-label">±K½X</label><span
-							id="restMemIdShow"></span>
+							id="restMemIdShow">
+							
+							</span>
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa"
@@ -83,13 +94,14 @@
 						<label> <input type="checkbox"> °O¦í§Ú
 						</label>
 					</div>
-
+					<input type="hidden" name="action" value="login">
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
 					<div>
-						<a href="#" class="btn btn-link">§Ñ°O±K½X</a> <a href=""
+						<a href="#" class="btn btn-link">§Ñ°O±K½X</a> <a href="restMemberList.jsp"
 							class="btn btn-link">µù¥U</a>
 					</div>
+					
 				</form>
 
 			</div>
