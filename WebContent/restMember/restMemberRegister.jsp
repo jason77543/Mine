@@ -1,8 +1,12 @@
+<%@page import="com.restMember.model.RestMember"%>
 <%@page import="com.restMember.model.RestMemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%
+	RestMember restMember = (RestMember)request.getAttribute("restMember");
+%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <!DOCTYPE html>
 <html lang="">
@@ -39,12 +43,15 @@
 				<h1 class="text-center">餐廳會員註冊</h1>
 
 				<div class="form-horizontal">
+				
+					<form method="post" action="restMemberController">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									餐廳編號
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restNo}" readonly >
+									<input type="text" name="restNo" class="form-control" value="${param.restNo}" readonly >
+									
 								</div>
 							</div>
 							
@@ -53,7 +60,8 @@
 									餐廳名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restName}" readonly>
+									<input type="text" name="restName" class="form-control" value="${param.restName}" readonly>
+									
 								</div>
 							</div>
 
@@ -62,7 +70,8 @@
 									餐廳地址
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restAdd}" readonly>
+									<input type="text" name="restAdd" class="form-control" value="${param.restAdd}" readonly>
+
 								</div>
 							</div>
 
@@ -71,7 +80,8 @@
 									餐廳電話
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restPhone}" readonly>
+									<input type="text" name="restPhone" class="form-control" value="${param.restPhone}" readonly>
+									
 								</div>
 							</div>
 
@@ -80,7 +90,8 @@
 									餐廳介紹
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restIntro}" readonly>
+									<input type="text" name="restIntro" class="form-control" value="${param.restIntro}" readonly>
+									
 								</div>
 							</div>
 
@@ -89,7 +100,8 @@
 									餐廳種類
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="${param.restKind}" readonly>
+									<input type="text" name="restKind" class="form-control" value="${param.restKind}" readonly>
+									
 								</div>
 							</div>
 							
@@ -98,23 +110,29 @@
 									餐廳會員帳號
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value=""><input type="button" value="檢查帳號是否可用">
+									<input type="text" name="restMemId" class="form-control" value="<%=(restMember==null)?"":restMember.getRestMemId()%>">
 								</div>
-								
 							</div>
-
+							
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									餐廳會員密碼
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="" class="form-control" value="" >
+									<input type="text" name="restMemPsw" class="form-control" value="<%=(restMember==null)?"":restMember.getRestMemPsw()%>">
+									
 								</div>
 							</div>
-						</div>	
-						<input type="hidden" name="action" value="register">
-						<input class="btn btn-primary btn-lg btn-block login-button login"
-						type="submit" value="註冊此帳號">
+							<input type="hidden" name="action" value="register">
+							<input class="btn btn-primary btn-lg btn-block login-button login"
+								type="submit" value="註冊此帳號">
+								
+								
+						</form>			
+					</div>	
+						
+						
+					
 			</div>
 		</div>
 	</div>

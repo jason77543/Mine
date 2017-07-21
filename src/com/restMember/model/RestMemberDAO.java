@@ -31,7 +31,7 @@ public class RestMemberDAO implements RestMemberDAO_Interface{
 	private static final String DELETE_RESTMEMBER = "DELETE FROM RESTMEMBER WHERE RESTMEMID=?";
 	private static final String FIND_BY_PK = "SELECT * FROM RESTMEMBER WHERE RESTMEMID=?";
 	private static final String GET_ALL = "SELECT * FROM RESTMEMBER";
-	private static final String GET_ALLID = "SELECT RESTMEMID FROM RESTMEMBER";
+	
 	@Override
 	public void add(RestMember restMember) {
 		Connection conn = null;

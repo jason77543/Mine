@@ -3,6 +3,11 @@
 	pageEncoding="BIG5"%>
 <%@ page import="com.restMember.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 
+   response.setHeader("Cache-Control","no-store"); //HTTP 1.1
+   response.setHeader("Pragma","no-cache");        //HTTP 1.0
+   response.setDateHeader ("Expires", 0);
+ --%>
 <% 
  RestMember restMember =(RestMember)request.getAttribute("restMember"); 
 %>
@@ -46,7 +51,7 @@
 					<Img src="../img/1.jpg" height="250px" width="400px" />
 				</div>
 
-				<form class="" action="restMember"  method="post">
+				<form class="" action="restMemberController"  method="post">
 							<c:if test="${not empty errorMsgs}">
 								<ul>
 									<c:forEach var="message" items="${errorMsgs}">
@@ -68,8 +73,10 @@
 						<div class="cols-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa"
-									aria-hidden="true"></i></span> <input type="text" class="form-control"
-									name="restMemId" id="restMemId" value="<%= (restMember==null)?"":restMember.getRestMemId() %>" placeholder="請輸入帳號" required />
+									aria-hidden="true"></i></span> 
+									<input type="text" class="form-control" 
+									name="restMemId" id="restMemId" 
+									value="<%=(restMember==null)?"":restMember.getRestMemId()%>" placeholder="請輸入帳號" required />
 							</div>
 						</div>
 					</div>
@@ -84,7 +91,7 @@
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-user fa"
 									aria-hidden="true"></i></span> <input type="password"
-									class="form-control" name="restMemPsw" id="restMemPsw" value="<%= (restMember==null)?"":restMember.getRestMemPsw() %>"
+									class="form-control" name="restMemPsw" id="restMemPsw" value="<%=(restMember==null)?"":restMember.getRestMemPsw()%>"
 									placeholder="請輸入帳號" required />
 							</div>
 						</div>
