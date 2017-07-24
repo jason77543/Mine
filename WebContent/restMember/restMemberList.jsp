@@ -26,7 +26,7 @@
 
 <table border='1' bordercolor='#CCCCFF' width='800'>
 	<tr>
-		<th>À\ÆU½s¸¹</th>
+		
 		<th>À\ÆU¦WºÙ</th>
 		<th>À\ÆU¦a§}</th>
 		<th>À\ÆU¹q¸Ü</th>
@@ -37,7 +37,7 @@
 	<%@ include file="page1.file" %> 
 	<c:forEach var="restaurant" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr align='center' valign='middle'>
-			<td>${restaurant.restNo}</td>
+			
 			<td>${restaurant.restName}</td>
 			<td>${restaurant.restAdd}</td>
 			<td>${restaurant.restPhone}</td>
@@ -46,7 +46,7 @@
 			<td>
 			  <FORM METHOD="post" ACTION="restMemberRegister.jsp">
 			     <input type="submit" value="µù¥U">
-			     <input type="hidden" name="restNo" value="${restaurant.restNo}">
+			     
 			     <input type="hidden" name="restName" value="${restaurant.restName}">
 			     <input type="hidden" name="restAdd" value="${restaurant.restAdd}">
 			     <input type="hidden" name="restPhone" value="${restaurant.restPhone}">

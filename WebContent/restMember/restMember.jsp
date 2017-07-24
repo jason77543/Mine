@@ -21,7 +21,11 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 </head>
-
+<style type="text/css">
+.logout{
+	margin-top: 20px;
+}
+</style>
 <body>
     <nav id="emerald-nav" class="navbar navbar-light navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -33,24 +37,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand logo" href="index.html">寵物You&amp;Me</a>
+                <a class="navbar-brand logo" href="restMember.jsp">寵物You&amp;Me</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                	
                 </ul>
-                <div class="nav collapse navbar-collapse navbar-right" id="login">
-                    <ul class="nav navbar-nav">
-						<li>
-                           
-                        </li>
-                        <li>
-                            <a href="restMemberLogin.jsp">餐廳會員登出</a>
-                        </li>
-                    </ul>
-                </div>
+                
+	                <div class="nav collapse navbar-collapse navbar-right" id="login">  
+		                <p class="logout">
+		                    ${restMember.restMemId}   你好      	
+			                <a href="restMemberController?action=logout" >餐廳會員登出</a>
+			            </p>
+		           </div>
+                
                 <!-- /.navbar-collapse -->
                 <!-- /.container -->
+             </div>
+            </div>
     </nav>
 
 
@@ -64,13 +69,13 @@
                 <div id="menu">
                     <div class="panel list-group list-color">
 
-						<a href="#" class="list-group-item">餐廳會員首頁</a>
+						<a href="restMember.jsp" class="list-group-item">餐廳會員首頁</a>
 
 
                         <a href="#" class="list-group-item">管理我的活動</a>
 
                         <a href="#" class="list-group-item">發起活動</a>
-                        <a href="#" class="list-group-item">管理餐廳資料</a>
+                        <a href="Management.jsp" class="list-group-item">管理餐廳資料</a>
 
 
 

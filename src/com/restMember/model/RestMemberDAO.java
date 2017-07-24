@@ -26,7 +26,7 @@ public class RestMemberDAO implements RestMemberDAO_Interface{
 		}
 		
 	}
-	private static final String INSERT_RESTMEMBER = "INSERT INTO RESTMEMBER (RESTMEMID,RESTNO,RESTMEMPSW VALUES(?,?,?)";
+	private static final String INSERT_RESTMEMBER = "INSERT INTO RESTMEMBER (RESTMEMID,RESTNO,RESTMEMPSW) VALUES(?,?,?)";
 	private static final String UPDATE_RESTMEMBER = "UPDATE RESTMEMBER SET RESTNO=?,RESTMEMPSW=? WHERE RESTMEMID=?";			
 	private static final String DELETE_RESTMEMBER = "DELETE FROM RESTMEMBER WHERE RESTMEMID=?";
 	private static final String FIND_BY_PK = "SELECT * FROM RESTMEMBER WHERE RESTMEMID=?";

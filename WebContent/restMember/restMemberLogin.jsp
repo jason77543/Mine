@@ -62,10 +62,14 @@
 								</ul>
 									
 							</c:if>	
+							
+							<c:if test="${not empty hasAUser}">
+								${hasAUser}
+							</c:if>
 				
 
 					<div class="form-group">
-						<label for="restMemId" class="cols-sm-2 control-label">±b¸¹</label><span
+						<label for="restMemId" class="cols-sm-2 control-label">À\ÆU·|­û±b¸¹</label><span
 							id="restMemIdShow"> 
 							
 
@@ -83,7 +87,7 @@
 
 
 					<div class="form-group pwd">
-						<label for="memId" class="cols-sm-2 control-label">±K½X</label><span
+						<label for="memId" class="cols-sm-2 control-label">À\ÆU·|­û±K½X</label><span
 							id="restMemIdShow">
 							
 							</span>
@@ -92,7 +96,7 @@
 								<span class="input-group-addon"><i class="fa fa-user fa"
 									aria-hidden="true"></i></span> <input type="password"
 									class="form-control" name="restMemPsw" id="restMemPsw" value="<%=(restMember==null)?"":restMember.getRestMemPsw()%>"
-									placeholder="½Ð¿é¤J±b¸¹" required />
+									placeholder="½Ð¿é¤J±K½X" required />
 							</div>
 						</div>
 					</div>
@@ -105,7 +109,7 @@
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
 					<div>
-						<a href="#" class="btn btn-link">§Ñ°O±K½X</a> <a href="restMemberList.jsp"
+						<a href="findPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> <a href="restMemberList.jsp"
 							class="btn btn-link">µù¥U</a>
 					</div>
 					

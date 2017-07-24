@@ -13,9 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import com.restMember.model.RestMember;
 import com.restMember.model.RestMemberService;
+import com.restaurant.model.Restaurant;
+import com.restaurant.model.RestaurantService;
 
 
 
@@ -40,6 +45,13 @@ public class restMemberServlet extends HttpServlet {
 		}
 	}
 	 
+	protected Restaurant restUser(RestMember restMember){
+		RestaurantService restaurantService = new RestaurantService();
+		Restaurant restaurant = restaurantService.getOneRest(restMember.getRestNo());
+		return restaurant;
+	}
+	
+	
     public restMemberServlet() {
         super();
     }
@@ -54,47 +66,60 @@ public class restMemberServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+		/////////////////////////////////登入/////////////////////////////
 		if("login".equals(action)){
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			try{
+			
 				///////////////////////////檢查////////////////////////////
 				String restMemId = req.getParameter("restMemId");
 				
-				String restMemReg = "^[a-zA-Z0-9_]{2,10}$";
-				if(restMemId == null || (restMemId.trim()).length() == 0 ){
-					errorMsgs.put("restMemId", "餐廳會員帳號不能空白");
-				} else if(!restMemId.trim().matches(restMemReg)){
-					errorMsgs.put("restMemId", "餐廳會員帳號只能英文、數字和_，長度2到10");
-				}
+				
 				
 				String restMemPsw = req.getParameter("restMemPsw");
 				
-				if(restMemPsw == null || (restMemPsw.trim()).length() == 0 ){
-					errorMsgs.put("restMemId", "餐廳會員密碼不能空白");
-				}else if(!restMemPsw.trim().matches(restMemReg)){
-					errorMsgs.put("restMemId", "餐廳會員密碼只能英文、數字和_，長度2到10");
+				String restMemReg = "^[a-zA-Z0-9_]{2,10}$";
+				if(restMemId == null || (restMemId.trim()).length() == 0 ){
+					errorMsgs.put("","餐廳會員帳號不能空白");
+				} else if(!restMemId.trim().matches(restMemReg)){
+					errorMsgs.put("","餐廳會員帳號只能英文、數字和_，長度2到10");
 				}
 				
-				if(allowUser(restMemId, restMemPsw)==null){
-					errorMsgs.put("restMemId", "餐廳會員帳號密碼有誤");
+				
+				
+				if(restMemPsw == null || (restMemPsw.trim()).length() == 0 ){
+					errorMsgs.put("","餐廳會員密碼不能空白");
+				}else if(!restMemPsw.trim().matches(restMemReg)){
+					errorMsgs.put("","餐廳會員密碼只能英文、數字和_，長度2到10");
 				}
+				
+				
+				if(allowUser(restMemId, restMemPsw)==null){
+					errorMsgs.put("","會員帳號、密碼錯誤");
+				}
+				
 			
 				if(!errorMsgs.isEmpty()){
 					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
 					requestDispatcher.forward(req, res);
+					return;
 				}
 				
 				///////////////////////////登入成功///////////////////////////////
 				
 				HttpSession session = req.getSession();
-				session.setAttribute("restMember", allowUser(restMemId, restMemPsw));
+				RestMember restMember = allowUser(restMemId, restMemPsw);
+				Restaurant restaurant = restUser(restMember);
+				session.setAttribute("restMember", restMember);
+				session.setAttribute("restaurant", restaurant);
 				
+				
+//				System.out.println(req.getRequestedSessionId());
 				
 				///////////////////////////為濾器準備//////////////////////////////
-//				String location = (String)session.getAttribute("location");
+//				String location = (String)session.getAttribute(req.getRequestURI());
 //				if(location != null){
 //					session.removeAttribute(location);
 //					res.sendRedirect(location);
@@ -102,22 +127,18 @@ public class restMemberServlet extends HttpServlet {
 //				} else{
 //					res.sendRedirect(req.getContextPath()+"/restMember/restMemberLogin.jsp");
 //				}
-				
+//				
 				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMember.jsp");
 				requestDispatcher.forward(req, res);
 				
 				
 				
-			} catch (Exception e) {
-				errorMsgs.put("Exception",e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/restMember/restMemberLogin.jsp");
-				failureView.forward(req, res);
-			}
-			
-		}
+			} 
 		
 		
+		
+		
+		////////////////////////註冊/////////////////////////////
 		else if("register".equals(action)){
 			
 			List<String> hasAUser = new ArrayList<>();
@@ -131,22 +152,71 @@ public class restMemberServlet extends HttpServlet {
 			
 			
 			
-			if(allowUser(restMemId, restMemPsw)==null){
+			String restMemReg = "^[a-zA-Z0-9_]{2,10}$";
+			if(restMemId == null || (restMemId.trim()).length() == 0 ){
+				hasAUser.add("餐廳會員帳號不能空白");
+			} else if(!restMemId.trim().matches(restMemReg)){
+				hasAUser.add("餐廳會員帳號只能英文、數字和_，長度2到10");
+			}
+			
+			
+			
+			if(restMemPsw == null || (restMemPsw.trim()).length() == 0 ){
+				hasAUser.add("餐廳會員密碼不能空白");
+			}else if(!restMemPsw.trim().matches(restMemReg)){
+				hasAUser.add("餐廳會員密碼只能英文、數字和_，長度2到10");
+			}
+			
+			if(allowUser(restMemId, restMemPsw)!=null){
 				hasAUser.add("此帳號已經有人註冊嚕~");
 			}
 			
+			
 			if(!hasAUser.isEmpty()){
-				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMemberRegister.jsp");
-				requestDispatcher.forward(req, res);
+				RequestDispatcher requestDispatcher1 =req.getRequestDispatcher("/restMember/restMemberRegister.jsp");
+				requestDispatcher1.forward(req, res);
+				return;
 			}
 			
 			////////////////////存取帳號////////////////////////////
 			RestMemberService restMemberService = new RestMemberService();
 			restMemberService.addRestMember(restMemId, restNo, restMemPsw);	
+			
+			
+			////////////////////準備轉交////////////////////////////
+			hasAUser.add("恭喜註冊成功");
+			
+			RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
+			requestDispatcher2.forward(req, res);
+			
+			
 		}
 		
 		
+		//////////////////////登出////////////////////////////////
+		else if("logout".equals(action)){
+			
+			
+			HttpSession session = req.getSession();
+			
+			session.removeAttribute("restMember");
+			session.invalidate();
 		
+			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
+			requestDispatcher3.forward(req, res);
+		}
+		
+		
+		/////////////////////忘記密碼//////////////////////////////
+		
+		else if("findPsw".equals(action)){
+//			
+//			String restMemId = req.getParameter("restMemId");
+//			String Email = req.getParameter("restMemEmail");
+			
+			
+			
+		}
 		
 	}
 

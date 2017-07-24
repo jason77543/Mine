@@ -63,7 +63,7 @@ public class Clime {
 				writer.write(rest);
 			}
 			writer.close();
-
+System.out.println("寫入完畢");
 			reader = new BufferedReader(new FileReader("D://restname.csv"));
 			String name = reader.readLine().replaceAll("[?]", "");
 			String name0 = name.replace("(誠品中山店內)", "誠品中山店內-");
@@ -89,7 +89,7 @@ public class Clime {
 
 			String[] name16 = name15.split(",");
 			
-			
+			System.out.println("CSV完畢");			
 			
 			for (int j = 0; j < name16.length; j++) {
 				if (j % 3 == 0) {
@@ -105,6 +105,7 @@ public class Clime {
 			Iterator<String> restAddList = list2.iterator();//餐廳地址
 			Iterator<String> restAddListGMap = list2.iterator();
 			
+			System.out.println("Iterator完畢");
 			
 			List<Double> lat = new ArrayList<>();
 			List<Double> lng = new ArrayList<>();
@@ -130,6 +131,8 @@ public class Clime {
 			Iterator<Double> latList = lat.iterator();
 			Iterator<Double> lngList = lng.iterator();
 			
+			System.out.println("GOOGLE完畢");
+			
 			for (int k = 0; k < 77; k++) {
 				pstmt = conn.prepareStatement(INSERT_REST);
 				int kindOfPet = (int) (Math.random() * 3);
@@ -148,7 +151,7 @@ public class Clime {
 			
 			
 			
-				
+			System.out.println("完畢");	
 			
 			
 			   
