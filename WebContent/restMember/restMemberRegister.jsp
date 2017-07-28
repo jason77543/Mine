@@ -94,14 +94,15 @@
 									À\ÆUºØÃþ
 								</label>
 								<div class="col-sm-9">
-									<c:if test="${restaurant.restKind=='0'}">
+									<c:if test="${param.restKind=='0'}">
 										<input type="text" name="restKind" class="form-control" value="0" readonly>ª¯À\ÆU
 									</c:if>
-									<c:if test="${restaurant.restKind=='1'}">
+									<c:if test="${param.restKind=='1'}">
 										<input type="text" name="restKind" class="form-control" value="1" readonly>¿ßÀ\ÆU
 									</c:if>
-									<c:if test="${restaurant.restKind=='2'}">
-										<input type="text" name="restKind" class="form-control" value="2" readonly>¨ä¥LÀ\ÆU
+									<c:if test="${param.restKind=='2'}">
+										<input type="hidden" name="restKind"  value="2" >
+										<input type="text" value="¨ä¥LÀ\ÆU" class="form-control" readonly>
 									</c:if>
 								</div>
 							</div>
