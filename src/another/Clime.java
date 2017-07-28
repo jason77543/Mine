@@ -23,13 +23,14 @@ import org.jsoup.select.Elements;
 
 public class Clime {
 	
-	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
-				+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
 	
+	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTLOCATE,RESTPHONE,"
+				+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(REST_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?)";
 	
 	
 	
 	public static void main(String[] args) {
+		
 		
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		String oraUrl = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -102,7 +103,8 @@ System.out.println("寫入完畢");
 			}
 			Iterator<String> restNameList = list.iterator();//餐廳名稱
 			Iterator<String> restPhoneList = list1.iterator();//餐廳電話
-			Iterator<String> restAddList = list2.iterator();//餐廳地址
+			Iterator<String> restAddList = list2.iterator();
+			Iterator<String> restAddListForSubString = list2.iterator();
 			Iterator<String> restAddListGMap = list2.iterator();
 			
 			System.out.println("Iterator完畢");
@@ -139,12 +141,13 @@ System.out.println("寫入完畢");
 				int restReviewStatus = (int) (Math.random() * 3);
 				pstmt.setString(1,restNameList.next());
 				pstmt.setString(2,restAddList.next());
-				pstmt.setString(3,restPhoneList.next());
-				pstmt.setString(4, "petRestaurantIntro"+k);
-				pstmt.setInt(5, kindOfPet);
-				pstmt.setInt(6, restReviewStatus);
-				pstmt.setDouble(7, lngList.next());
-				pstmt.setDouble(8, latList.next());
+				pstmt.setString(3, restAddListForSubString.next().substring(0,2) +"縣");
+				pstmt.setString(4,restPhoneList.next());
+				pstmt.setString(5, "petRestaurantIntro"+k);
+				pstmt.setInt(6, kindOfPet);
+				pstmt.setInt(7, restReviewStatus);
+				pstmt.setDouble(8, lngList.next());
+				pstmt.setDouble(9, latList.next());
 				pstmt.executeUpdate();
 			}
 			

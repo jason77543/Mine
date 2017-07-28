@@ -249,10 +249,10 @@ public class RestMemberJDBCDAO implements RestMemberDAO_Interface{
 //		restMember.setRestMemPsw("À\·|±K½X2");
 //		restMemberJDBCDAO.add(restMember);
 		
-//		restMember.setRestMemId("À\·|±b¸¹2");
-//		restMember.setRestNo(2);
-//		restMember.setRestMemPsw("À\·|±K½X222");
-//		restMemberJDBCDAO.update(restMember);
+		restMember.setRestMemId("ww");
+		restMember.setRestNo(7006);
+		restMember.setRestMemPsw("À\·|±K½X22222222222");
+		restMemberJDBCDAO.update(restMember);
 		
 //		restMemberJDBCDAO.delete("À\·|±b¸¹3");
 		

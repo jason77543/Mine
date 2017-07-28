@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.ListModel;
 
 import com.restImg.model.RestImg;
+import com.restMember.controller.restMemberServlet;
 
 public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 
@@ -24,10 +25,12 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 	String userid = "petym";
 	String passwd = "123456";
 
-	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTPHONE,"
-			+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_REST = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
+	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTLOCATE,RESTPHONE,"
+			+ "RESTINTRO,RESTKIND,RESTREVIEWSTATUS,RESTLONGTITUDE,RESTLATITUDE)" + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_REST_MANAGER = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTLOCATE=?,RESTPHONE=?"
 			+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
+	private static final String UPDATE_REST_MEMBER = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
+			+ ",RESTINTRO=?,RESTKIND=? WHERE RESTNO=?";
 	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
 	private static final String GET_ALL = "SELECT * FROM REST";
@@ -46,12 +49,13 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			pstmt.setInt(1, rest.getRestNo());
 			pstmt.setString(2, rest.getRestName());
 			pstmt.setString(3, rest.getRestAdd());
-			pstmt.setString(4, rest.getRestPhone());
-			pstmt.setString(5, rest.getRestIntro());
-			pstmt.setInt(6, rest.getRestKind());
-			pstmt.setInt(7, rest.getRestReviewStatus());
-			pstmt.setDouble(8, rest.getRestLongtitude());
-			pstmt.setDouble(9, rest.getRestLatitude());
+			pstmt.setString(4, rest.getRestLocate());
+			pstmt.setString(5, rest.getRestPhone());
+			pstmt.setString(6, rest.getRestIntro());
+			pstmt.setInt(7, rest.getRestKind());
+			pstmt.setInt(8, rest.getRestReviewStatus());
+			pstmt.setDouble(9, rest.getRestLongtitude());
+			pstmt.setDouble(10, rest.getRestLatitude());
 
 			
 
@@ -80,25 +84,26 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 	}
 
 	@Override
-	public void update(Restaurant rest) {
+	public void updateRestForManager(Restaurant rest) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userid, passwd);
-			pstmt = conn.prepareStatement(UPDATE_REST);
+			pstmt = conn.prepareStatement(UPDATE_REST_MANAGER);
 
 			
 			pstmt.setString(1, rest.getRestName());
 			pstmt.setString(2, rest.getRestAdd());
-			pstmt.setString(3, rest.getRestPhone());
-			pstmt.setString(4, rest.getRestIntro());
-			pstmt.setInt(5, rest.getRestKind());
-			pstmt.setInt(6, rest.getRestReviewStatus());
-			pstmt.setDouble(7, rest.getRestLongtitude());
-			pstmt.setDouble(8, rest.getRestLatitude());
+			pstmt.setString(3, rest.getRestLocate());
+			pstmt.setString(4, rest.getRestPhone());
+			pstmt.setString(5, rest.getRestIntro());
+			pstmt.setInt(6, rest.getRestKind());
+			pstmt.setInt(7, rest.getRestReviewStatus());
+			pstmt.setDouble(8, rest.getRestLongtitude());
+			pstmt.setDouble(9, rest.getRestLatitude());
 			
-			pstmt.setInt(9, rest.getRestNo());
+			pstmt.setInt(10, rest.getRestNo());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -115,6 +120,50 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 				}
 			}
 			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateRestForRestMember(Restaurant rest) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(UPDATE_REST_MEMBER);
+			
+			pstmt.setString(1, rest.getRestName());
+			pstmt.setString(2, rest.getRestAdd());
+			pstmt.setString(3, rest.getRestPhone());
+			pstmt.setString(4, rest.getRestIntro());
+			pstmt.setInt(5, rest.getRestKind());
+			
+			
+			pstmt.setInt(6, rest.getRestNo());
+			
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
 				try {
 					conn.close();
 				} catch (SQLException e) {
@@ -292,12 +341,13 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 	}
 
 	public static void main(String[] args) throws IOException {
-		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
-		
-		Restaurant rest = new Restaurant();
+//		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
+//		
+//		Restaurant rest = new Restaurant();
 //		rest.setRestNo(2);
 //		rest.setRestName("À\ÆU¦WºÙ1");
 //		rest.setRestAdd("À\ÆU¦a§}1");
+//		rest.setRestLocate("À\ÆU¿¤¥«1");
 //		rest.setRestPhone("À\ÆU¹q¸Ü1");
 //		rest.setRestIntro("À\ÆU¤¶²Ð1");
 //		rest.setRestKind(1);	
@@ -310,6 +360,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		rest.setRestNo(1);
 //		rest.setRestName("À\ÆU¦WºÙ1up");
 //		rest.setRestAdd("À\ÆU¦a§}1up");
+//		rest.setRestLocate("À\ÆU¿¤¥«1up");
 //		rest.setRestPhone("À\ÆU¹q¸Ü1up");
 //		rest.setRestIntro("À\ÆU¤¶²Ð1up");
 //		rest.setRestKind(1);	
@@ -324,6 +375,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		System.out.println(rest.getRestNo());
 //		System.out.println(rest.getRestName());
 //		System.out.println(rest.getRestAdd());
+//		System.out.println(rest.getRestLocate());
 //		System.out.println(rest.getRestPhone());
 //		System.out.println(rest.getRestIntro());
 //		System.out.println(rest.getRestKind());
@@ -333,6 +385,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //			System.out.println(restE.getRestNo());
 //			System.out.println(restE.getRestName());
 //			System.out.println(restE.getRestAdd());
+//			System.out.println(rest.getRestLocate());
 //			System.out.println(restE.getRestPhone());
 //			System.out.println(restE.getRestIntro());
 //			System.out.println(restE.getRestKind());

@@ -11,12 +11,20 @@
   </welcome-file-list>
   
   <servlet>
-  		<servlet-name>restMemberServlet</servlet-name>
-  		<servlet-class>com.restMember.controller.restMemberServlet</servlet-class>
+    <servlet-name>restMemberServlet</servlet-name>
+    <servlet-class>com.restMember.controller.restMemberServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  		<servlet-name>restMemberServlet</servlet-name>
-  		<url-pattern>/restMember/restMemberController</url-pattern>
+    <servlet-name>restMemberServlet</servlet-name>
+    <url-pattern>/restMember/restMemberController</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>restaurantServlet</servlet-name>
+  	<servlet-class>com.restaurant.controller.restaurantServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>restaurantServlet</servlet-name>
+  	<url-pattern>/restaurant/restaurantController</url-pattern>
+  </servlet-mapping>
 </web-app>

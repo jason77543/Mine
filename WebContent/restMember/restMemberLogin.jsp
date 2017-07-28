@@ -51,7 +51,7 @@
 					<Img src="../img/1.jpg" height="250px" width="400px" />
 				</div>
 
-				<form class="" action="restMemberController"  method="post">
+				<form class="" action="<%=request.getContextPath()%>/restMember/restMemberController"  method="post">
 							<c:if test="${not empty errorMsgs}">
 								<ul>
 									<c:forEach var="message" items="${errorMsgs}">
@@ -109,8 +109,8 @@
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
 					<div>
-						<a href="findPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> <a href="restMemberList.jsp"
-							class="btn btn-link">µù¥U</a>
+						<a href="restMemberFindPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> 
+						<a href="restMemberList.jsp" class="btn btn-link">µù¥U</a>
 					</div>
 					
 				</form>

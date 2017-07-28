@@ -16,8 +16,11 @@ import com.restImg.model.RestImgJDBCDAO;
 		
 public class sssssssssss {
 		public static void main(String[] args) {
-
-
+			
+			
+			String ss = "abcdefgh";
+			String sss = ss.substring(0, 2);
+			System.out.println(sss);
 			// 餐廳會員照片修改
 //			int i = 7001;
 //		    for (File file : new File("WebContent/DummyImg/restImg").listFiles()) { 
@@ -64,20 +67,22 @@ public class sssssssssss {
 //		    System.out.println("=============餐廳會員照片新增完畢================");
 
 		}	
+		
+		
 			
-			public static byte[] getPictureByteArray(File file) throws IOException {
-				FileInputStream fis = new FileInputStream(file);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				byte[] buffer = new byte[8192];
-				int i;
-				while ((i = fis.read(buffer)) != -1) {
-					baos.write(buffer, 0, i);
-				}
-				baos.close();
-				fis.close();
-
-				return baos.toByteArray();
-			}
+//			public static byte[] getPictureByteArray(File file) throws IOException {
+//				FileInputStream fis = new FileInputStream(file);
+//				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//				byte[] buffer = new byte[8192];
+//				int i;
+//				while ((i = fis.read(buffer)) != -1) {
+//					baos.write(buffer, 0, i);
+//				}
+//				baos.close();
+//				fis.close();
+//
+//				return baos.toByteArray();
+//			}
 			
 		
 

@@ -1,3 +1,4 @@
+<%@page import="com.restaurant.model.Restaurant"%>
 <%@page import="com.restMember.model.RestMember"%>
 <%@page import="com.restMember.model.RestMemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
@@ -6,6 +7,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
 	RestMember restMember = (RestMember)request.getAttribute("restMember");
+	Restaurant restaurant = (Restaurant)session.getAttribute("restaurant");
 %>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <!DOCTYPE html>
@@ -35,26 +37,34 @@
 
 </head>
 <body>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-6 col-sm-offset-3">
-				
-				<h1 class="text-center">餐廳會員註冊</h1>
+	<%@ include file="restMemberNavBar.file" %>
+	
+	
+	<div class="container-fluid">
+        <div class="row"> 
+        	<%@ include file="restMemberList.file" %>
+        <div class="col-xs-12 col-sm-8">       
+   
+    <div class="panel-group col-sm-offset-2 col-sm-8">
+    
+    
+	<h5 class=" page-header text-right">目前位置:餐廳會員首頁</h5>
+	
+		<h1 class="text-center">餐廳資料設定</h1>
 
 				<div class="form-horizontal">
-				<c:if test="${not empty hasAUser}">
-					${hasAUser}
-				</c:if>
-					<form method="post" action="<%=request.getContextPath()%>/restMember/restMemberController">
-							
-							<input type="hidden" name="restNo" value="${param.restNo}">
+				
+					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController">
+							<c:if test="${not empty updateError}">
+								${updateError}
+							</c:if>
+							<input type="hidden" name="restNo" value="<%=restaurant.getRestNo() %>">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									餐廳名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restName" class="form-control" value="${param.restName}" readonly>
+									<input type="text" name="restName" class="form-control" value="<%=restaurant.getRestName() %>">
 									
 								</div>
 							</div>
@@ -64,7 +74,7 @@
 									餐廳地址
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restAdd" class="form-control" value="${param.restAdd}" readonly>
+									<input type="text" name="restAdd" class="form-control" value="<%=restaurant.getRestAdd() %>" >
 
 								</div>
 							</div>
@@ -74,7 +84,7 @@
 									餐廳電話
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restPhone" class="form-control" value="${param.restPhone}" readonly>
+									<input type="text" name="restPhone" class="form-control" value="<%=restaurant.getRestPhone() %>" >
 									
 								</div>
 							</div>
@@ -84,7 +94,7 @@
 									餐廳介紹
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restIntro" class="form-control" value="${param.restIntro}" readonly>
+									<input type="text" name="restIntro" class="form-control" value="<%=restaurant.getRestIntro() %>" >
 									
 								</div>
 							</div>
@@ -94,53 +104,30 @@
 									餐廳種類
 								</label>
 								<div class="col-sm-9">
-									<c:if test="${restaurant.restKind=='0'}">
-										<input type="text" name="restKind" class="form-control" value="0" readonly>狗餐廳
-									</c:if>
-									<c:if test="${restaurant.restKind=='1'}">
-										<input type="text" name="restKind" class="form-control" value="1" readonly>貓餐廳
-									</c:if>
-									<c:if test="${restaurant.restKind=='2'}">
-										<input type="text" name="restKind" class="form-control" value="2" readonly>其他餐廳
-									</c:if>
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									餐廳會員帳號
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="restMemId" class="form-control" value="<%=(restMember==null)?"":restMember.getRestMemId()%>">
-								</div>
-							</div>
-							
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									餐廳會員密碼
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="restMemPsw" class="form-control" value="<%=(restMember==null)?"":restMember.getRestMemPsw()%>">
+									
+									<select name="restKind">
+									  <option value="0">貓餐廳</option>
+									  <option value="1">狗餐廳</option>
+									  <option value="2">其他餐廳</option>
+									</select>
 									
 								</div>
 							</div>
-							<input type="hidden" name="action" value="register">
+							
+							
+							<input type="hidden" name="action" value="updateRestMemData">
 							<input class="btn btn-primary btn-lg btn-block login-button login"
-								type="submit" value="註冊此帳號">
-							<div>
-								<a href="restMemberLogin.jsp" class="btn btn-link">回登入頁面</a> 
-								<a href="restMemberList.jsp" class="btn btn-link">回註冊首頁</a>
-							</div>	
+								type="submit" value="確認更改">
+									
 								
-						</form>			
+						</form>	
+								
 					</div>	
-						
-						
-					
-			</div>
-		</div>
+				</div>
+			</div>	
+		</div>	
 	</div>
-
+		
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

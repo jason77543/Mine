@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import com.restMember.model.RestMember;
 import com.restMember.model.RestMemberService;
@@ -36,6 +34,7 @@ public class restMemberServlet extends HttpServlet {
 	protected RestMember allowUser(String restMemId,String restMemPsw){
 		RestMemberService restMemberService = new RestMemberService();
 		RestMember restMember = restMemberService.getOneRestMember(restMemId);
+		
 		if(restMember==null){
 			return null;
 		} else if(!restMember.getRestMemPsw().equals(restMemPsw)){
@@ -44,6 +43,9 @@ public class restMemberServlet extends HttpServlet {
 			return restMember;
 		}
 	}
+	
+	
+	
 	 
 	protected Restaurant restUser(RestMember restMember){
 		RestaurantService restaurantService = new RestaurantService();
@@ -110,8 +112,12 @@ public class restMemberServlet extends HttpServlet {
 				///////////////////////////登入成功///////////////////////////////
 				
 				HttpSession session = req.getSession();
+				
+				// 取得餐廳會員的所有資料
 				RestMember restMember = allowUser(restMemId, restMemPsw);
 				Restaurant restaurant = restUser(restMember);
+				
+				
 				session.setAttribute("restMember", restMember);
 				session.setAttribute("restaurant", restaurant);
 				
@@ -148,9 +154,8 @@ public class restMemberServlet extends HttpServlet {
 			String restMemId = req.getParameter("restMemId");
 			String restMemPsw = req.getParameter("restMemPsw");
 			
-			int restNo =  Integer.parseInt(req.getParameter("restNo")) ;
 			
-			
+			Integer restNo = Integer.parseInt(req.getParameter("restNo").trim()) ;
 			
 			String restMemReg = "^[a-zA-Z0-9_]{2,10}$";
 			if(restMemId == null || (restMemId.trim()).length() == 0 ){
@@ -167,9 +172,7 @@ public class restMemberServlet extends HttpServlet {
 				hasAUser.add("餐廳會員密碼只能英文、數字和_，長度2到10");
 			}
 			
-			if(allowUser(restMemId, restMemPsw)!=null){
-				hasAUser.add("此帳號已經有人註冊嚕~");
-			}
+			
 			
 			
 			if(!hasAUser.isEmpty()){
@@ -179,8 +182,8 @@ public class restMemberServlet extends HttpServlet {
 			}
 			
 			////////////////////存取帳號////////////////////////////
-			RestMemberService restMemberService = new RestMemberService();
-			restMemberService.addRestMember(restMemId, restNo, restMemPsw);	
+			RestMemberService restMemberServicea = new RestMemberService();
+			restMemberServicea.addRestMember(restMemId, restNo, restMemPsw);	
 			
 			
 			////////////////////準備轉交////////////////////////////
@@ -204,6 +207,72 @@ public class restMemberServlet extends HttpServlet {
 		
 			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
 			requestDispatcher3.forward(req, res);
+		}
+		
+		
+		
+		
+		
+		///////////////////////改密碼////////////////////////////
+		else if("changeRestMemPsw".equals(action)){
+			
+			
+			List<String> changePswError = new ArrayList<>();
+			req.setAttribute("changePswError", changePswError);
+			
+			
+			///////////////////驗證帳號密碼//////////////////////
+			String restMemId = req.getParameter("restMemId");
+			
+			Integer restNo = Integer.parseInt(req.getParameter("restNo").trim());
+			
+			String restMemPsw = req.getParameter("restMemPsw");
+			String restMemOldPsw = req.getParameter("restMemOldPsw");
+			String restMemNewPsw = req.getParameter("restMemNewPsw");
+			
+			String restMemReg = "^[a-zA-Z0-9_]{2,10}$";
+			
+			if(restMemId == null || (restMemId.trim()).length() == 0 ){
+				changePswError.add("餐廳會員帳號不能空白");
+			} else if(!restMemId.trim().matches(restMemReg)){
+				changePswError.add("餐廳會員帳號只能英文、數字和_，長度2到10");
+			}
+			
+			if(restMemPsw == null || (restMemPsw.trim()).length() == 0 ){
+				changePswError.add("餐廳會員密碼不能空白");
+			}else if(!restMemPsw.trim().matches(restMemReg)){
+				changePswError.add("餐廳會員密碼只能英文、數字和_，長度2到10");
+			}
+			
+			if(!restMemNewPsw.equals(restMemPsw)){
+				changePswError.add("新密碼輸入不一致");
+			}
+			
+			if(allowUser(restMemId, restMemOldPsw)==null){
+				changePswError.add("原始密碼輸入錯誤");
+			}
+			
+			
+			if(!changePswError.isEmpty()){
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMemberChangePsw.jsp");
+				requestDispatcher.forward(req, res);
+				return;
+			}
+			
+			/////////////////////////更改密碼////////////////////////
+			RestMemberService restMemberService = new RestMemberService();
+			RestMember restMember = restMemberService.updateRestMember(restMemId, restNo, restMemPsw);
+			
+			HttpSession session = req.getSession();
+			
+			session.getAttribute("restMember");
+			session.removeAttribute("restMember");
+			session.setAttribute("restMember", restMember);	
+			
+			
+			//////////////////轉交//////////////////////////////////////////
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMember.jsp");
+			requestDispatcher.forward(req, res);
 		}
 		
 		

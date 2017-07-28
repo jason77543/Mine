@@ -1,14 +1,10 @@
-<%@page import="com.restaurant.model.Restaurant"%>
 <%@page import="com.restMember.model.RestMember"%>
 <%@page import="com.restMember.model.RestMemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-<%
-	RestMember restMember = (RestMember)request.getAttribute("restMember");
-	Restaurant restaurant = (Restaurant)session.getAttribute("restaurant");
-%>
+
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <!DOCTYPE html>
 <html lang="">
@@ -42,11 +38,13 @@
 		<div class="row">
 			<div class="col-sm-6 col-sm-offset-3">
 				
-				<h1 class="text-center">餐廳資料設定</h1>
+				<h1 class="text-center">新增推薦餐廳</h1>
 
 				<div class="form-horizontal">
-				
-					<form method="post" action="restMemberController">
+				<c:if test="${not empty newRestErr}">
+					${newRestErr}
+				</c:if>
+					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController">
 							
 							
 							<div class="form-group">
@@ -54,7 +52,7 @@
 									餐廳名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restName" class="form-control" value="<%=restaurant.getRestName() %>">
+									<input type="text" name="restName" class="form-control" value="" >
 									
 								</div>
 							</div>
@@ -64,7 +62,7 @@
 									餐廳地址
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restAdd" class="form-control" value="<%=restaurant.getRestAdd() %>" >
+									<input type="text" name="restAdd" class="form-control" value="" >
 
 								</div>
 							</div>
@@ -74,7 +72,7 @@
 									餐廳電話
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restPhone" class="form-control" value="<%=restaurant.getRestPhone() %>" >
+									<input type="text" name="restPhone" class="form-control" value="">
 									
 								</div>
 							</div>
@@ -84,7 +82,7 @@
 									餐廳介紹
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restIntro" class="form-control" value="<%=restaurant.getRestIntro() %>" >
+									<input type="text" name="restIntro" class="form-control" value="">
 									
 								</div>
 							</div>
@@ -94,33 +92,22 @@
 									餐廳種類
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restKind" class="form-control" value="<%=restaurant.getRestKind() %>" >
-									
+									<select name="restKind">
+									  <option value="0">貓餐廳</option>
+									  <option value="1">狗餐廳</option>
+									  <option value="2">其他餐廳</option>
+									</select>
 								</div>
 							</div>
 							
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									餐廳會員帳號
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="restMemId" class="form-control" value="${restMember.restMemId}">
-								</div>
-							</div>
 							
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									餐廳會員密碼
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="restMemPsw" class="form-control" value="${restMember.restMemPsw}">
-									
-								</div>
-							</div>
-							<input type="hidden" name="action" value="updateRestData">
+							<input type="hidden" name="action" value="newRestaurant">
 							<input class="btn btn-primary btn-lg btn-block login-button login"
-								type="submit" value="確認更改">
-								
+								type="submit" value="新增此餐廳">
+							<div>
+								<a href="restMemberLogin.jsp" class="btn btn-link">回登入頁面</a> 
+								<a href="restMemberList.jsp" class="btn btn-link">回註冊首頁</a>
+							</div>	
 								
 						</form>			
 					</div>	

@@ -9,13 +9,14 @@ public class RestaurantService {
 		restaurantDao = new RestaurantDAO();
 	}
 	
-	public Restaurant addRest(String restName, String restAdd, String restPhone, String restIntro,
+	public Restaurant addRest(String restName, String restAdd,String restLocate, String restPhone, String restIntro,
 			Integer restKind,  Integer restReviewStatus, Double restLongtitude, Double restLatitude){
 		
 		Restaurant rest = new Restaurant();
 		
 		rest.setRestName(restName);
 		rest.setRestAdd(restAdd);
+		rest.setRestLocate(restLocate);
 		rest.setRestPhone(restPhone);
 		rest.setRestIntro(restIntro);
 		rest.setRestKind(restKind);
@@ -27,8 +28,28 @@ public class RestaurantService {
 		return rest;
 	}
 	
-	public Restaurant updateRest(Integer restNo, String restName, String restAdd, String restPhone, String restIntro,
+	public Restaurant updateRestForManager(Integer restNo, String restName, String restAdd,String restLocate, String restPhone, String restIntro,
 			Integer restKind,  Integer restReviewStatus, Double restLongtitude, Double restLatitude){
+		
+		Restaurant rest = new Restaurant();
+		
+		rest.setRestNo(restNo);
+		rest.setRestName(restName);
+		rest.setRestAdd(restAdd);
+		rest.setRestLocate(restLocate);
+		rest.setRestPhone(restPhone);
+		rest.setRestIntro(restIntro);
+		rest.setRestKind(restKind);
+		rest.setRestReviewStatus(restReviewStatus);
+		rest.setRestLongtitude(restLongtitude);
+		rest.setRestLatitude(restLatitude);
+		restaurantDao.updateRestForManager(rest);
+		
+		return rest;
+	}
+	
+	public Restaurant updateRestForRestMember(Integer restNo,String restName, String restAdd, String restPhone, String restIntro,
+			Integer restKind){
 		
 		Restaurant rest = new Restaurant();
 		
@@ -38,10 +59,8 @@ public class RestaurantService {
 		rest.setRestPhone(restPhone);
 		rest.setRestIntro(restIntro);
 		rest.setRestKind(restKind);
-		rest.setRestReviewStatus(restReviewStatus);
-		rest.setRestLongtitude(restLongtitude);
-		rest.setRestLatitude(restLatitude);
-		restaurantDao.update(rest);
+		
+		restaurantDao.updateRestForRestMember(rest);
 		
 		return rest;
 	}
