@@ -95,10 +95,12 @@
 								</label>
 								<div class="col-sm-9">
 									<c:if test="${param.restKind=='0'}">
-										<input type="text" name="restKind" class="form-control" value="0" readonly>ª¯À\ÆU
+										<input type="hidden" name="restKind"  value="0" >
+										<input type="text" value="ª¯À\ÆU" class="form-control" readonly>
 									</c:if>
 									<c:if test="${param.restKind=='1'}">
-										<input type="text" name="restKind" class="form-control" value="1" readonly>¿ßÀ\ÆU
+										<input type="hidden" name="restKind"  value="1" >
+										<input type="text" value="¿ßÀ\ÆU" class="form-control" readonly>
 									</c:if>
 									<c:if test="${param.restKind=='2'}">
 										<input type="hidden" name="restKind"  value="2" >
@@ -129,8 +131,8 @@
 							<input class="btn btn-primary btn-lg btn-block login-button login"
 								type="submit" value="µù¥U¦¹±b¸¹">
 							<div>
-								<a href="restMemberLogin.jsp" class="btn btn-link">¦^µn¤J­¶­±</a> 
-								<a href="restMemberList.jsp" class="btn btn-link">¦^µù¥U­º­¶</a>
+								<a href="<%=request.getContextPath() %>/restMember/restMemberLogin.jsp" class="btn btn-link">¦^µn¤J­¶­±</a> 
+								<a href="<%=request.getContextPath() %>/restMember/restMemberList.jsp" class="btn btn-link">¦^µù¥U­º­¶</a>
 							</div>	
 								
 						</form>			

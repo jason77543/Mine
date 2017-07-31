@@ -1,0 +1,185 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="sun.java2d.pipe.SpanShapeRenderer.Simple"%>
+<%@page import="com.activity.model.Activity"%>
+<%@page import="com.restaurant.model.Restaurant"%>
+<%@page import="com.restMember.model.RestMember"%>
+<%@page import="com.restMember.model.RestMemberService"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%
+	RestMember restMember = (RestMember)session.getAttribute("restMember");
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
+	String actDateMin  = simpleDateFormat.format(new Date());
+	String actDateMax  = simpleDateFormat.format(new Date((new Date()).getTime() + (long)30 * 24 * 60 * 60 * 1000));
+	String actFDateMin = simpleDateFormat.format(new Date((new Date()).getTime() + (long)7 * 24 * 60 * 60 * 1000));
+	String actFDateMax = simpleDateFormat.format(new Date((new Date()).getTime() + (long)21 * 24 * 60 * 60 * 1000));
+%>
+
+
+<%-- 此頁採用 JSTL 與 EL 取值 --%>
+<!DOCTYPE html>
+<html lang="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Title Page</title>
+<style type="text/css">
+.aa {
+	margin-top: 20px;
+}
+
+
+
+
+</style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--[if lt IE 9]>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+
+</head>
+<body>
+	<%@ include file="/files/restMemberNavBar.file" %>
+	
+	
+	<div class="container-fluid">
+        <div class="row"> 
+        	<%@ include file="/files/restMemberList.file" %>
+        <div class="col-xs-12 col-sm-8">       
+   
+    <div class="panel-group col-sm-offset-2 col-sm-8">
+    
+    
+	<h5 class=" page-header text-right">目前位置:新增餐廳活動</h5>
+	
+		<h1 class="text-center">新增餐廳活動</h1>
+
+				<div class="form-horizontal">
+				
+					<form method="post" action="<%=request.getContextPath()%>/activity/activityController">
+							<c:if test="${not empty activityError}">
+								${activityError}
+							</c:if>
+							
+							<input type="hidden" name="restMemId" value="${restMember.restMemId}">
+							<input type="hidden" name="restStatus" value="0">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									活動名稱
+								</label>
+								<div class="col-sm-9">
+									<input type="text" name="actName" class="form-control" value="">
+									
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									活動內容
+								</label>
+								<div class="col-sm-9">
+									<textarea name="actContent" rows="3" cols="54"></textarea>
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									活動日期
+								</label>
+								<div class="col-sm-9">
+									<input type="date" name="actDate" class="form-control" value="" 
+											min="<%=actDateMin %>" max="<%=actDateMax %>">	
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									活動截止日期	
+								</label>
+								<div class="col-sm-9">
+									<input type="date" name="actFDate" class="form-control" value="" 
+											min="<%=actFDateMin %>" max="<%=actFDateMax %>">
+									
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									人數上限
+								</label>
+								<div class="col-sm-9">
+									<input type="text" name="actULimit" class="form-control" value="" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									人數下限
+								</label>
+								<div class="col-sm-9">
+									<input type="text" name="actLLimit" class="form-control" value="" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									種類限制
+								</label>
+								<div class="col-sm-9">
+								
+								
+									<select name="actKind" onchange="document.getElementById('anotherKind').style.display = '' ;" >    
+									  <option value="0" >貓</option>
+									  <option value="1" >狗</option>
+									  <option value="2" style="display:'' ">其他</option>
+									</select>
+								</div>
+							</div>
+							
+							
+							<div class="form-group" id="anotherKind" style="display:none">
+								<label class="col-sm-3 control-label">
+									其他寵物種類
+								</label>
+								<div class="col-sm-9">
+									<input type="text" name="actAnotherKind" class="form-control" value="" >
+								</div>
+							</div>
+							
+								
+							
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									發起活動相片
+								</label>
+								<div class="col-sm-9">
+									<input type="file" name="actInitImg" class="form-control" value="" >
+								</div>
+							</div>
+							
+							<input type="hidden" name="action" value="">
+							<input class="btn btn-primary btn-lg btn-block login-button login"
+								type="submit" value="確認發起">
+									
+								
+						</form>	
+								
+					</div>	
+				</div>
+			</div>	
+		</div>	
+	</div>
+		
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

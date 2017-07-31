@@ -49,7 +49,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			pstmt.setInt(1, rest.getRestNo());
 			pstmt.setString(2, rest.getRestName());
 			pstmt.setString(3, rest.getRestAdd());
-			pstmt.setString(4, rest.getRestLocate());
+			pstmt.setString(4, rest.getRestAdd().substring(0,2)+"¿¤");
 			pstmt.setString(5, rest.getRestPhone());
 			pstmt.setString(6, rest.getRestIntro());
 			pstmt.setInt(7, rest.getRestKind());
@@ -95,7 +95,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			
 			pstmt.setString(1, rest.getRestName());
 			pstmt.setString(2, rest.getRestAdd());
-			pstmt.setString(3, rest.getRestLocate());
+			pstmt.setString(3, rest.getRestAdd().substring(0,2)+"¿¤");
 			pstmt.setString(4, rest.getRestPhone());
 			pstmt.setString(5, rest.getRestIntro());
 			pstmt.setInt(6, rest.getRestKind());
@@ -130,49 +130,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 		}
 	}
 	
-	@Override
-	public void updateRestForRestMember(Restaurant rest) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			
-			Class.forName(driver);
-			conn = DriverManager.getConnection(url, userid, passwd);
-			pstmt = conn.prepareStatement(UPDATE_REST_MEMBER);
-			
-			pstmt.setString(1, rest.getRestName());
-			pstmt.setString(2, rest.getRestAdd());
-			pstmt.setString(3, rest.getRestPhone());
-			pstmt.setString(4, rest.getRestIntro());
-			pstmt.setInt(5, rest.getRestKind());
-			
-			
-			pstmt.setInt(6, rest.getRestNo());
-			
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			
-			if(pstmt!=null){
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(conn!=null){
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+	
 
 	@Override
 	public void delete(Integer restNo) {
@@ -227,6 +185,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 				rest.setRestNo(rs.getInt("RESTNO"));
 				rest.setRestName(rs.getString("RESTNAME"));
 				rest.setRestAdd(rs.getString("RESTADD"));
+				rest.setRestLocate(rs.getString("RESTLOCATE"));
 				rest.setRestPhone(rs.getString("RESTPHONE"));
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
@@ -284,6 +243,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 				rest.setRestNo(rs.getInt("RESTNO"));
 				rest.setRestName(rs.getString("RESTNAME"));
 				rest.setRestAdd(rs.getString("RESTADD"));
+				rest.setRestLocate(rs.getString("RESTLOCATE"));
 				rest.setRestPhone(rs.getString("RESTPHONE"));
 				rest.setRestIntro(rs.getString("RESTINTRO"));
 				rest.setRestKind(rs.getInt("RESTKIND"));
@@ -371,7 +331,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 		
 //		restJDBCDAO.delete(1);
 		
-//		rest = restJDBCDAO.findByPK(1);
+//		rest = restJDBCDAO.findByPK(7016);
 //		System.out.println(rest.getRestNo());
 //		System.out.println(rest.getRestName());
 //		System.out.println(rest.getRestAdd());

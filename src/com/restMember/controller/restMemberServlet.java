@@ -183,9 +183,9 @@ public class restMemberServlet extends HttpServlet {
 			
 			////////////////////存取帳號////////////////////////////
 			RestMemberService restMemberServicea = new RestMemberService();
-			restMemberServicea.addRestMember(restMemId, restNo, restMemPsw);	
+			RestMember restMember = restMemberServicea.addRestMember(restMemId, restNo, restMemPsw);	
 			
-			
+			req.setAttribute("restMember", restMember);
 			////////////////////準備轉交////////////////////////////
 			hasAUser.add("恭喜註冊成功");
 			

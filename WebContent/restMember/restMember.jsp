@@ -11,12 +11,12 @@
 </head>
 
 <body>
-    <%@ include file="restMemberNavBar.file" %>
+    <%@ include file="/files/restMemberNavBar.file" %>
 
 
     <div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="restMemberList.file" %>
+        	<%@ include file="/files/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">

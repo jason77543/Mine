@@ -9,7 +9,7 @@
    response.setDateHeader ("Expires", 0);
  --%>
 <% 
- RestMember restMember =(RestMember)request.getAttribute("restMember"); 
+ RestMember restMember =(RestMember)session.getAttribute("restMember"); 
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -109,8 +109,9 @@
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
 					<div>
-						<a href="restMemberFindPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> 
-						<a href="restMemberList.jsp" class="btn btn-link">µù¥U</a>
+						<a href="<%=request.getContextPath()%>/restMember/restMemberFindPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> 
+						
+						<a href="<%=request.getContextPath()%>/restMember/restMemberList.jsp" class="btn btn-link">µù¥U</a>
 					</div>
 					
 				</form>

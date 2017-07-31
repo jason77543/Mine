@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
-	RestMember restMember = (RestMember)request.getAttribute("restMember");
+	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Restaurant restaurant = (Restaurant)session.getAttribute("restaurant");
 %>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
@@ -37,20 +37,20 @@
 
 </head>
 <body>
-	<%@ include file="restMemberNavBar.file" %>
+	<%@ include file="/files/restMemberNavBar.file" %>
 	
 	
 	<div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="restMemberList.file" %>
+        	<%@ include file="/files/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">
     
     
-	<h5 class=" page-header text-right">目前位置:餐廳會員首頁</h5>
+	<h5 class=" page-header text-right">目前位置:變更密碼</h5>
 	
-		<h1 class="text-center">餐廳資料設定</h1>
+		<h1 class="text-center">變更密碼</h1>
 
 				<div class="form-horizontal">
 				

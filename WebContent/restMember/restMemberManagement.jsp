@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
-	RestMember restMember = (RestMember)request.getAttribute("restMember");
+	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Restaurant restaurant = (Restaurant)session.getAttribute("restaurant");
 %>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
@@ -37,18 +37,18 @@
 
 </head>
 <body>
-	<%@ include file="restMemberNavBar.file" %>
+	<%@ include file="/files/restMemberNavBar.file" %>
 	
 	
 	<div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="restMemberList.file" %>
+        	<%@ include file="/files/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">
     
     
-	<h5 class=" page-header text-right">目前位置:餐廳會員首頁</h5>
+	<h5 class=" page-header text-right">目前位置:餐廳資料設定</h5>
 	
 		<h1 class="text-center">餐廳資料設定</h1>
 
@@ -58,7 +58,13 @@
 							<c:if test="${not empty updateError}">
 								${updateError}
 							</c:if>
+							
 							<input type="hidden" name="restNo" value="<%=restaurant.getRestNo() %>">
+							<input type="hidden" name="restReviewStatus" value="<%=restaurant.getRestReviewStatus() %>">
+							<input type="hidden" name="restLongtitude" class="form-control" value="<%=restaurant.getRestLongtitude() %>" >
+							<input type="hidden" name="restLatitude" class="form-control" value="<%=restaurant.getRestLatitude() %>" >
+							<input type="hidden" name="restLocate" class="form-control" value="<%=restaurant.getRestLocate() %>" >
+							
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									餐廳名稱
@@ -106,10 +112,12 @@
 								<div class="col-sm-9">
 									
 									<select name="restKind">
-									  <option value="0">貓餐廳</option>
-									  <option value="1">狗餐廳</option>
-									  <option value="2">其他餐廳</option>
+									  <option value="0" ${(restaurant.restKind=="0")?'selected':''}>貓餐廳</option>
+									  <option value="1" ${(restaurant.restKind=="1")?'selected':''}>狗餐廳</option>
+									  <option value="2" ${(restaurant.restKind=="2")?'selected':''}>其他餐廳</option>
 									</select>
+ 									
+									
 									
 								</div>
 							</div>

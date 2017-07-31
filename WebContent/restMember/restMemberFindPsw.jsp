@@ -38,7 +38,7 @@
 
 				<div class="form-horizontal">
 				
-					<form method="post" action="restMemberController">
+					<form method="post" action="<%=request.getContextPath() %>/restMember/restMemberController">
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
@@ -65,7 +65,7 @@
 								type="submit" value="寄送密碼">
 								
 							<div>
-								<a href="restMemberLogin.jsp" class="btn btn-link cc">回登入頁面</a> 
+								<a href="<%=request.getContextPath() %>/restMember/restMemberLogin.jsp" class="btn btn-link cc">回登入頁面</a> 
 						
 							</div>	
 						</form>	

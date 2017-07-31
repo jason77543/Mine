@@ -20,7 +20,7 @@
 						
                         <a href="#" class="list-group-item">管理我的活動</a>
 
-                        <a href="#" class="list-group-item">發起活動</a>
+                        <a href="<%=request.getContextPath()%>/activity/newActivity.jsp" class="list-group-item">發起活動</a>
                         
                         <a href="<%=request.getContextPath()%>/restMember/restMemberManagement.jsp" class="list-group-item">管理餐廳資料</a>
                         

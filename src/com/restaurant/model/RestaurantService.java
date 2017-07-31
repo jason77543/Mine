@@ -48,22 +48,7 @@ public class RestaurantService {
 		return rest;
 	}
 	
-	public Restaurant updateRestForRestMember(Integer restNo,String restName, String restAdd, String restPhone, String restIntro,
-			Integer restKind){
-		
-		Restaurant rest = new Restaurant();
-		
-		rest.setRestNo(restNo);
-		rest.setRestName(restName);
-		rest.setRestAdd(restAdd);
-		rest.setRestPhone(restPhone);
-		rest.setRestIntro(restIntro);
-		rest.setRestKind(restKind);
-		
-		restaurantDao.updateRestForRestMember(rest);
-		
-		return rest;
-	}
+	
 	
 	public void deleteRest(Integer restNo){
 		restaurantDao.delete(restNo);

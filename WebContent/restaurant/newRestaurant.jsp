@@ -1,3 +1,4 @@
+<%@page import="com.restaurant.model.Restaurant"%>
 <%@page import="com.restMember.model.RestMember"%>
 <%@page import="com.restMember.model.RestMemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
@@ -46,6 +47,7 @@
 				</c:if>
 					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController">
 							
+							<input type="hidden" name="restReviewStatus" class="form-control" value="" >
 							
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
@@ -105,8 +107,8 @@
 							<input class="btn btn-primary btn-lg btn-block login-button login"
 								type="submit" value="新增此餐廳">
 							<div>
-								<a href="restMemberLogin.jsp" class="btn btn-link">回登入頁面</a> 
-								<a href="restMemberList.jsp" class="btn btn-link">回註冊首頁</a>
+								<a href="<%=request.getContextPath() %>/restMember/restMemberLogin.jsp" class="btn btn-link">回登入頁面</a> 
+								<a href="<%=request.getContextPath() %>/restMember/restMemberList.jsp" class="btn btn-link">回註冊首頁</a>
 							</div>	
 								
 						</form>			

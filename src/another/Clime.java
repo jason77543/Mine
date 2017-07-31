@@ -138,14 +138,14 @@ System.out.println("¼g¤J§¹²¦");
 			for (int k = 0; k < 77; k++) {
 				pstmt = conn.prepareStatement(INSERT_REST);
 				int kindOfPet = (int) (Math.random() * 3);
-				int restReviewStatus = (int) (Math.random() * 3);
+				
 				pstmt.setString(1,restNameList.next());
 				pstmt.setString(2,restAddList.next());
 				pstmt.setString(3, restAddListForSubString.next().substring(0,2) +"¿¤");
 				pstmt.setString(4,restPhoneList.next());
 				pstmt.setString(5, "petRestaurantIntro"+k);
 				pstmt.setInt(6, kindOfPet);
-				pstmt.setInt(7, restReviewStatus);
+				pstmt.setInt(7, 0);
 				pstmt.setDouble(8, lngList.next());
 				pstmt.setDouble(9, latList.next());
 				pstmt.executeUpdate();
