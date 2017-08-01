@@ -19,12 +19,26 @@
     <url-pattern>/restMember/restMemberController</url-pattern>
   </servlet-mapping>
   
+  
   <servlet>
-  	<servlet-name>restaurantServlet</servlet-name>
-  	<servlet-class>com.restaurant.controller.restaurantServlet</servlet-class>
+    <servlet-name>restaurantServlet</servlet-name>
+    <servlet-class>com.restaurant.controller.restaurantServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>restaurantServlet</servlet-name>
-  	<url-pattern>/restaurant/restaurantController</url-pattern>
+    <servlet-name>restaurantServlet</servlet-name>
+    <url-pattern>/restaurant/restaurantController</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+  	<servlet-name>activityServlet</servlet-name>
+  	<servlet-class>com.activity.controller.activityServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>activityServlet</servlet-name>
+  	<url-pattern>/activity/activityController</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>

@@ -48,7 +48,7 @@
 </head>
 <body>
 	<%@ include file="/files/restMemberNavBar.file" %>
-	
+	<%@ include file="/files/activity.file" %>
 	
 	<div class="container-fluid">
         <div class="row"> 
@@ -70,7 +70,7 @@
 							</c:if>
 							
 							<input type="hidden" name="restMemId" value="${restMember.restMemId}">
-							<input type="hidden" name="restStatus" value="0">
+							<input type="hidden" name="actStatus" value="0">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									活動名稱
@@ -103,7 +103,7 @@
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
-									活動截止日期	
+									報名截止日期	
 								</label>
 								<div class="col-sm-9">
 									<input type="date" name="actFDate" class="form-control" value="" 
@@ -132,19 +132,16 @@
 								<label class="col-sm-3 control-label">
 									種類限制
 								</label>
-								<div class="col-sm-9">
-								
-								
-									<select name="actKind" onchange="document.getElementById('anotherKind').style.display = '' ;" >    
+								<div  class="col-sm-9">
+									<select id="test" name="actKind" >    
 									  <option value="0" >貓</option>
 									  <option value="1" >狗</option>
-									  <option value="2" style="display:'' ">其他</option>
+									  <option value="2" >其他</option>
 									</select>
 								</div>
 							</div>
 							
-							
-							<div class="form-group" id="anotherKind" style="display:none">
+							<div class="form-group" id="aKind" style='display:none'>
 								<label class="col-sm-3 control-label">
 									其他寵物種類
 								</label>
@@ -161,11 +158,12 @@
 									發起活動相片
 								</label>
 								<div class="col-sm-9">
-									<input type="file" name="actInitImg" class="form-control" value="" >
+									<input type="file" name="actInitImg" class="form-control" value="" onchange="openFile(event)">
+									<img id="outputIMG" height=40% width=40%>
 								</div>
 							</div>
 							
-							<input type="hidden" name="action" value="">
+							<input type="hidden" name="action" value="newActivity">
 							<input class="btn btn-primary btn-lg btn-block login-button login"
 								type="submit" value="確認發起">
 									
