@@ -40,7 +40,7 @@
 	                <div class="nav collapse navbar-collapse navbar-right" id="login">  
 		                <p class="logout">
 		                    ${restMember.restMemId}   你好      	
-			                <a href="restMemberController?action=logout" >餐廳會員登出</a>
+			                <a href="<%=request.getContextPath()%>/restMember/restMemberController?action=logout" >餐廳會員登出</a>
 			            </p>
 		           </div>
                 

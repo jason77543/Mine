@@ -6,15 +6,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import com.activity.model.ActivityService;
 
 
 @WebServlet("/activityServlet")
+@MultipartConfig
 public class activityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -126,20 +128,32 @@ public class activityServlet extends HttpServlet {
 				activityError.add("請輸入截止日期");
 			}
 			
+			if(!actDate.after(actFDate) || actDate.equals(actFDate)){
+				activityError.add("截止日期不能超過活動日期或是同一天");
+			}
+			
+			
+			
 			Integer actULimit = null;
 			try {
 				actULimit = Integer.parseInt(req.getParameter("actULimit").trim());
+				if(actULimit<0){
+					activityError.add("請輸入正確上限人數");
+				}
 			} catch (Exception e) {
 				actULimit = 0 ;
-				activityError.add("請輸入正確人數");
+				activityError.add("請輸入正確上限人數");
 			}
 			
 			Integer actLLimit = null;
 			try {
 				actLLimit = Integer.parseInt(req.getParameter("actLLimit").trim());
+				if(actLLimit<0){
+					activityError.add("請輸入正確下限人數");
+				}
 			} catch (Exception e) {
 				actLLimit = 0 ;
-				activityError.add("請輸入正確人數");
+				activityError.add("請輸入正確下限人數");
 			}
 			
 			if(actLLimit>actULimit){
@@ -155,19 +169,26 @@ public class activityServlet extends HttpServlet {
 			
 			String actAnotherKind = req.getParameter("actAnotherKind");
 			
+			
 			byte[] actInitImg =null;
 			Collection<Part> parts = req.getParts();
+			System.out.println(parts);
 			try {
 				for(Part part :parts){
-					if(getFileNameFromPart(part)==null || part.getContentType().startsWith("image")){
+					if(part.getName().equals("actInitImg") && getFileNameFromPart(part) != null
+							&& part.getContentType().startsWith("image")){
+						
 						actInitImg = getPictureByteArray(part.getInputStream());
-						System.out.println("000000");
 					}
 				}
 			} catch (Exception e) {
 				activityError.add("照片錯誤");
 			}
-				
+			
+			System.out.println(actInitImg);
+			
+			
+			
 			
 			if(!activityError.isEmpty()){
 				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/activity/newActivity.jsp");

@@ -60,6 +60,10 @@ public class ActivityService {
 	public List<Activity> getAll(){
 		return activityDao.getAll();
 	}
+	
+	public List<Activity> getAllById(String restMemId){
+		return activityDao.getAllById(restMemId);
+	}
 }
 
 

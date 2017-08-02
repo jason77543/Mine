@@ -1,4 +1,12 @@
 package another;
+import java.awt.Button;
+import java.awt.Event.*;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,14 +21,53 @@ import com.restImg.model.RestImg;
 import com.restImg.model.RestImgDAO;
 import com.restImg.model.RestImgJDBCDAO;
 
+import javafx.scene.control.DialogEvent;
+
 		
 public class sssssssssss {
+	private static Dialog d;
 		public static void main(String[] args) {
 			
+			Frame window = new Frame();
+
+			// Create a modal dialog
+			d = new Dialog(window, "Alert", true);
+
+			// Use a flow layout
+			d.setLayout( new FlowLayout() );
+
+			// Create an OK button
+			Button ok = new Button ("OK");
+			ok.addActionListener ( new ActionListener()
+			{
+				public void actionPerformed( ActionEvent e )
+				{
+					// Hide dialog
+					sssssssssss.d.setVisible(false);
+				}
+			});
 			
-			String ss = "abcdefgh";
-			String sss = ss.substring(0, 2);
-			System.out.println(sss);
+			ok.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+
+			d.add( new Label ("Click OK to continue"));
+			d.add( ok );
+
+			// Show dialog
+			d.pack();
+			d.setVisible(true);
+			System.exit(0);
+			
+			
+//			String ss = "abcdefgh";
+//			String sss = ss.substring(0, 2);
+//			System.out.println(sss);
 			// 餐廳會員照片修改
 //			int i = 7001;
 //		    for (File file : new File("WebContent/DummyImg/restImg").listFiles()) { 

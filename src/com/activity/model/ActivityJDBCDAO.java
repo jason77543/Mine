@@ -30,6 +30,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 	private static final String DELETE_ACTIVITY = "DELETE FROM ACTIVITY WHERE ACTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM ACTIVITY WHERE ACTNO=?";
 	private static final String GET_ALL = "SELECT * FROM ACTIVITY";
+	private static final String GET_ALL_FK = "SELECT * FROM ACTIVITY WHERE RESTMEMID=?";
 	
 	@Override
 	public void add(Activity activity) {
@@ -318,19 +319,19 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 		ActivityJDBCDAO activityJDBCDAO = new ActivityJDBCDAO();
 		Activity activity = new Activity();
 		
-		activity.setRestMemId("qq");
-		activity.setActName("餐廳名稱2");
-		activity.setActContent("餐廳內容2");
-		activity.setActDate(java.sql.Date.valueOf("2017-07-17"));
-		activity.setActFDate(java.sql.Date.valueOf("2017-07-24"));
-		activity.setActStatus(1);
-		activity.setActULimit(new Integer(100));
-		activity.setActLLimit(new Integer(10));
-		activity.setActKind(0);
-		activity.setActAnotherKind("");
-		byte[] actInitImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\1.jpg");
-		activity.setActInitImg(actInitImg);
-		activityJDBCDAO.add(activity);
+//		activity.setRestMemId("qq");
+//		activity.setActName("餐廳名稱2");
+//		activity.setActContent("餐廳內容2");
+//		activity.setActDate(java.sql.Date.valueOf("2017-07-17"));
+//		activity.setActFDate(java.sql.Date.valueOf("2017-07-24"));
+//		activity.setActStatus(1);
+//		activity.setActULimit(new Integer(100));
+//		activity.setActLLimit(new Integer(10));
+//		activity.setActKind(0);
+//		activity.setActAnotherKind("");
+//		byte[] actInitImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\1.jpg");
+//		activity.setActInitImg(actInitImg);
+//		activityJDBCDAO.add(activity);
 		
 //		activity.setRestMemId("餐會帳號2");
 //		activity.setActName("餐廳名稱2");
@@ -361,7 +362,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 //		System.out.println(activity.getActKind());
 //		System.out.println(activity.getActAnotherKind());
 		
-//		List<Activity> activitityList = activityJDBCDAO.getAll();
+//		List<Activity> activitityList = activityJDBCDAO.getAll("qq");
 //		for(Activity activityListE : activitityList){
 //			System.out.println(activityListE.getActNo());
 //			System.out.println(activityListE.getRestMemId());
@@ -374,6 +375,69 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 //			System.out.println(activityListE.getActKind());
 //			System.out.println(activityListE.getActAnotherKind());
 //		}
+	}
+
+
+	@Override
+	public List<Activity> getAllById(String restMemId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Activity activity = null;
+		ResultSet rs = null;
+		List<Activity> activityList = new ArrayList<Activity>();
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = conn.prepareStatement(GET_ALL_FK);
+			pstmt.setString(1, restMemId);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				activity = new Activity();
+				activity.setActNo(rs.getInt("ACTNO"));
+				activity.setRestMemId(rs.getString("RESTMEMID"));
+				activity.setActName(rs.getString("ACTNAME"));
+				activity.setActContent(rs.getString("ACTCONTENT"));
+				activity.setActDate(rs.getDate("ACTDATE"));
+				activity.setActFDate(rs.getDate("ACTFDATE"));
+				activity.setActStatus(rs.getInt("ACTSTATUS"));
+				activity.setActULimit(rs.getInt("ACTULIMIT"));
+				activity.setActLLimit(rs.getInt("ACTLLIMIT"));
+				activity.setActKind(rs.getInt("ACTKIND"));
+				activity.setActAnotherKind(rs.getString("ACTANOTHERKIND"));
+				activity.setActInitImg(rs.getBytes("ACTINITIMG"));
+				activityList.add(activity);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return activityList;
 	}
 
 

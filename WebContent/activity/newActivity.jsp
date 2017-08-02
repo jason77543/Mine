@@ -11,11 +11,10 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <%
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
+	Activity activity = (Activity)request.getAttribute("activity");
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
 	String actDateMin  = simpleDateFormat.format(new Date());
-	String actDateMax  = simpleDateFormat.format(new Date((new Date()).getTime() + (long)30 * 24 * 60 * 60 * 1000));
-	String actFDateMin = simpleDateFormat.format(new Date((new Date()).getTime() + (long)7 * 24 * 60 * 60 * 1000));
-	String actFDateMax = simpleDateFormat.format(new Date((new Date()).getTime() + (long)21 * 24 * 60 * 60 * 1000));
+	
 %>
 
 
@@ -64,7 +63,7 @@
 
 				<div class="form-horizontal">
 				
-					<form method="post" action="<%=request.getContextPath()%>/activity/activityController">
+					<form method="post" action="<%=request.getContextPath()%>/activity/activityController" enctype="multipart/form-data">
 							<c:if test="${not empty activityError}">
 								${activityError}
 							</c:if>
@@ -76,7 +75,8 @@
 									活動名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="actName" class="form-control" value="">
+									<input type="text" name="actName" class="form-control" 
+									value="" placeholder="請輸入活動名稱" />
 									
 								</div>
 							</div>
@@ -86,7 +86,7 @@
 									活動內容
 								</label>
 								<div class="col-sm-9">
-									<textarea name="actContent" rows="3" cols="54"></textarea>
+									<textarea name="actContent" rows="3" cols="54" placeholder="請輸入活動內容"></textarea>
 
 								</div>
 							</div>
@@ -96,8 +96,8 @@
 									活動日期
 								</label>
 								<div class="col-sm-9">
-									<input type="date" name="actDate" class="form-control" value="" 
-											min="<%=actDateMin %>" max="<%=actDateMax %>">	
+									<input type="date" name="actDate" class="form-control" 
+									value="" min="<%=actDateMin %>" >	
 								</div>
 							</div>
 
@@ -107,7 +107,7 @@
 								</label>
 								<div class="col-sm-9">
 									<input type="date" name="actFDate" class="form-control" value="" 
-											min="<%=actFDateMin %>" max="<%=actFDateMax %>">
+											min="<%=actDateMin %>" ">
 									
 								</div>
 							</div>
@@ -117,7 +117,8 @@
 									人數上限
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="actULimit" class="form-control" value="" >
+									<input type="text" name="actULimit" class="form-control" 
+									value="" placeholder="請輸入人數上限">
 								</div>
 							</div>
 							<div class="form-group">
@@ -125,7 +126,8 @@
 									人數下限
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="actLLimit" class="form-control" value="" >
+									<input type="text" name="actLLimit" class="form-control" 
+									value="" placeholder="請輸入人數下限">
 								</div>
 							</div>
 							<div class="form-group">
@@ -146,7 +148,8 @@
 									其他寵物種類
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="actAnotherKind" class="form-control" value="" >
+									<input type="text" name="actAnotherKind" class="form-control" 
+									value="" placeholder="請輸入除了狗或貓以外的種類">
 								</div>
 							</div>
 							
@@ -158,8 +161,8 @@
 									發起活動相片
 								</label>
 								<div class="col-sm-9">
-									<input type="file" name="actInitImg" class="form-control" value="" onchange="openFile(event)">
-									<img id="outputIMG" height=40% width=40%>
+									<input type="file" name="actInitImg" class="form-control" onchange="openFile(event)">
+									<img id="outputIMG" height=70% width=70%>
 								</div>
 							</div>
 							

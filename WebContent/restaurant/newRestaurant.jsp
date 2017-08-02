@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-
+<%-- <% Restaurant restaurant = (Restaurant)request.getParameter("restaurant"); %> --%>
 <%-- 此頁採用 JSTL 與 EL 取值 --%>
 <!DOCTYPE html>
 <html lang="">
@@ -54,7 +54,8 @@
 									餐廳名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restName" class="form-control" value="" >
+									<input type="text" name="restName" class="form-control" 
+									value="" placeholder="請輸入餐廳名稱" >
 									
 								</div>
 							</div>
@@ -64,7 +65,8 @@
 									餐廳地址
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restAdd" class="form-control" value="" >
+									<input type="text" name="restAdd" class="form-control" 
+									value="" placeholder="請輸入餐廳地址">
 
 								</div>
 							</div>
@@ -74,7 +76,8 @@
 									餐廳電話
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restPhone" class="form-control" value="">
+									<input type="text" name="restPhone" class="form-control" 
+									value="" placeholder="請輸入餐廳電話">
 									
 								</div>
 							</div>
@@ -84,7 +87,8 @@
 									餐廳介紹
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="restIntro" class="form-control" value="">
+									<textarea rows="3" cols="54" name="restIntro" class="form-control" 
+									 placeholder="請輸入餐廳介紹" ></textarea>
 									
 								</div>
 							</div>
