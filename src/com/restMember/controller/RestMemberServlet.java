@@ -109,7 +109,7 @@ public class RestMemberServlet extends HttpServlet {
 			
 				if(!errorMsgs.isEmpty()){
 					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
-					requestDispatcher.forward(req, res);
+					requestDispatcher.forward(req, res) ;
 					return;
 				}
 				
