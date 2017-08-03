@@ -26,7 +26,7 @@ import com.restaurant.model.RestaurantService;
 
 
 
-@WebServlet("/restMemberServlet")
+@WebServlet("/RestMemberServlet")
 public class RestMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -70,7 +70,7 @@ public class RestMemberServlet extends HttpServlet {
 		
 		/////////////////////////////////登入/////////////////////////////
 		if("login".equals(action)){
-			
+			System.out.println("11");
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -78,7 +78,7 @@ public class RestMemberServlet extends HttpServlet {
 				///////////////////////////檢查////////////////////////////
 				String restMemId = req.getParameter("restMemId");
 				
-				RestMember restMember1 = (RestMember)req.getAttribute("restMember");
+				
 				
 				String restMemPsw = req.getParameter("restMemPsw");
 				
@@ -100,9 +100,31 @@ public class RestMemberServlet extends HttpServlet {
 				
 				if(allowUser(restMemId, restMemPsw)==null){
 					errorMsgs.put("","會員帳號、密碼錯誤");
+					
+					System.out.println("會員帳號、密碼錯誤");
 				}else{
 					HttpSession session = req.getSession();
+					
+					RestMember restMember = allowUser(restMemId, restMemPsw);
+					Restaurant restaurant = restUser(restMember);
 					session.setAttribute("restMember", restMember);
+					session.setAttribute("restaurant", restaurant);
+					session.setAttribute("restMemId", restMemId);
+					
+					
+					try {
+						String location = (String)session.getAttribute("location");
+							if(location!=null){
+								System.out.println("正確有來源");
+								session.removeAttribute("location");
+								res.sendRedirect(location);
+								return;
+							}
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMember.jsp");
+					requestDispatcher.forward(req, res);
 				}
 				
 				
@@ -115,18 +137,6 @@ public class RestMemberServlet extends HttpServlet {
 				
 				///////////////////////////登入成功///////////////////////////////
 				
-				HttpSession session = req.getSession();
-				
-				// 取得餐廳會員的所有資料
-				RestMember restMember = allowUser(restMemId, restMemPsw);
-				Restaurant restaurant = restUser(restMember);
-				
-				
-				session.setAttribute("restMember", restMember);
-				session.setAttribute("restaurant", restaurant);
-				
-				
-//				System.out.println(req.getRequestedSessionId());
 				
 				
 				

@@ -9,8 +9,9 @@
 <%
 	ActivityService activityService = new ActivityService();
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
+	Activity activity = (Activity)request.getAttribute("activity");
 	List<Activity> activitiyList = activityService.getAllById(restMember.getRestMemId());
-	System.out.print(restMember.getRestMemId());
+	
 	session.setAttribute("activitiyList", activitiyList);
 %>
 <!DOCTYPE html>
@@ -22,12 +23,14 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		
+	
 </head>
 
 <body>
 
     <%@ include file="/files/restMemberNavBar.file" %>
-
+	<%@ include file="/files/overflow.file" %>
 
     <div class="container-fluid">
         <div class="row"> 
@@ -49,12 +52,21 @@
 		       <div class="panel-heading">
 		         <h3 class="panel-title">¬¡°Ê¦WºÙ:${activity.actName}</h3>
 		       </div>
-		       <div class="col-xs-12 col-sm-4">
-					<img src="${activity.actInitImg}" class="img-responsive" >
-				</div>
-				<div class="col-xs-12 col-sm-8">
-						<p>${activity.actContent}</p>
-				</div>
+		       
+			       <div class="col-xs-12 col-sm-4">
+						<img src="<%=request.getContextPath() %>/activity/DBGifReader5?actNo=${activity.actNo}" class="img-responsive" >
+					</div>
+				
+					
+					
+					<div class="col-xs-12 col-sm-8 actarea">
+						<p class="overflow">${activity.actContent}</p>
+						
+					</div>
+					
+					
+					
+				
 		       <div class="row">
 					<div class="col-xs-12 col-sm-12">
 						<div class="panel-body text-right" >
@@ -82,6 +94,7 @@
   
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
 
 </html>

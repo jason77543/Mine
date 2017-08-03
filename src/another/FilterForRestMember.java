@@ -13,9 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.restMember.model.RestMember;
+
 public class FilterForRestMember implements Filter{
 
 	private FilterConfig filterConfig;
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.filterConfig = filterConfig;
+		
+	}
 	
 	@Override
 	public void destroy() {
@@ -31,17 +39,15 @@ public class FilterForRestMember implements Filter{
 		
 		HttpSession session = req.getSession();
 		
-		Object restMember = session.getAttribute("restMember");
-		if(restMember==null){
+		Object restMemId = session.getAttribute("restMemId");
+		if(restMemId==null){
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/restMember/restMemberLogin.jsp");
+			return;
+		}else{
+			chain.doFilter(request, response);
 		}
 	}
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		this.filterConfig = filterConfig;
-		
-	}
 
 }

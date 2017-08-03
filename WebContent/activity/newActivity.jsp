@@ -86,7 +86,7 @@
 									活動內容
 								</label>
 								<div class="col-sm-9">
-									<textarea name="actContent" rows="3" cols="54" placeholder="請輸入活動內容"></textarea>
+									<textarea name="actContent" rows="3" cols="54" placeholder="請輸入活動內容" wrap="hard"></textarea>
 
 								</div>
 							</div>

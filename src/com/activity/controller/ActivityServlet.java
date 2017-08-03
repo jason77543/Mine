@@ -26,7 +26,7 @@ import com.activity.model.Activity;
 import com.activity.model.ActivityService;
 
 
-@WebServlet("/activityServlet")
+@WebServlet("/ActivityServlet")
 @MultipartConfig
 public class ActivityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class ActivityServlet extends HttpServlet {
 			}
 			
 			String actName = req.getParameter("actName");
-			String meg = "^[\\w\u4E00-\u9FFF]{0,30}";
+			String meg = "^[a-zA-Z0-9_\u4E00-\u9FFF]{0,30}";
 			
 			if(actName==null || (actName.trim()).length()==0 ){
 				activityError.add("請輸入活動名稱");
@@ -103,14 +103,12 @@ public class ActivityServlet extends HttpServlet {
 			}
 			
 			String actContent = req.getParameter("actContent");
-			String meg1 = "^[\\w\u4E00-\u9FFF]{0,250}";
+			String meg1 = "^[a-zA-Z0-9_\u4E00-\u9FFF]";
 			
 			if(actContent==null||(actContent.trim()).length()==0){
 				activityError.add("請輸入活動內容");
 			}
-			else if(!actContent.trim().matches(meg1)){
-				activityError.add("請輸入中、英文、數字或是_，長度最大為250字");
-			}
+			
 			
 			java.sql.Date actDate = null;
 			try {
