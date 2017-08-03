@@ -27,7 +27,7 @@ import com.restaurant.model.RestaurantService;
 
 
 @WebServlet("/restaurantServlet")
-public class restaurantServlet extends HttpServlet {
+public class RestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -110,7 +110,7 @@ public class restaurantServlet extends HttpServlet {
 	}
 	
 	
-    public restaurantServlet() {
+    public RestaurantServlet() {
         super();
     }
 

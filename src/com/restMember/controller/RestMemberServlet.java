@@ -27,7 +27,7 @@ import com.restaurant.model.RestaurantService;
 
 
 @WebServlet("/restMemberServlet")
-public class restMemberServlet extends HttpServlet {
+public class RestMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
@@ -54,7 +54,7 @@ public class restMemberServlet extends HttpServlet {
 	}
 	
 	
-    public restMemberServlet() {
+    public RestMemberServlet() {
         super();
     }
 
@@ -78,7 +78,7 @@ public class restMemberServlet extends HttpServlet {
 				///////////////////////////檢查////////////////////////////
 				String restMemId = req.getParameter("restMemId");
 				
-				
+				RestMember restMember1 = (RestMember)req.getAttribute("restMember");
 				
 				String restMemPsw = req.getParameter("restMemPsw");
 				
@@ -100,7 +100,11 @@ public class restMemberServlet extends HttpServlet {
 				
 				if(allowUser(restMemId, restMemPsw)==null){
 					errorMsgs.put("","會員帳號、密碼錯誤");
+				}else{
+					HttpSession session = req.getSession();
+					session.setAttribute("restMember", restMember);
 				}
+				
 				
 			
 				if(!errorMsgs.isEmpty()){
@@ -124,16 +128,8 @@ public class restMemberServlet extends HttpServlet {
 				
 //				System.out.println(req.getRequestedSessionId());
 				
-				///////////////////////////為濾器準備//////////////////////////////
-//				String location = (String)session.getAttribute(req.getRequestURI());
-//				if(location != null){
-//					session.removeAttribute(location);
-//					res.sendRedirect(location);
-//					return;
-//				} else{
-//					res.sendRedirect(req.getContextPath()+"/restMember/restMemberLogin.jsp");
-//				}
-//				
+				
+				
 				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMember.jsp");
 				requestDispatcher.forward(req, res);
 				

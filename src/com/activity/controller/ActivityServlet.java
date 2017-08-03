@@ -28,7 +28,7 @@ import com.activity.model.ActivityService;
 
 @WebServlet("/activityServlet")
 @MultipartConfig
-public class activityServlet extends HttpServlet {
+public class ActivityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static byte[] getPictureByteArray(InputStream fis) throws IOException {
@@ -63,7 +63,7 @@ public class activityServlet extends HttpServlet {
        
     //Pattern.compile("[\\p{InCJKUnifiedIdeographs}]"); //只允許中文
 	//Pattern.compile("[^\\x00-\\x40\\x5B-\\x60\\x7B-\\x7F]"); //只允許英文字母以及中文
-    public activityServlet() {
+    public ActivityServlet() {
         super();
     }
 

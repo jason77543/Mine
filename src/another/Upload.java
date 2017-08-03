@@ -26,7 +26,7 @@ import javax.servlet.http.Part;
 
 @WebServlet("/upLoad1")
 @MultipartConfig(fileSizeThreshold=1024*1024,maxFileSize=5*1024*1024,maxRequestSize = 5*5*1024*1024)
-public class upLoad1 extends HttpServlet {
+public class Upload extends HttpServlet {
 	
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "anne";
@@ -38,7 +38,7 @@ public class upLoad1 extends HttpServlet {
 	PreparedStatement pstm ;
 	InputStream input;
 	
-    public upLoad1() {
+    public Upload() {
         super();
     }
     

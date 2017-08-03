@@ -11,7 +11,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class climeGoogle {
+public class ClimeGoogle {
 	
 	public List<Double> climeLat(String sKeyWord){
 		List<Double> lat = new ArrayList<>();

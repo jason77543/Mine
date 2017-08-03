@@ -7,7 +7,11 @@
 
 
 <%
-	
+	ActivityService activityService = new ActivityService();
+	RestMember restMember = (RestMember)session.getAttribute("restMember");
+	List<Activity> activitiyList = activityService.getAllById(restMember.getRestMemId());
+	System.out.print(restMember.getRestMemId());
+	session.setAttribute("activitiyList", activitiyList);
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -34,10 +38,33 @@
     
     
 		<h5 class=" page-header text-right">目前位置:餐廳會員首頁</h5>
-       
+		
+       <div class="panel-heading">
+         <h3 class="panel-title text-center">所有活動</h3>
+       </div>
 		
 		
-         
+			<c:forEach var="activity" items="${activitiyList}">
+			 <div class="panel panel-default">
+		       <div class="panel-heading">
+		         <h3 class="panel-title">活動名稱:${activity.actName}</h3>
+		       </div>
+		       <div class="col-xs-12 col-sm-4">
+					<img src="${activity.actInitImg}" class="img-responsive" >
+				</div>
+				<div class="col-xs-12 col-sm-8">
+						<p>${activity.actContent}</p>
+				</div>
+		       <div class="row">
+					<div class="col-xs-12 col-sm-12">
+						<div class="panel-body text-right" >
+		         			<button class="btn btn-info"><a href="#" >檢視活動狀態</a></button>
+		       			</div>
+					</div>	
+				</div>
+		     </div>
+			</c:forEach>
+        
        </div>
      </div>
 

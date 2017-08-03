@@ -24,7 +24,7 @@ import com.restImg.model.RestImgJDBCDAO;
 import javafx.scene.control.DialogEvent;
 
 		
-public class sssssssssss {
+public class TTest {
 	private static Dialog d;
 		public static void main(String[] args) {
 			
@@ -43,7 +43,7 @@ public class sssssssssss {
 				public void actionPerformed( ActionEvent e )
 				{
 					// Hide dialog
-					sssssssssss.d.setVisible(false);
+					TTest.d.setVisible(false);
 				}
 			});
 			
