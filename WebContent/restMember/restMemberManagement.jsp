@@ -126,17 +126,7 @@
 							<input type="hidden" name="action" value="updateRestMemData">
 							<input type="submit" class="btn btn-primary btn-lg btn-block login-button login" 
 									data-toggle="modal" data-target="#myModal" value="確認更改">	
-									
-<!-- 							<div class="modal fade" id="myModal" role="dialog"> -->
-<!--     							<div class="modal-dialog"> -->
-<!--     								<div class="modal-content">	 -->
-<!-- 										<div class="modal-footer text-center"> -->
-<!-- 									      <button type="button" class="btn btn-default" data-dismiss="modal">是</button> -->
-<!-- 									      <button type="button" class="btn btn-default" data-dismiss="modal">否</button> -->
-<!-- 									  	</div> -->
-<!-- 									</div>		 -->
-<!-- 								</div> -->
-<!-- 							</div> -->
+											
 							
 														
 						</form>	

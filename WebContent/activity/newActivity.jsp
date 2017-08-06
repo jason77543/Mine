@@ -12,6 +12,7 @@
 <%
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Activity activity = (Activity)request.getAttribute("activity");
+	
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
 	String actDateMin  = simpleDateFormat.format(new Date());
 	
@@ -107,7 +108,7 @@
 								</label>
 								<div class="col-sm-9">
 									<input type="date" name="actFDate" class="form-control" value="" 
-											min="<%=actDateMin %>" ">
+											min="<%=actDateMin %>" >
 									
 								</div>
 							</div>

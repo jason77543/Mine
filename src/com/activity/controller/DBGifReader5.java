@@ -41,7 +41,7 @@ public class DBGifReader5 extends HttpServlet {
 
 			if (rs.next()) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("actinitimg"));
-				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				byte[] buf = new byte[8 * 1024]; // 4K buffer
 				int len;
 				while ((len = in.read(buf)) != -1) {
 					out.write(buf, 0, len);
