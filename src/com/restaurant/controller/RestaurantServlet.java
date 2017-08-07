@@ -193,7 +193,7 @@ public class RestaurantServlet extends HttpServlet {
 			}
 			
 			if(!updateError.isEmpty()){
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMemberManagement.jsp");
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMemberManagement.jsp");
 				requestDispatcher.forward(req, res);
 				return;
 			}
@@ -219,7 +219,7 @@ public class RestaurantServlet extends HttpServlet {
 			
 			
 			//////////////////轉交//////////////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
 			requestDispatcher.forward(req, res);
 			
 			}
@@ -266,8 +266,13 @@ public class RestaurantServlet extends HttpServlet {
 					newRestErr.add("餐廳種類請勿留空");
 				}
 				
-				String restLocate = req.getParameter("restAdd").substring(0,2)+"縣";
-				if( (restLocate.trim()).length()==0 || restLocate == null ){
+				String restLocate = null;
+				try {
+					restLocate = req.getParameter("restAdd").substring(0,2)+"縣";
+						if( (restLocate.trim()).length()==0 || restLocate == null ){
+							newRestErr.add("請輸入正確縣市");
+						}
+				} catch (Exception e) {
 					newRestErr.add("餐廳縣市轉換錯誤");
 				}
 				
@@ -279,8 +284,12 @@ public class RestaurantServlet extends HttpServlet {
 				}
 				
 				Double restLongtitude = null;
+				
 				try {
 					restLongtitude = getLongtitude(restAdd);
+						if(restLongtitude>180.0 || restLongtitude<0.0){
+							newRestErr.add("請輸入正確地址");
+						}
 				} catch (Exception e) {
 					newRestErr.add("餐廳經度輸入錯誤");
 				}
@@ -288,12 +297,15 @@ public class RestaurantServlet extends HttpServlet {
 				Double restLatitude = null;
 				try {
 					restLatitude = getLatitude(restAdd);
+						if(restLatitude>90.0 || restLatitude<0.0){
+							newRestErr.add("請輸入正確地址");
+						}
 				} catch (Exception e) {
 					newRestErr.add("餐廳緯度輸入錯誤");
 				}
 				
 				if(!newRestErr.isEmpty()){
-					RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMemberManagement.jsp");
+					RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restaurant/newRestaurant.jsp");
 					requestDispatcher.forward(req, res);
 					return;
 				}
@@ -306,7 +318,7 @@ public class RestaurantServlet extends HttpServlet {
 				req.setAttribute("restaurant", restaurant);
 				
 				////////////////轉交////////////////////////////////
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMemberList.jsp");
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMemberList.jsp");
 				requestDispatcher.forward(req, res);
 				
 			}

@@ -333,20 +333,20 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 //		activity.setActInitImg(actInitImg);
 //		activityJDBCDAO.add(activity);
 		
-//		activity.setRestMemId("餐會帳號2");
-//		activity.setActName("餐廳名稱2");
-//		activity.setActContent("餐廳內容2");
-//		activity.setActDate(java.sql.Date.valueOf("2017-07-17"));
-//		activity.setActFDate(java.sql.Date.valueOf("2017-07-24"));
-//		activity.setActStatus(1);
-//		activity.setActULimit(new Integer(200));
-//		activity.setActLLimit(new Integer(20));
-//		activity.setActKind(0);
-//		activity.setActAnotherKind("");
-//		byte[] actInitImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\Huang\\WebContent\\img\\2.jpg");
-//		activity.setActInitImg(actInitImg);
-//		activity.setActNo(2);
-//		activityJDBCDAO.update(activity);
+		activity.setRestMemId("qq");
+		activity.setActName("餐廳名稱2");
+		activity.setActContent("餐廳內容2");
+		activity.setActDate(java.sql.Date.valueOf("2017-07-17"));
+		activity.setActFDate(java.sql.Date.valueOf("2017-07-24"));
+		activity.setActStatus(1);
+		activity.setActULimit(new Integer(200));
+		activity.setActLLimit(new Integer(20));
+		activity.setActKind(0);
+		activity.setActAnotherKind("");
+		byte[] actInitImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\2.jpg");
+		activity.setActInitImg(actInitImg);
+		activity.setActNo(8006);
+		activityJDBCDAO.update(activity);
 		
 //		activityJDBCDAO.delete(3);
 		

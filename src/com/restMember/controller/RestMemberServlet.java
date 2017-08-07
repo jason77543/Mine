@@ -123,14 +123,14 @@ public class RestMemberServlet extends HttpServlet {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMember.jsp");
+					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
 					requestDispatcher.forward(req, res);
 				}
 				
 				
 			
 				if(!errorMsgs.isEmpty()){
-					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
+					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
 					requestDispatcher.forward(req, res) ;
 					return;
 				}
@@ -140,7 +140,7 @@ public class RestMemberServlet extends HttpServlet {
 				
 				
 				
-				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/restMember/restMember.jsp");
+				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
 				requestDispatcher.forward(req, res);
 				
 				
@@ -182,7 +182,7 @@ public class RestMemberServlet extends HttpServlet {
 			
 			
 			if(!hasAUser.isEmpty()){
-				RequestDispatcher requestDispatcher1 =req.getRequestDispatcher("/restMember/restMemberRegister.jsp");
+				RequestDispatcher requestDispatcher1 =req.getRequestDispatcher("/front_end/restMember/restMemberRegister.jsp");
 				requestDispatcher1.forward(req, res);
 				return;
 			}
@@ -195,7 +195,7 @@ public class RestMemberServlet extends HttpServlet {
 			////////////////////準備轉交////////////////////////////
 			hasAUser.add("恭喜註冊成功");
 			
-			RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
+			RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
 			requestDispatcher2.forward(req, res);
 			
 			
@@ -211,7 +211,7 @@ public class RestMemberServlet extends HttpServlet {
 			session.removeAttribute("restMember");
 			session.invalidate();
 		
-			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/restMember/restMemberLogin.jsp");
+			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
 			requestDispatcher3.forward(req, res);
 		}
 		
@@ -260,7 +260,7 @@ public class RestMemberServlet extends HttpServlet {
 			
 			
 			if(!changePswError.isEmpty()){
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMemberChangePsw.jsp");
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMemberChangePsw.jsp");
 				requestDispatcher.forward(req, res);
 				return;
 			}
@@ -277,7 +277,7 @@ public class RestMemberServlet extends HttpServlet {
 			
 			
 			//////////////////轉交//////////////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
 			requestDispatcher.forward(req, res);
 		}
 		

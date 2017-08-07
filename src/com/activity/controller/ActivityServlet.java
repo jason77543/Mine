@@ -170,9 +170,10 @@ public class ActivityServlet extends HttpServlet {
 			
 			byte[] actInitImg =null;
 			Collection<Part> parts = req.getParts();
-			System.out.println(parts);
+			
 			try {
 				for(Part part :parts){
+					
 					if(part.getName().equals("actInitImg") && getFileNameFromPart(part) != null
 							&& part.getContentType().startsWith("image")){
 						
@@ -183,13 +184,13 @@ public class ActivityServlet extends HttpServlet {
 				activityError.add("照片錯誤");
 			}
 			
-			System.out.println(actInitImg);
+			
 			
 			
 			
 			
 			if(!activityError.isEmpty()){
-				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/activity/newActivity.jsp");
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/newActivity.jsp");
 				requestDispatcher.forward(req, res);
 				return;
 			}
@@ -203,11 +204,149 @@ public class ActivityServlet extends HttpServlet {
 			req.setAttribute("activity", activity);
 			
 			////////////////////////轉存////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
 			requestDispatcher.forward(req, res);
 		}
 		
 		
+		
+		//////////////////////////更新/////////////////////////////////////
+		else if("updateActivity".equals(action)){
+			List<String> updateErr = new ArrayList<>();
+			req.setAttribute("updateErr", updateErr);
+			///////////////////////驗證/////////////////////////////////////
+			
+			Integer actNo = null;
+			try {
+				actNo = Integer.parseInt(req.getParameter("actNo").trim());
+			} catch (Exception e) {
+				updateErr.add("活動編號有誤");
+			}
+			
+			
+			String restMemId = req.getParameter("restMemId");
+			if((restMemId.trim()).length()==0 || restMemId==null){
+				updateErr.add("餐廳會員帳號有誤");
+			}
+			
+			
+			String actName = req.getParameter("actName");
+			if((actName.trim()).length()==0 || actName==null){
+				updateErr.add("請填寫正確活動名稱");
+			}
+			
+			
+			
+			String actContent = req.getParameter("actContent");
+			if((actContent.trim()).length()==0 || actContent==null){
+				updateErr.add("請填寫正確活動內容");
+			}
+			
+			
+			
+			java.sql.Date actDate = null;
+			try {
+				actDate = java.sql.Date.valueOf(req.getParameter("actDate").trim());
+			} catch (Exception e) {
+				actDate = new java.sql.Date(System.currentTimeMillis());
+				updateErr.add("請填寫正確活動日期");
+			}
+			
+			java.sql.Date actFDate = null;
+			try {
+				actFDate = java.sql.Date.valueOf(req.getParameter("actFDate").trim());
+			} catch (Exception e) {
+				actFDate = new java.sql.Date(System.currentTimeMillis());
+				updateErr.add("請輸入截止日期");
+			}
+			
+			if(!actDate.after(actFDate) || actDate.equals(actFDate)){
+				updateErr.add("截止日期不能超過活動日期或是同一天");
+			}
+			
+			
+			
+			Integer actULimit = null;
+			try {
+				actULimit = Integer.parseInt(req.getParameter("actULimit").trim());
+				if(actULimit<0){
+					updateErr.add("請輸入正確上限人數");
+				}
+			} catch (Exception e) {
+				actULimit = 0 ;
+				updateErr.add("請輸入正確上限人數");
+			}
+			
+			Integer actLLimit = null;
+			try {
+				actLLimit = Integer.parseInt(req.getParameter("actLLimit").trim());
+				if(actLLimit<0){
+					updateErr.add("請輸入正確下限人數");
+				}
+			} catch (Exception e) {
+				actLLimit = 0 ;
+				updateErr.add("請輸入正確下限人數");
+			}
+			
+			if(actLLimit>actULimit){
+				updateErr.add("下限人數不能超越上限人數");
+			}
+			
+			Integer actKind = null;
+			try {
+				actKind = new Integer(req.getParameter("actKind").trim());
+			} catch (Exception e) {
+				updateErr.add("活動種類限制錯誤");
+			}
+			
+			Integer actStatus = null;
+			try {
+				actStatus = Integer.parseInt(req.getParameter("actStatus").trim());
+			} catch (Exception e) {
+				updateErr.add("活動狀態錯誤");
+			}
+			
+			byte[] actInitImg = null;
+			Collection<Part> parts = req.getParts();
+			
+			try {
+				for(Part part:parts){
+					
+					
+					if(getFileNameFromPart(part)!=null && part.getName().equals("actInitImg")){
+						
+						actInitImg = getPictureByteArray(part.getInputStream());
+						
+					}
+				}
+			} catch (Exception e) {
+				
+				updateErr.add("照片錯誤");
+			}
+			
+			
+			
+			String actAnotherKind = req.getParameter("actAnotherKind");
+			
+			if(!updateErr.isEmpty()){
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
+				requestDispatcher.forward(req, res);
+				return;
+			}
+			
+			
+			/////////////////////////更新此筆資料/////////////////////////////
+			ActivityService activityService = new ActivityService();
+			Activity activity = activityService.updateActivity(actNo, restMemId, actName, actContent, actDate,
+					actFDate, actStatus, actULimit, actLLimit, actKind, actAnotherKind, actInitImg);
+			
+			req.setAttribute("activity", activity);
+			
+			////////////////////////轉存////////////////////////////////////
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
+			requestDispatcher.forward(req, res);
+			
+		}
 		
 	}
 

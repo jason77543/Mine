@@ -1,4 +1,4 @@
-package another;
+package com.filters;
 
 import java.io.IOException;
 
@@ -13,41 +13,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.restMember.model.RestMember;
+import com.member.model.Member;
 
-public class FilterForRestMember implements Filter{
+public class LoginFilter implements Filter{
 
-	private FilterConfig filterConfig;
+	private FilterConfig config;
 	
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		this.filterConfig = filterConfig;
-		
+	public void init(FilterConfig config) throws ServletException {
+		this.config=config;
 	}
+	
 	
 	@Override
 	public void destroy() {
-		filterConfig = null;
-		
+		config=null;
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest)request;
-		HttpServletResponse res = (HttpServletResponse)response;
+		HttpServletRequest req=(HttpServletRequest)request;
+		HttpServletResponse res=(HttpServletResponse)response;
 		
-		HttpSession session = req.getSession();
-		
-		Object restMemId = session.getAttribute("restMemId");
-		if(restMemId==null){
+		HttpSession session= req.getSession();
+		Member member=(Member)session.getAttribute("member");
+		if(member==null){
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath()+"/front_end/restMember/restMemberLogin.jsp");
-			return;
-		}else{
+			res.sendRedirect(req.getContextPath()+"/front_end/member/login.jsp");
+		}
+		else{
 			chain.doFilter(request, response);
 		}
+		
 	}
+
 
 
 }

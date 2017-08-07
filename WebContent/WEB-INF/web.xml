@@ -58,15 +58,31 @@
   </filter>
   <filter-mapping>
   	<filter-name>FilterForRestMember</filter-name>
-  	<url-pattern>/restMember/restMemberManagement.jsp</url-pattern>
-  	<url-pattern>/restMember/restMember.jsp</url-pattern>
-  	<url-pattern>/restMember/restMemberChangePsw.jsp</url-pattern>
-  	<url-pattern>/activity/activityManagent.jsp</url-pattern>
-  	<url-pattern>/activity/newActivity.jsp</url-pattern>
+  	<url-pattern>/front_end/restMember/restMemberManagement.jsp</url-pattern>
+  	<url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
+  	<url-pattern>/front_end/restMember/restMemberChangePsw.jsp</url-pattern>
+  	<url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
+  	<url-pattern>/front_end/activity/newActivity.jsp</url-pattern>
   </filter-mapping>
   
+    <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.filters.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/front_end/member/memberInfo.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
   
-  
-  
+    <servlet>
+    <servlet-name>PutMap</servlet-name>
+    <servlet-class>com.context.PutMap</servlet-class>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
   
 </web-app>
