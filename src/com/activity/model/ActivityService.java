@@ -64,6 +64,10 @@ public class ActivityService {
 	public List<Activity> getAllById(String restMemId){
 		return activityDao.getAllById(restMemId);
 	}
+	
+	public List<Activity> getAllByStatus(Integer actStatus){
+		return activityDao.getAllByStatus(actStatus);
+	}
 }
 
 

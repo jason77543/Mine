@@ -1,4 +1,16 @@
+<%@page import="com.activity.model.Activity"%>
+<%@page import="com.activity.model.ActivityService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+	
+	ActivityService activityService = new ActivityService();
+	List<Activity> activityFrontList = activityService.getAllByStatus(2);
+	request.setAttribute("activityFrontList", activityFrontList);
+	
+%>
 <!DOCTYPE html>
 <html lang="">
 
@@ -7,6 +19,8 @@
 </head>
 
 <body>
+	<%@ include file="/front_end/files/overflow.file" %>
+	
     <%@ include file="/front_end/files/actFrontNav.file" %>
     <div class="container-fluid">
         <div class="row">
@@ -14,146 +28,196 @@
             
             <div class="col-xs-12 col-sm-8 ">
 
-            <div class="row">
+            <div class="panel-group col-sm-offset-2 col-sm-8">
 	
-<div class="col-sm-10 col-sm-offset-1">
-<div id="carousel-id" class="carousel slide" data-ride="carousel">
-    <!-- 幻燈片小圓點區 -->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-id" data-slide-to="0" class=""></li>
-        <li data-target="#carousel-id" data-slide-to="1" class=""></li>
-        <li data-target="#carousel-id" data-slide-to="2" class="active"></li>
-    </ol>
-    <!-- 幻燈片主圖區 -->
-    <div class="carousel-inner">
-        <div class="item">
-            <img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt="">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>標題</h1>
-                    <p>內文</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="item">
-            <img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt="">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>標題</h1>
-                    <p>內文？</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">更多</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="item active">
-            <img src="https://api.fnkr.net/testimg/2800x700/aaaaaa" alt="">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>標題</h1>
-                    <p>內文</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">詳細內容</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 上下頁控制區 -->
-    <a class="left carousel-control" href="#carousel-id" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#carousel-id" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+
+	
+
+		<c:forEach var="activityFront" items="${activityFrontList}">
+			 <div class="panel panel-default">
+		       <div class="panel-heading">
+		       	
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<h3 class="panel-title">活動名稱:${activityFront.actName}</h3>
+							</div>
+<!-- 							<div class="col-xs-12 col-sm-6 text-right "> -->
+								
+<!-- 									<footer> -->
+<%-- 										<c:if test="${activity.actStatus=='0'}"><font color="red">活動發起待審核</font></c:if> --%>
+<%-- 										<c:if test="${activity.actStatus=='1'}"><font color="red">審核未通過</font></c:if> --%>
+<%-- 										<c:if test="${activity.actStatus=='2'}"><font color="green">審核通過</font></c:if>	 --%>
+<%-- 										<c:if test="${activity.actStatus=='3'}"><font color="red">餐廳取消活動</font></c:if> --%>
+<!-- 									</footer> -->
+								
+<!-- 							</div> -->
+						</div>
+					
+		       </div>
+		       
+			       <div class="col-xs-12 col-sm-4">
+						<img src="<%=request.getContextPath() %>/activity/DBGifReader5?actNo=${activityFront.actNo}" class="img-responsive" >
+					</div>
+				
+					
+					
+					<div class="col-xs-12 col-sm-8 actarea">
+						<textarea class="overflow form-control" rows="5" cols="40" wrap="hard" readonly>${activityFront.actContent}</textarea>
+						
+					</div>
+					
+					
+					
+				
+			<form method="post" action="<%=request.getContextPath()%>/activity/actDetialController" >
+			
+		       <div class="row">
+					<div class="col-xs-12 col-sm-12">
+						<div class="panel-body text-right" >
+		         			<a href='#${activityFront.actNo}' data-toggle="modal" class="btn btn-primary">活動詳情</a>
+								<div class="modal fade" id="${activityFront.actNo }">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title text-center">活動詳情</h4>
+					</div>
+			
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+				
+							<div class="col-sm-5">
+									
+				
+								<div class="form-horizontal">
+								
+									
+											
+											
+									
+											<div class="form-group">
+												<div class="col-xs-12 col-sm-4">
+													<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activityFront.actNo}" 
+													class="img-responsive" >
+													
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													活動名稱
+												</label>
+												<div class="col-sm-9">
+													<input type="text" name="actName" class="form-control" value="${activityFront.actName }" readonly>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													活動內容
+												</label>
+												<div class="col-sm-9">
+													<textarea name="actContent" rows="3" cols="47" wrap="hard" readonly>${activityFront.actContent }</textarea>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													活動日期
+												</label>
+												<div class="col-sm-9">
+													<input type="date" name="actDate" class="form-control" value="${activityFront.actDate }" readonly>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													報名截止日期
+												</label>
+												<div class="col-sm-9">
+													<input type="date" name="actFDate" class="form-control" value="${activityFront.actFDate}" readonly>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													人數上限
+												</label>
+												<div class="col-sm-9">
+													<input type="text" name="actULimit" class="form-control" value="${activityFront.actULimit }" readonly>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													人數下限
+												</label>
+												<div class="col-sm-9">
+													<input type="text" name="actLLimit" class="form-control" value="${activityFront.actLLimit }" readonly>	
+												</div>
+											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													種類限制
+												</label>
+												<div class="col-sm-9">
+													<select id="testModal" name="actKind" class="form-control" disabled="true">
+														
+															<option value="${activityFront.actKind}">貓</option>
+															<option value="${activityFront.actKind}">狗</option>
+															<option value="${activityFront.actKind}">其他</option>
+														
+													</select>	
+												</div>
+											</div>
+												
+											
+											
+											<input type="hidden" name="action" value="joinActivity">
+								</div>		
+							</div>
+
+						</div>
+					</div>
+								
+				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+				<button type="submit" class="btn btn-primary">參加活動</button>
+			</div>
+												
+					</div>
+				</div>
+			</div>
+					         			
+		  </div>
+		</div>	
+	</div>
+				
+				
+				
+			</form>	
+			
+			
+				
+		     	</div>
+		     
+				</c:forEach>
+			</div>
+
+
+		</div>
+    
+	</div>
 </div>
-
-</div>
-</div>
-
-
-
-
-                <h5 class="page-header text-right">目前位置:活動首頁</h5>
-                <div class="row">
-                    <div class="panel panel-default col-sm-8 col-sm-offset-2 top-margin-sm">
-                        <div class="col-xs-12 col-sm-4"><img src="https://api.fnkr.net/testimg/200x200/00CED1/FFF/?text=img+placeholder"></div>
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">活動標題</h3>
-                            </div>
-                            <div class="panel-body">
-                                內容文字
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="panel panel-default col-sm-8 col-sm-offset-2 top-margin-sm">
-                        <div class="col-xs-12 col-sm-4"><img src="https://api.fnkr.net/testimg/200x200/00CED1/FFF/?text=img+placeholder"></div>
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">活動標題</h3>
-                            </div>
-                            <div class="panel-body">
-                                內容文字
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="panel panel-default col-sm-8 col-sm-offset-2 top-margin-sm">
-                        <div class="col-xs-12 col-sm-4"><img src="https://api.fnkr.net/testimg/200x200/00CED1/FFF/?text=img+placeholder"></div>
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">活動標題</h3>
-                            </div>
-                            <div class="panel-body">
-                                內容文字
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-<div class="text-center">
-
-                <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li class="active"><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-                <br>
-<ul class="pager">
-  <li><a href="#">前一頁</a></li>
-  <li><a href="#">下一頁</a></li>
-</ul>
             
-</div>
-
-<div class="postion-left-group-b">
-        <footer>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-3">
-                        <p>Copyright 寵物You&amp;Me 2017</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>關於我們</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <a href="#">
-        <div class="" id="fixedbutton-talk">
-            <button class="button btn-lg btn-primary active">
-                交易聊天室
-            </button>
-        </div>
-    </a>
-</div>
-            </div>
             <script src="https://code.jquery.com/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
 
 </html>

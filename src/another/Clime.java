@@ -112,7 +112,7 @@ System.out.println("寫入完畢");
 			List<Double> lat = new ArrayList<>();
 			List<Double> lng = new ArrayList<>();
 			while(restAddListGMap.hasNext()){
-				String sKeyWord = restAddListGMap.next();
+				String sKeyWord = restAddListGMap.next(); //這是地址
 				URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
 				URLEncoder.encode(sKeyWord, "UTF-8")));//p=%s is KeyWord in	            
 				URLConnection connFromGMap = urlFromGMap.openConnection();

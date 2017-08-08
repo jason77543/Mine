@@ -79,10 +79,11 @@
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>PutMap</servlet-name>
     <servlet-class>com.context.PutMap</servlet-class>
     <load-on-startup>10</load-on-startup>
   </servlet>
+  
   
 </web-app>

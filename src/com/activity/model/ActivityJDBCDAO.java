@@ -31,6 +31,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 	private static final String FIND_BY_PK = "SELECT * FROM ACTIVITY WHERE ACTNO=?";
 	private static final String GET_ALL = "SELECT * FROM ACTIVITY";
 	private static final String GET_ALL_FK = "SELECT * FROM ACTIVITY WHERE RESTMEMID=?";
+	private static final String GET_ALL_STATUS = "SELECT * FROM ACTIVITY WHERE ACTSTATUS=?";
 	
 	@Override
 	public void add(Activity activity) {
@@ -362,7 +363,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 //		System.out.println(activity.getActKind());
 //		System.out.println(activity.getActAnotherKind());
 		
-//		List<Activity> activitityList = activityJDBCDAO.getAll("qq");
+//		List<Activity> activitityList = activityJDBCDAO.getAllByStatus(2);
 //		for(Activity activityListE : activitityList){
 //			System.out.println(activityListE.getActNo());
 //			System.out.println(activityListE.getRestMemId());
@@ -391,6 +392,68 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 			
 			pstmt = conn.prepareStatement(GET_ALL_FK);
 			pstmt.setString(1, restMemId);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				activity = new Activity();
+				activity.setActNo(rs.getInt("ACTNO"));
+				activity.setRestMemId(rs.getString("RESTMEMID"));
+				activity.setActName(rs.getString("ACTNAME"));
+				activity.setActContent(rs.getString("ACTCONTENT"));
+				activity.setActDate(rs.getDate("ACTDATE"));
+				activity.setActFDate(rs.getDate("ACTFDATE"));
+				activity.setActStatus(rs.getInt("ACTSTATUS"));
+				activity.setActULimit(rs.getInt("ACTULIMIT"));
+				activity.setActLLimit(rs.getInt("ACTLLIMIT"));
+				activity.setActKind(rs.getInt("ACTKIND"));
+				activity.setActAnotherKind(rs.getString("ACTANOTHERKIND"));
+				activity.setActInitImg(rs.getBytes("ACTINITIMG"));
+				activityList.add(activity);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return activityList;
+	}
+
+
+	@Override
+	public List<Activity> getAllByStatus(Integer actStatus) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Activity activity = null;
+		ResultSet rs = null;
+		List<Activity> activityList = new ArrayList<>();
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(GET_ALL_STATUS);
+			pstmt.setInt(1, actStatus);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				activity = new Activity();

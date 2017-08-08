@@ -11,4 +11,5 @@ public interface ActivityDAO_Interface {
 	Activity findByPK(Integer actNo);
 	List<Activity> getAll();
 	List<Activity> getAllById(String restMemId);
+	List<Activity> getAllByStatus(Integer actStatus);
 }

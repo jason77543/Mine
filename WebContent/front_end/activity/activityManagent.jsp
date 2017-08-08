@@ -2,17 +2,18 @@
 <%@page import="com.restMember.model.RestMember"%>
 <%@page import="java.util.*"%>
 <%@page import="com.activity.model.ActivityService"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ page import="com.activity.model.Activity"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <%
-	ActivityService activityService = new ActivityService();
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Activity activity = (Activity)request.getAttribute("activity");
+	
+	ActivityService activityService = new ActivityService();
 	List<Activity> activitiyList = activityService.getAllById(restMember.getRestMemId());
-	session.setAttribute("activitiyList", activitiyList);
+	request.setAttribute("activitiyList", activitiyList);
 	
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
 	String actDateMin  = simpleDateFormat.format(new Date());
@@ -51,31 +52,7 @@
     
 		<h5 class=" page-header text-right">目前位置:管理我的活動</h5>
 		
-       <div class="panel-heading">
-         <h3 class="panel-title text-center">所有活動</h3>
-         
-        <div class="row btn123">
-         <div class="col-xs-12 col-sm-4"><div class="btn-group btn-group-justified">
-				<div class="btn-group">
-					<a href="#" class="btn btn-default" role="button">最近一年</a>
-				</div>
-				
-			</div></div>
-			<div class="col-xs-12 col-sm-4"><div class="btn-group btn-group-justified">
-				
-				<div class="btn-group">
-					<a href="#" class="btn btn-default" role="button">最近一個月</a>
-				</div>
-				
-			</div></div>
-			<div class="col-xs-12 col-sm-4"><div class="btn-group btn-group-justified">
-				
-				<div class="btn-group">
-					<a href="#" class="btn btn-default" role="button">最近一星期</a>
-				</div>
-			</div></div>
-      	 </div>
-		</div>
+       
 		
 			<c:forEach var="activity" items="${activitiyList}">
 			 <div class="panel panel-default">
@@ -109,7 +86,7 @@
 					
 					
 					<div class="col-xs-12 col-sm-8 actarea">
-						<textarea class="overflow form-control" rows="5" cols="40" wrap="hard">${activity.actContent}</textarea>
+						<textarea class="overflow form-control" rows="5" cols="40" wrap="hard" readonly>${activity.actContent}</textarea>
 						
 					</div>
 					
@@ -141,7 +118,7 @@
 								<div class="form-horizontal">
 								
 									
-											<%@ include file="/front_end//files/activity.file" %>
+											<%@ include file="/front_end/files/activity.file" %>
 											<input type="hidden" name="actNo" value="${activity.actNo}">
 											<input type="hidden" name="restMemId" value="${restMember.restMemId }">
 											<input type="hidden" name="actStatus" value="${activity.actStatus }">
@@ -217,7 +194,7 @@
 													種類限制
 												</label>
 												<div class="col-sm-9">
-													<select id="testModal" name="actKind">
+													<select id="testModal" name="actKind" class="form-control">
 														
 															<option value="0">貓</option>
 															<option value="1">狗</option>
@@ -253,9 +230,9 @@
 				</div>
 			</div>
 					         			
-		       			</div>
-					</div>	
-				</div>
+		   </div>
+		</div>	
+	</div>
 				
 				
 				
