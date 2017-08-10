@@ -1,3 +1,10 @@
+<%@page import="com.actDetial.model.ActDetialService"%>
+<%@page import="com.actDetial.model.ActDetial"%>
+<%@page import="com.member.model.Member"%>
+<%@page import="com.restaurant.model.RestaurantService"%>
+<%@page import="com.restaurant.model.Restaurant"%>
+<%@page import="com.restMember.model.RestMemberService"%>
+<%@page import="com.restMember.model.RestMember"%>
 <%@page import="com.activity.model.Activity"%>
 <%@page import="com.activity.model.ActivityService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
@@ -5,11 +12,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	
 	ActivityService activityService = new ActivityService();
 	List<Activity> activityFrontList = activityService.getAllByStatus(2);
 	request.setAttribute("activityFrontList", activityFrontList);
+
+	RestMemberService restMemberService = new RestMemberService();
+	RestaurantService restaurantService = new RestaurantService();
 	
+	RestMember restMember = null;
+	Restaurant restaurant = null;
+	
+	
+	
+	Member member = (Member)session.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -31,7 +46,7 @@
             <div class="panel-group col-sm-offset-2 col-sm-8">
 	
 
-
+		
 	
 
 		<c:forEach var="activityFront" items="${activityFrontList}">
@@ -40,18 +55,18 @@
 		       	
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
-								<h3 class="panel-title">活動名稱:${activityFront.actName}</h3>
+								<h3 class="panel-title">
+								<% Activity act = (Activity) pageContext.getAttribute("activityFront"); %>   
+								<%
+								restMember = restMemberService.getOneRestMember(act.getRestMemId());
+								restaurant = restaurantService.getOneRest(restMember.getRestNo());
+								
+								%>
+								
+								活動餐廳:<%=restaurant.getRestName() %>
+								</h3>
 							</div>
-<!-- 							<div class="col-xs-12 col-sm-6 text-right "> -->
-								
-<!-- 									<footer> -->
-<%-- 										<c:if test="${activity.actStatus=='0'}"><font color="red">活動發起待審核</font></c:if> --%>
-<%-- 										<c:if test="${activity.actStatus=='1'}"><font color="red">審核未通過</font></c:if> --%>
-<%-- 										<c:if test="${activity.actStatus=='2'}"><font color="green">審核通過</font></c:if>	 --%>
-<%-- 										<c:if test="${activity.actStatus=='3'}"><font color="red">餐廳取消活動</font></c:if> --%>
-<!-- 									</footer> -->
-								
-<!-- 							</div> -->
+
 						</div>
 					
 		       </div>
@@ -70,7 +85,7 @@
 					
 					
 				
-			<form method="post" action="<%=request.getContextPath()%>/activity/actDetialController" >
+			<form method="post" action="<%=request.getContextPath()%>/actDetial/actDetialController" >
 			
 		       <div class="row">
 					<div class="col-xs-12 col-sm-12">
@@ -167,9 +182,9 @@
 												<div class="col-sm-9">
 													<select id="testModal" name="actKind" class="form-control" disabled="true">
 														
-															<option value="${activityFront.actKind}">貓</option>
-															<option value="${activityFront.actKind}">狗</option>
-															<option value="${activityFront.actKind}">其他</option>
+															<option value="0" ${(activityFront.actKind=="0")?'selected':''}>貓</option>
+															<option value="1" ${(activityFront.actKind=="1")?'selected':''}>狗</option>
+															<option value="2" ${(activityFront.actKind=="2")?'selected':''}>其他</option>
 														
 													</select>	
 												</div>
@@ -177,7 +192,7 @@
 												
 											
 											
-											<input type="hidden" name="action" value="joinActivity">
+											
 								</div>		
 							</div>
 
@@ -187,7 +202,44 @@
 				</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-				<button type="submit" class="btn btn-primary">參加活動</button>
+				
+				
+				
+				<% 
+				ActDetialService actDetialService=new ActDetialService();
+				Map<Integer,Integer> map = actDetialService.getOneActDetialMap(member.getMemNo()); 
+				boolean showAttend=true;
+					if(map!=null){
+						try{
+							if(map.get(act.getActNo())==null){
+								showAttend=true;
+							}
+							if(map.get(act.getActNo())==0){
+								showAttend=false;
+							}
+						}catch (Exception e){
+							showAttend=true;
+						}
+					}		
+				%>
+				<% if(showAttend){  %>
+<%-- 				<c:if test="${actDetial.memActStatus==''}"> --%>
+					<input type="hidden" name="memActStatus" value="0">
+					<input type="hidden" name="memNo" value="${member.memNo}">
+					<input type="hidden" name="actNo" value="${activityFront.actNo}">
+					<input type="hidden" name="action" value="joinActivity">
+					<button type="submit" class="btn btn-primary">參加活動</button>
+<%-- 				</c:if> --%>
+				<% } %>
+				
+					<% if(!showAttend){  %>
+<%-- 				<c:if test="${actDetial.memActStatus=='0'}"> --%>
+					<input type="hidden" name="memNo" value="${member.memNo}">
+					<input type="hidden" name="actNo" value="${activityFront.actNo}">
+					<input type="hidden" name="action" value="cancelActivity">
+					<button type="submit" class="btn btn-primary">取消活動</button>
+<%-- 				</c:if> --%>
+				<% } %>
 			</div>
 												
 					</div>

@@ -19,7 +19,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#">約會商品</a></li>
 					<li><a href="#">商城</a></li>
-					<li><a href="#">活動</a></li>
+					<li><a href="<%=reauest.getContextPath()%>/front_end/activityFront/activityIndex.jsp">活動</a></li>
 					<li><a href="#">寵物日誌</a></li>
 				</ul>
 				<div class="nav collapse navbar-collapse navbar-right" id="login">

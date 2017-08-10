@@ -196,9 +196,9 @@
 												<div class="col-sm-9">
 													<select id="testModal" name="actKind" class="form-control">
 														
-															<option value="0">貓</option>
-															<option value="1">狗</option>
-															<option value="2">其他</option>
+															<option value="0" ${(activity.actKind=="0")?'selected':''}>貓</option>
+									  						<option value="1" ${(activity.actKind=="1")?'selected':''}>狗</option>
+									  						<option value="2" ${(activity.actKind=="2")?'selected':''}>其他</option>
 														
 													</select>	
 												</div>

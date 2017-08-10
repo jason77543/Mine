@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -30,6 +32,7 @@ public class ActDetialDAO implements ActDetialDAO_Interface{
 	private static final String UPDATE_ACTDETIAL = "UPDATE ACTDETIAL SET MEMACTSTATUS=? WHERE ACTNO=? AND MEMNO=?";	
 	private static final String DELETE_ACTDETIAL = "DELETE FROM ACTDETIAL WHERE ACTNO=? AND MEMNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM ACTDETIAL WHERE ACTNO=? AND MEMNO=?";
+	private static final String FIND_BY_PKFK = "SELECT * FROM ACTDETIAL WHERE MEMNO=?";
 	private static final String GET_ALL = "SELECT * FROM ACTDETIAL";
 	
 	@Override
@@ -236,6 +239,52 @@ public class ActDetialDAO implements ActDetialDAO_Interface{
 			}
 		}
 		return actDetialList;
+	}
+
+	@Override
+	public Map<Integer, Integer> findByPK(Integer memNo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Integer, Integer> map = null;
+		try{
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(FIND_BY_PKFK);
+			pstmt.setInt(1, memNo);
+			rs = pstmt.executeQuery();
+			map = new HashMap<Integer, Integer>();
+			while(rs.next()){
+				map.put(rs.getInt("ACTNO"), rs.getInt("MEMACTSTATUS"));
+			}
+		} catch (Exception e){
+			e.getMessage();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return map;
 	}
 
 }

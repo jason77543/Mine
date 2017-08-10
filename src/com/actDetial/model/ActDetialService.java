@@ -1,6 +1,7 @@
 package com.actDetial.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class ActDetialService {
 	private ActDetialDAO_Interface actDetialDao;
@@ -35,9 +36,15 @@ public class ActDetialService {
 		return actDetialDao.findByPK(actNo, memNo);
 	}
 	
+	public Map<Integer, Integer> getOneActDetialMap(Integer memNo){
+		return actDetialDao.findByPK(memNo);
+	}
+	
 	public List<ActDetial> getAll(){
 		return actDetialDao.getAll();
 	}
+	
+	
 }
 
 

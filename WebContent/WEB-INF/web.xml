@@ -9,7 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <servlet-name>RestMemberServlet</servlet-name>
     <servlet-class>com.restMember.controller.RestMemberServlet</servlet-class>
@@ -18,8 +17,6 @@
     <servlet-name>RestMemberServlet</servlet-name>
     <url-pattern>/restMember/restMemberController</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>RestaurantServlet</servlet-name>
     <servlet-class>com.restaurant.controller.RestaurantServlet</servlet-class>
@@ -28,44 +25,43 @@
     <servlet-name>RestaurantServlet</servlet-name>
     <url-pattern>/restaurant/restaurantController</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
-  	<servlet-name>ActivityServlet</servlet-name>
-  	<servlet-class>com.activity.controller.ActivityServlet</servlet-class>
+    <servlet-name>ActivityServlet</servlet-name>
+    <servlet-class>com.activity.controller.ActivityServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ActivityServlet</servlet-name>
-  	<url-pattern>/activity/activityController</url-pattern>
+    <servlet-name>ActivityServlet</servlet-name>
+    <url-pattern>/activity/activityController</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  	<servlet-name>DBGifReader5</servlet-name>
-  	<servlet-class>com.activity.controller.DBGifReader5</servlet-class>
+    <servlet-name>DBGifReader5</servlet-name>
+    <servlet-class>com.activity.controller.ActImgReader</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>DBGifReader5</servlet-name>
-  	<url-pattern>/activity/DBGifReader5</url-pattern>
+    <servlet-name>DBGifReader5</servlet-name>
+    <url-pattern>/activity/DBGifReader5</url-pattern>
   </servlet-mapping>
-  
-  
-  
-  
-  
+  <servlet>
+  	<servlet-name>ActDetialServlet</servlet-name>
+  	<servlet-class>com.actDetial.controller.ActDetialServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ActDetialServlet</servlet-name>
+  	<url-pattern>/actDetial/actDetialController</url-pattern>
+  </servlet-mapping>
   <filter>
-  	<filter-name>FilterForRestMember</filter-name>
-  	<filter-class>another.FilterForRestMember</filter-class>
+    <filter-name>FilterForRestMember</filter-name>
+    <filter-class>another.FilterForRestMember</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>FilterForRestMember</filter-name>
-  	<url-pattern>/front_end/restMember/restMemberManagement.jsp</url-pattern>
-  	<url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
-  	<url-pattern>/front_end/restMember/restMemberChangePsw.jsp</url-pattern>
-  	<url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
-  	<url-pattern>/front_end/activity/newActivity.jsp</url-pattern>
+    <filter-name>FilterForRestMember</filter-name>
+    <url-pattern>/front_end/restMember/restMemberManagement.jsp</url-pattern>
+    <url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
+    <url-pattern>/front_end/restMember/restMemberChangePsw.jsp</url-pattern>
+    <url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
+    <url-pattern>/front_end/activity/newActivity.jsp</url-pattern>
   </filter-mapping>
-  
-    <filter>
+  <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.filters.LoginFilter</filter-class>
   </filter>
@@ -78,12 +74,9 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
   <servlet>
     <servlet-name>PutMap</servlet-name>
     <servlet-class>com.context.PutMap</servlet-class>
     <load-on-startup>10</load-on-startup>
   </servlet>
-  
-  
 </web-app>

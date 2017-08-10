@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -20,6 +22,7 @@ public class ActDetialJDBCDAO implements ActDetialDAO_Interface{
 	private static final String UPDATE_ACTDETIAL = "UPDATE ACTDETIAL SET MEMACTSTATUS=? WHERE ACTNO=? AND MEMNO=?";	
 	private static final String DELETE_ACTDETIAL = "DELETE FROM ACTDETIAL WHERE ACTNO=? AND MEMNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM ACTDETIAL WHERE ACTNO=? AND MEMNO=?";
+	private static final String FIND_BY_PKFK = "SELECT * FROM ACTDETIAL WHERE MEMNO=?";
 	private static final String GET_ALL = "SELECT * FROM ACTDETIAL";
 	
 	@Override
@@ -242,6 +245,7 @@ public class ActDetialJDBCDAO implements ActDetialDAO_Interface{
 		ActDetialJDBCDAO actDetialJDBCDAO = new ActDetialJDBCDAO();
 		ActDetial actDetial = new ActDetial();
 		
+		
 //		actDetial.setActNo(1);
 //		actDetial.setMemNo(1);
 //		actDetial.setMemActStatus(1);
@@ -254,10 +258,14 @@ public class ActDetialJDBCDAO implements ActDetialDAO_Interface{
 		
 //		actDetialJDBCDAO.delete(1, 1);
 		
-//		actDetial = actDetialJDBCDAO.findByPK(2, 2);
+//		actDetial = actDetialJDBCDAO.findByPK(8001,5001);
 //		System.out.println(actDetial.getActNo());
 //		System.out.println(actDetial.getMemNo());
 //		System.out.println(actDetial.getMemActStatus());
+		
+		Map<Integer, Integer> map = actDetialJDBCDAO.findByPK(5001);
+		System.out.println(map.size());
+		System.out.println(map.get(8001));
 		
 //		List<ActDetial> actDetialList = actDetialJDBCDAO.getAll();
 //		for(ActDetial actDetialListE : actDetialList){
@@ -268,6 +276,55 @@ public class ActDetialJDBCDAO implements ActDetialDAO_Interface{
 		
 		
 		
+	}
+
+	@Override
+	public Map<Integer, Integer> findByPK(Integer memNo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Integer, Integer> map = null;
+		try{
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(FIND_BY_PKFK);
+			pstmt.setInt(1, memNo);
+			map = new HashMap<Integer, Integer>();
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				
+				map.put(rs.getInt("ACTNO"), rs.getInt("MEMACTSTATUS"));
+				
+			}
+		} catch (Exception e){
+			e.getMessage();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return map;
 	}
 
 

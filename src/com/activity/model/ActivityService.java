@@ -57,6 +57,10 @@ public class ActivityService {
 		return activityDao.findByPK(actNo);
 	}
 	
+	public Activity getOneActivityByActStatus(Integer actNo,Integer actStatus){
+		return activityDao.findByPKStatus(actNo, actStatus);
+	}
+	
 	public List<Activity> getAll(){
 		return activityDao.getAll();
 	}
