@@ -21,7 +21,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class Clime {
+public class Clime implements Runnable{
 	
 	
 	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTLOCATE,RESTPHONE,"
@@ -29,7 +29,7 @@ public class Clime {
 	
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		
 		
 		String driver = "oracle.jdbc.driver.OracleDriver";
@@ -102,9 +102,9 @@ System.out.println("寫入完畢");
 				}
 			}
 			Iterator<String> restNameList = list.iterator();//餐廳名稱
-			Iterator<String> restPhoneList = list1.iterator();//餐廳電話
+			
 			Iterator<String> restAddList = list2.iterator();
-			Iterator<String> restAddListForSubString = list2.iterator();
+			
 			Iterator<String> restAddListGMap = list2.iterator();
 			
 			System.out.println("Iterator完畢");
@@ -115,18 +115,29 @@ System.out.println("寫入完畢");
 				String sKeyWord = restAddListGMap.next(); //這是地址
 				URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
 				URLEncoder.encode(sKeyWord, "UTF-8")));//p=%s is KeyWord in	            
-				URLConnection connFromGMap = urlFromGMap.openConnection();
+				URLConnection connFromGMap = urlFromGMap.openConnection() ;
 				String line;
-				StringBuilder builder = new StringBuilder();
+				StringBuffer builder = new StringBuffer();
 				BufferedReader readerFromGMap = new BufferedReader(new InputStreamReader(connFromGMap.getInputStream(),"utf-8"));
-				while ((line = readerFromGMap.readLine()) != null) {builder.append(line);}
+				
+				while ((line = readerFromGMap.readLine()) != null) {
+					
+						builder.append(line);
+						
+					}
+				
 					JSONObject json = new JSONObject(builder.toString()); //轉換json格式
 				    JSONArray ja = json.getJSONArray("results");//取得json的Array物件
+				   
+				    
 				        for (int i = 0; i < ja.length(); i++) {
 			                  
 			            lat.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
 			            lng.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
-			                 
+			            
+			            System.out.print(ja.getJSONObject(i).getString("formatted_address")+",");
+			            System.out.print((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat"))+",");
+			            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
 				    } 
 				
 			}
@@ -134,22 +145,29 @@ System.out.println("寫入完畢");
 			Iterator<Double> lngList = lng.iterator();
 			
 			System.out.println("GOOGLE完畢");
-			
 			for (int k = 0; k < 77; k++) {
-				pstmt = conn.prepareStatement(INSERT_REST);
-				int kindOfPet = (int) (Math.random() * 3);
-				
-				pstmt.setString(1,restNameList.next());
-				pstmt.setString(2,restAddList.next());
-				pstmt.setString(3, restAddListForSubString.next().substring(0,2) +"縣");
-				pstmt.setString(4,restPhoneList.next());
-				pstmt.setString(5, "petRestaurantIntro"+k);
-				pstmt.setInt(6, kindOfPet);
-				pstmt.setInt(7, 0);
-				pstmt.setDouble(8, lngList.next());
-				pstmt.setDouble(9, latList.next());
-				pstmt.executeUpdate();
+				System.out.print(restNameList.next()+" : ");
+				System.out.print(restAddList.next()+" : ");//這是地址
+				System.out.print(lngList.next()+" , ");
+				System.out.println(latList.next());
 			}
+			
+			
+//			for (int k = 0; k < 77; k++) {
+//				pstmt = conn.prepareStatement(INSERT_REST);
+//				int kindOfPet = (int) (Math.random() * 3);
+//				
+//				pstmt.setString(1,restNameList.next());
+//				pstmt.setString(2,restAddList.next());
+//				pstmt.setString(3, restAddListForSubString.next().substring(0,2) +"縣");
+//				pstmt.setString(4,restPhoneList.next());
+//				pstmt.setString(5, "petRestaurantIntro"+k);
+//				pstmt.setInt(6, kindOfPet);
+//				pstmt.setInt(7, 0);
+//				pstmt.setDouble(8, lngList.next());
+//				pstmt.setDouble(9, latList.next());
+//				pstmt.executeUpdate();
+//			}
 			
 			
 			
@@ -181,6 +199,14 @@ System.out.println("寫入完畢");
 		}
 		
 
+	}
+
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

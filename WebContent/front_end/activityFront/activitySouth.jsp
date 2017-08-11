@@ -13,7 +13,7 @@
 
 <%
 	ActivityService activityService = new ActivityService();
-	List<Activity> activityFrontList = activityService.getAllByStatus(2);
+	List<Activity> activityFrontList = activityService.getAllSouth();
 	request.setAttribute("activityFrontList", activityFrontList);
 
 	RestMemberService restMemberService = new RestMemberService();

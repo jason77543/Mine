@@ -85,8 +85,8 @@
 				
 					
 					
-					<div class="col-xs-12 col-sm-8 actarea">
-						<textarea class="overflow form-control" rows="5" cols="40" wrap="hard" readonly>${activity.actContent}</textarea>
+					<div class="col-xs-12 col-sm-8 ">
+						<textarea class="overflow form-control" rows="8" cols="40" wrap="hard" style="resize:none" readonly>${activity.actContent}</textarea>
 						
 					</div>
 					

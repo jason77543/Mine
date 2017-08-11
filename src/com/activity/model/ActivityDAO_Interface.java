@@ -2,6 +2,8 @@ package com.activity.model;
 
 import java.util.List;
 
+import com.restaurant.model.Restaurant;
+
 
 
 public interface ActivityDAO_Interface {
@@ -13,5 +15,12 @@ public interface ActivityDAO_Interface {
 	List<Activity> getAll();
 	List<Activity> getAllById(String restMemId);
 	List<Activity> getAllByStatus(Integer actStatus);
+	List<Activity> getAllByStatusAnimal(Integer actStatus,Integer actKind);
 	
+	List<Activity> getAllByNorth();
+	List<Activity> getAllByEast();
+	List<Activity> getAllByWest();
+	List<Activity> getAllBySouth();
+	
+	List<Activity> getAllOfMine(Integer memNo);
 }

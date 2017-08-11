@@ -8,4 +8,5 @@ public interface RestaurantDAO_Interface {
 	 void delete(Integer restNo);
 	 Restaurant findByPK(Integer restNo);
 	 List<Restaurant> getAll();
+	
 }

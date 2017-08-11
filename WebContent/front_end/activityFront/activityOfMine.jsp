@@ -12,8 +12,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
+	Member member = (Member)session.getAttribute("member");
+
 	ActivityService activityService = new ActivityService();
-	List<Activity> activityFrontList = activityService.getAllByStatus(2);
+	List<Activity> activityFrontList = activityService.getAllOfMine(member.getMemNo());
 	request.setAttribute("activityFrontList", activityFrontList);
 
 	RestMemberService restMemberService = new RestMemberService();
@@ -22,9 +24,6 @@
 	RestMember restMember = null;
 	Restaurant restaurant = null;
 	
-	
-	
-	Member member = (Member)session.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html lang="">

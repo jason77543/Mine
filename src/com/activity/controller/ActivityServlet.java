@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.List;
+import java.util.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
@@ -24,6 +21,10 @@ import javax.servlet.http.Part;
 
 import com.activity.model.Activity;
 import com.activity.model.ActivityService;
+import com.restMember.model.RestMember;
+import com.restMember.model.RestMemberService;
+import com.restaurant.model.Restaurant;
+import com.restaurant.model.RestaurantService;
 
 
 @WebServlet("/ActivityServlet")
@@ -347,6 +348,38 @@ public class ActivityServlet extends HttpServlet {
 			requestDispatcher.forward(req, res);
 			
 		}
+		
+		
+		else if("north".equals(action)){
+			
+			
+			
+			ActivityService activityService = new ActivityService();
+			List<Activity> activityList = activityService.getAllByStatus(2);
+			Set<String> restaurantSet = new TreeSet<>();
+			
+			
+			for(Activity activity:activityList){
+				
+				RestMemberService restMemberService = new RestMemberService();
+				RestMember restMember = restMemberService.getOneRestMember(activity.getRestMemId());
+				
+				RestaurantService restaurantService = new RestaurantService();
+				Restaurant restaurant = restaurantService.getOneRest(restMember.getRestNo());
+				
+				restaurantSet.add(restaurant.getRestLocate());
+				
+			}
+			
+			Iterator<String> northSet = restaurantSet.iterator();
+			System.out.println();
+			while(northSet.hasNext()){
+				System.out.println(northSet.next());
+			}
+			
+			
+		}
+		
 		
 	}
 

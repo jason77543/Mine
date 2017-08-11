@@ -31,7 +31,7 @@
 		<th>À\ÆU¦WºÙ</th>
 		<th>À\ÆU¦a§}</th>
 		<th>À\ÆU¹q¸Ü</th>
-		<th>À\ÆU¤¶²Ð</th>
+		
 		<th>À\ÆUºØÃþ</th>
 		<th>À\ÆU¼f®Öª¬ºA</th>
 		
@@ -44,7 +44,7 @@
 			<td>${restaurant.restName}</td>
 			<td>${restaurant.restAdd}</td>
 			<td>${restaurant.restPhone}</td>
-			<td>${restaurant.restIntro}</td>
+			
 			<td>
 		
 					<c:if test="${restaurant.restKind=='0'}">

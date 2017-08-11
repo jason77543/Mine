@@ -65,12 +65,38 @@ public class ActivityService {
 		return activityDao.getAll();
 	}
 	
+	
 	public List<Activity> getAllById(String restMemId){
 		return activityDao.getAllById(restMemId);
 	}
 	
 	public List<Activity> getAllByStatus(Integer actStatus){
 		return activityDao.getAllByStatus(actStatus);
+	}
+	
+	public List<Activity> getAllByStatusAnimal(Integer actStatus,Integer actKind){
+		return activityDao.getAllByStatusAnimal(actStatus, actKind);
+	}
+	
+	
+	public List<Activity> getAllNorth(){
+		return activityDao.getAllByNorth();
+	}
+	
+	public List<Activity> getAllEast(){
+		return activityDao.getAllByEast();
+	}
+	
+	public List<Activity> getAllWest(){
+		return activityDao.getAllByWest();
+	}
+	
+	public List<Activity> getAllSouth(){
+		return activityDao.getAllBySouth();
+	}
+	
+	public List<Activity> getAllOfMine(Integer memNo){
+		return activityDao.getAllOfMine(memNo);
 	}
 }
 

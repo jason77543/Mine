@@ -33,7 +33,7 @@ public class ActDetialServlet extends HttpServlet {
        
     }
     
-   
+    
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -45,14 +45,7 @@ public class ActDetialServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		if("init".equals(action)){
-			
-			
-			
-			
-			RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/front_end/activityFront/activityIndex.jsp");
-			requestDispatcher2.forward(req, res);
-		}
+		
 		
 		if("joinActivity".equals(action)){
 			
@@ -90,9 +83,76 @@ public class ActDetialServlet extends HttpServlet {
 				return;
 			}
 			
+			////////////////////////存取或更新/////////////////////////////
+			
+			
+			
+			
+			ActDetialService actDetialService = new ActDetialService();
+	    	ActDetial actDetial = actDetialService.getOneActDetial(actNo, memNo);
+	    	try {
+	    		if(! (  (actDetial.getActNo().equals(actNo)) && (actDetial.getMemNo().equals(memNo))  ) ){
+		    		actDetial = actDetialService.addActDetial(actNo, memNo, memActStatus);
+					req.setAttribute("actDetial", actDetial);
+		    	}else{
+		    		actDetial = actDetialService.updateActDetial(actNo, memNo, memActStatus);
+		    		req.setAttribute("actDetial", actDetial);
+		    	}
+			} catch (Exception e) {
+				actDetial = actDetialService.addActDetial(actNo, memNo, memActStatus);
+				req.setAttribute("actDetial", actDetial);
+			}
+	    	
+			
+			
+			//////////////////////轉交////////////////////////////////
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activityFront/activityIndex.jsp");
+			requestDispatcher.forward(req, res);
+			
+			
+			
+		}
+		
+		
+		else if("cancelActivity".equals(action)){
+			
+			List<String> cancelErr = new ArrayList<>();
+			req.setAttribute("cancleErr", cancelErr);
+			
+			
+			Integer actNo = null;
+			try {
+				actNo = Integer.parseInt(req.getParameter("actNo"));
+				
+			} catch (Exception e) {
+				cancelErr.add("參加活動錯誤_活動編號");
+			}
+			
+			Integer memNo = null;
+			try {
+				memNo = Integer.parseInt(req.getParameter("memNo"));
+				
+			} catch (Exception e) {
+				cancelErr.add("參加活動錯誤_會員編號");
+			}
+			
+			Integer memActStatus = null;
+			try {
+				memActStatus = Integer.parseInt(req.getParameter("memActStatus"));
+				
+			} catch (Exception e) {
+				cancelErr.add("參加活動錯誤_會員參加編號");
+			}
+			
+			if(!cancelErr.isEmpty()){
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activityFront/activityIndex.jsp");
+				requestDispatcher.forward(req, res);
+				return;
+			}
+			
 			////////////////////////存取/////////////////////////////
 			ActDetialService actDetialService = new ActDetialService();
-			ActDetial actDetial = actDetialService.addActDetial(actNo, memNo, memActStatus);
+			ActDetial actDetial = actDetialService.updateActDetial(actNo, memNo, memActStatus);
 			
 			req.setAttribute("actDetial", actDetial);
 			
@@ -104,7 +164,6 @@ public class ActDetialServlet extends HttpServlet {
 			
 			
 		}
-		
 	}
 
 }
