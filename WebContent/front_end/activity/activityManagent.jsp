@@ -38,13 +38,13 @@
 
 <body>
 
-    <%@ include file="/front_end/files/restMemberNavBar.file" %>
-	<%@ include file="/front_end/files/overflow.file" %>
+    <%@ include file="/front_end/actFiles/restMemberNavBar.file" %>
+	<%@ include file="/front_end/actFiles/overflow.file" %>
 	
 	
     <div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="/front_end/files/restMemberList.file" %>
+        	<%@ include file="/front_end/actFiles/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">
@@ -118,7 +118,7 @@
 								<div class="form-horizontal">
 								
 									
-											<%@ include file="/front_end/files/activity.file" %>
+											<%@ include file="/front_end/actFiles/activity.file" %>
 											<input type="hidden" name="actNo" value="${activity.actNo}">
 											<input type="hidden" name="restMemId" value="${restMember.restMemId }">
 											<input type="hidden" name="actStatus" value="${activity.actStatus }">
@@ -147,7 +147,7 @@
 													活動內容
 												</label>
 												<div class="col-sm-9">
-													<textarea name="actContent" rows="3" cols="47" wrap="hard">${activity.actContent }</textarea>	
+													<textarea name="actContent" rows="3" cols="47" wrap="hard" class="overflow form-control" style="resize:none">${activity.actContent }</textarea>	
 												</div>
 											</div>
 											
@@ -223,7 +223,7 @@
 				</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="submit" class="btn btn-primary">更改資料</button>
 			</div>
 												
 					</div>

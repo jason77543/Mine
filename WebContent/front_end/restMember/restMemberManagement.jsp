@@ -37,12 +37,12 @@
 
 </head>
 <body>
-	<%@ include file="/front_end/files/restMemberNavBar.file" %>
+	<%@ include file="/front_end/actFiles/restMemberNavBar.file" %>
 	
 	
 	<div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="/front_end/files/restMemberList.file" %>
+        	<%@ include file="/front_end/actFiles/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">
@@ -95,15 +95,9 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									À\ÆU¤¶²Ð
-								</label>
-								<div class="col-sm-9">
-									<input type="text" name="restIntro" class="form-control" value="<%=restaurant.getRestIntro() %>" >
-									
-								</div>
-							</div>
+							
+									<input type="hidden" name="restIntro" class="form-control" value="<%=restaurant.getRestIntro() %>" >
+								
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label">

@@ -322,6 +322,42 @@ public class RestaurantServlet extends HttpServlet {
 				requestDispatcher.forward(req, res);
 				
 			}
+			
+			else if("restManagement".equals(action)){
+				List<String> reatManeErr = new ArrayList<>();
+				req.setAttribute("reatManeErr", reatManeErr);
+				
+				Integer restReviewStatus = null;
+				try {
+					restReviewStatus = Integer.parseInt(req.getParameter("restReviewStatus"));
+					System.out.println(restReviewStatus);
+				} catch (Exception e) {
+					reatManeErr.add("À\ÆUª¬ºA¿ù»~");
+				}
+				
+				Integer restNo = null;
+				try {
+					restNo = Integer.parseInt(req.getParameter("restNo"));
+					System.out.println(restNo);
+				} catch (Exception e) {
+					reatManeErr.add("À\ÆU½s¸¹¿ù»~");
+				}
+				
+				if(!reatManeErr.isEmpty()){
+					RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/restMemberManagement/restMemberManagement.jsp");
+					requestDispatcher.forward(req, res);
+					return;
+				}
+				
+				RestaurantService restaurantService = new RestaurantService();
+				Restaurant restaurant = restaurantService.updateBack(restReviewStatus, restNo);
+				req.setAttribute("restaurant", restaurant);
+				////////////////Âà¥æ////////////////////////////////
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/restMemberManagement/restMemberManagement.jsp");
+				requestDispatcher.forward(req, res);
+			}
+			
+			
+			
 		}
-
 }

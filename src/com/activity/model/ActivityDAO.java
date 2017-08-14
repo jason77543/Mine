@@ -34,6 +34,9 @@ public class ActivityDAO implements ActivityDAO_Interface{
 											+ "VALUES(ACTIVITY_SEQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_ACTIVITY = "UPDATE ACTIVITY SET RESTMEMID=?,ACTNAME=?,ACTCONTENT=?,ACTDATE=?"
 											+ ",ACTFDATE=?,ACTSTATUS=?,ACTULIMIT=?,ACTLLIMIT=?,ACTKIND=?,ACTANOTHERKIND=?,ACTINITIMG=? WHERE ACTNO=?";
+	
+	private static final String UPDATE_ACTIVITY_BACK = "UPDATE ACTIVITY SET ACTSTATUS=? WHERE ACTNO=?";
+	
 	private static final String DELETE_ACTIVITY = "DELETE FROM ACTIVITY WHERE ACTNO=?";
 	
 	private static final String FIND_BY_PK = "SELECT * FROM ACTIVITY WHERE ACTNO=?";
@@ -45,7 +48,7 @@ public class ActivityDAO implements ActivityDAO_Interface{
 	private static final String GET_ALL_STATUS_CAT = "SELECT * FROM ACTIVITY WHERE ACTSTATUS=? AND ACTKIND=?";
 	
 	private static final String GET_ALL_MINE ="SELECT * FROM ACTIVITY JOIN ACTDETIAL ON (ACTIVITY.ACTNO = ACTDETIAL.ACTNO) "
-			+ "WHERE MEMNO=?";
+			+ "WHERE MEMNO=? AND MEMACTSTATUS=0";
 			
 			
 	private static final String GET_ALL_NORTH = "SELECT * FROM ACTIVITY JOIN RESTMEMBER "
@@ -856,6 +859,41 @@ public class ActivityDAO implements ActivityDAO_Interface{
 			}
 		}
 		return activityList;
+	}
+
+	@Override
+	public void updateBack(Integer actStatus,Integer actNo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(UPDATE_ACTIVITY_BACK);
+			pstmt.setInt(1, actStatus);
+			pstmt.setInt(2, actNo);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 }

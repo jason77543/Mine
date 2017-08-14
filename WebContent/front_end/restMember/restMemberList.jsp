@@ -17,9 +17,11 @@
 <head>
 <title>餐廳一覽表</title>
 </head>
+
+
 <body bgcolor='white'>
 <table border='1' cellpadding='5' cellspacing='0' width='800'>
-	<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20' >
+	<tr bgcolor='#CCFFFF' align='center' valign='middle' height='20' >
 		<td><h1>友善寵物餐廳一覽表</h1>
 		          <a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">回登入頁面</a></td></tr></table>
 
@@ -37,7 +39,7 @@
 		
 		
 	</tr>
-	<%@ include file="/front_end/files/page1.file" %> 
+	<%@ include file="/front_end/actFiles/page1.file" %> 
 	<c:forEach var="restaurant" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr align='center' valign='middle'>
 			
@@ -48,10 +50,10 @@
 			<td>
 		
 					<c:if test="${restaurant.restKind=='0'}">
-						<input type="hidden" name="restKind" class="form-control" value="0" >狗餐廳
+						<input type="hidden" name="restKind" class="form-control" value="0" >貓餐廳
 					</c:if>
 					<c:if test="${restaurant.restKind=='1'}">
-						<input type="hidden" name="restKind" class="form-control" value="1" >貓餐廳
+						<input type="hidden" name="restKind" class="form-control" value="1" >狗餐廳
 					</c:if>
 					<c:if test="${restaurant.restKind=='2'}">
 						<input type="hidden" name="restKind" class="form-control" value="2" >其他餐廳
@@ -98,10 +100,10 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="/front_end/files/page2.file" %>
+<%@ include file="/front_end/actFiles/page2.file" %>
 <br>
 	
-		<div align="center" >
+		<div  >
 			沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
 		</div>
 		

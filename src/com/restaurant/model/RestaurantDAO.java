@@ -33,7 +33,7 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 	private static final String UPDATE_REST_MANAGER = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTLOCATE=?,RESTPHONE=?"
 												+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
 	private static final String UPDATE_REST_MEMBER = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?,RESTINTRO=?,RESTKIND=? WHERE RESTNO=?";
-												
+	private static final String UPDATE_REST_BACK = "UPDATE REST SET RESTREVIEWSTATUS=? WHERE RESTNO=?";											
 	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
 	private static final String GET_ALL = "SELECT * FROM REST";
@@ -280,6 +280,44 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			}
 		}
 		return restList;
+	}
+
+	@Override
+	public void updateBack(Integer restNo, Integer restReviewStatus) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(UPDATE_REST_BACK);
+			
+			pstmt.setInt(1, restReviewStatus);
+			pstmt.setInt(2, restNo);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 	
 	

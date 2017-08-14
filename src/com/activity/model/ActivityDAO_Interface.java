@@ -8,7 +8,10 @@ import com.restaurant.model.Restaurant;
 
 public interface ActivityDAO_Interface {
 	void add(Activity activity);
+	
 	void update(Activity activity);
+	void updateBack(Integer actStatus,Integer actNo);
+	
 	void delete(Integer actNo);
 	Activity findByPK(Integer actNo);
 	Activity findByPKStatus(Integer actNo,Integer actStatus);

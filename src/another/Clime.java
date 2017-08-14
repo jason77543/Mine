@@ -83,25 +83,31 @@ System.out.println("寫入完畢");
 			String name13 = name12.replace("苗", ",苗");
 			String name14 = name13.replace("新竹", ",新竹");
 			String name15 = name14.replace("桃園", ",桃園");
+			String name16 = name15.replace("苗栗縣南庄鄉員林村2鄰67號", "苗栗縣南庄鄉員林村2鄰66號");
+			String name17 = name16.replace("紅屋餐廳", "捲尾巴寵物餐廳");
+			String name18 = name17.replace("台北市陽明山紗帽路6號", "234新北市永和區永平路306號");
+			String name19 = name18.replace("(02)2861-9138", "02-2231-8882");
+			
+			
 
 			FileWriter writer1 = new FileWriter("D://Trestname.csv");
-			writer1.write(name15);
+			writer1.write(name19);
 			writer1.close();
 
-			String[] name16 = name15.split(",");
+			String[] name20 = name19.split(",");
 			
 			System.out.println("CSV完畢");			
 			
-			for (int j = 0; j < name16.length; j++) {
+			for (int j = 0; j < name20.length; j++) {
 				if (j % 3 == 0) {
-					list.add(name16[j]);
+					list.add(name20[j]);
 				} else if (j % 3 == 1) {
-					list1.add(name16[j]);
+					list1.add(name20[j]);
 				} else {
-					list2.add(name16[j]);
+					list2.add(name20[j]);
 				}
 			}
-			Iterator<String> restNameList = list.iterator();//餐廳名稱
+Iterator<String> restNameList = list.iterator();//餐廳名稱  
 			
 			Iterator<String> restAddList = list2.iterator();
 			
@@ -109,8 +115,15 @@ System.out.println("寫入完畢");
 			
 			System.out.println("Iterator完畢");
 			
-			List<Double> lat = new ArrayList<>();
-			List<Double> lng = new ArrayList<>();
+//			List<Double> lat = new ArrayList<>();
+//			List<Double> lng = new ArrayList<>();
+			
+			List<Double> realLat = new ArrayList<>();
+			List<Double> realLng = new ArrayList<>();
+			List<String> realAdd = new ArrayList<>();
+
+			
+			
 			while(restAddListGMap.hasNext()){
 				String sKeyWord = restAddListGMap.next(); //這是地址
 				URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
@@ -132,42 +145,50 @@ System.out.println("寫入完畢");
 				    
 				        for (int i = 0; i < ja.length(); i++) {
 			                  
-			            lat.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
-			            lng.add(ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+//			            lat.add(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
+//			            lng.add(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
 			            
-			            System.out.print(ja.getJSONObject(i).getString("formatted_address")+",");
-			            System.out.print((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat"))+",");
-			            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
+			            realAdd.add(ja.getJSONObject(i).getString("formatted_address"));
+			            realLat.add((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat")));
+			            realLng.add((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
 				    } 
 				
 			}
-			Iterator<Double> latList = lat.iterator();
-			Iterator<Double> lngList = lng.iterator();
+//			Iterator<Double> latList = lat.iterator();
+//			Iterator<Double> lngList = lng.iterator();
+			
+			Iterator<String> realPhone =  list1.iterator();
+			
+			Iterator<Double> realLatList = realLat.iterator();
+			Iterator<Double> realLngList = realLng.iterator();
+			Iterator<String> realAddList = realAdd.iterator();
+			Iterator<String> realAddList0 = realAdd.iterator();
 			
 			System.out.println("GOOGLE完畢");
-			for (int k = 0; k < 77; k++) {
-				System.out.print(restNameList.next()+" : ");
-				System.out.print(restAddList.next()+" : ");//這是地址
-				System.out.print(lngList.next()+" , ");
-				System.out.println(latList.next());
-			}
-			
-			
 //			for (int k = 0; k < 77; k++) {
-//				pstmt = conn.prepareStatement(INSERT_REST);
-//				int kindOfPet = (int) (Math.random() * 3);
-//				
-//				pstmt.setString(1,restNameList.next());
-//				pstmt.setString(2,restAddList.next());
-//				pstmt.setString(3, restAddListForSubString.next().substring(0,2) +"縣");
-//				pstmt.setString(4,restPhoneList.next());
-//				pstmt.setString(5, "petRestaurantIntro"+k);
-//				pstmt.setInt(6, kindOfPet);
-//				pstmt.setInt(7, 0);
-//				pstmt.setDouble(8, lngList.next());
-//				pstmt.setDouble(9, latList.next());
-//				pstmt.executeUpdate();
+//			
+//				System.out.print(restNameList.next()+" : ");
+//				System.out.print(realAddList.next()+" : ");//這是地址
+//				System.out.print(realLatList.next()+" , ");
+//				System.out.println(realLngList.next());
 //			}
+			
+			
+			for (int k = 0; k < 77; k++) {
+				pstmt = conn.prepareStatement(INSERT_REST);
+				int kindOfPet = (int) (Math.random() * 3);
+				
+				pstmt.setString(1,restNameList.next());
+				pstmt.setString(2,realAddList.next());
+				pstmt.setString(3, restAddList.next().substring(0,2) +"縣");
+				pstmt.setString(4,realPhone.next());
+				pstmt.setString(5, "petRestaurantIntro"+k);
+				pstmt.setInt(6, kindOfPet);
+				pstmt.setInt(7, 0);
+				pstmt.setDouble(8, realLngList.next());
+				pstmt.setDouble(9, realLatList.next());
+				pstmt.executeUpdate();
+			}
 			
 			
 			

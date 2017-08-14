@@ -52,6 +52,7 @@ public class ActDetialServlet extends HttpServlet {
 			List<String> joinErr = new ArrayList<>();
 			req.setAttribute("joinErr", joinErr);
 			
+			String requestURL = req.getParameter("requestURL");
 			
 			Integer actNo = null;
 			try {
@@ -106,7 +107,7 @@ public class ActDetialServlet extends HttpServlet {
 			
 			
 			//////////////////////轉交////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activityFront/activityIndex.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher(requestURL);
 			requestDispatcher.forward(req, res);
 			
 			
@@ -118,7 +119,7 @@ public class ActDetialServlet extends HttpServlet {
 			
 			List<String> cancelErr = new ArrayList<>();
 			req.setAttribute("cancleErr", cancelErr);
-			
+			String requestURL = req.getParameter("requestURL");
 			
 			Integer actNo = null;
 			try {
@@ -158,7 +159,7 @@ public class ActDetialServlet extends HttpServlet {
 			
 			
 			//////////////////////轉交////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activityFront/activityIndex.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher(requestURL);
 			requestDispatcher.forward(req, res);
 			
 			

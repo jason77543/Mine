@@ -349,36 +349,42 @@ public class ActivityServlet extends HttpServlet {
 			
 		}
 		
-		
-		else if("north".equals(action)){
+		else if("actManagement".equals(action)){
+			List<String> actManaErr = new ArrayList<>();
+			req.setAttribute("actManaErr", actManaErr);
 			
 			
+			Integer actStatus = null;
+			try {
+				actStatus = Integer.parseInt(req.getParameter("actStatus"));
+			} catch (Exception e) {
+				actManaErr.add("活動狀態錯誤");
+			}
 			
+			Integer actNo = null;
+			try {
+				actNo = Integer.parseInt(req.getParameter("actNo"));
+			} catch (Exception e) {
+				actManaErr.add("活動編號錯誤");
+			}
+			
+			if(!actManaErr.isEmpty()){
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/activityManagement/activityManagement.jsp");
+				requestDispatcher.forward(req, res);
+				return;
+			}
+			
+			////////////////////////後端更新///////////////////////////////////
 			ActivityService activityService = new ActivityService();
-			List<Activity> activityList = activityService.getAllByStatus(2);
-			Set<String> restaurantSet = new TreeSet<>();
+			Activity activity = activityService.updateBack(actStatus, actNo);
+			req.setAttribute("activity", activity);
 			
 			
-			for(Activity activity:activityList){
-				
-				RestMemberService restMemberService = new RestMemberService();
-				RestMember restMember = restMemberService.getOneRestMember(activity.getRestMemId());
-				
-				RestaurantService restaurantService = new RestaurantService();
-				Restaurant restaurant = restaurantService.getOneRest(restMember.getRestNo());
-				
-				restaurantSet.add(restaurant.getRestLocate());
-				
-			}
-			
-			Iterator<String> northSet = restaurantSet.iterator();
-			System.out.println();
-			while(northSet.hasNext()){
-				System.out.println(northSet.next());
-			}
-			
-			
+			/////////////////////////轉存////////////////////////////////////
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/activityManagement/activityManagement.jsp");
+			requestDispatcher.forward(req, res);
 		}
+		
 		
 		
 	}

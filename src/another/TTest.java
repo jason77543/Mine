@@ -20,7 +20,7 @@ public class TTest {
 	
 		public static void main(String[] args) throws IOException, JSONException {
 			
-			String sKeyWord = "台中市西屯區慶和街92號"; //這是地址
+			String sKeyWord = "台灣台北市士林區天母西路5巷17號"; //這是地址
 			URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
 			URLEncoder.encode(sKeyWord, "UTF-8")));//p=%s is KeyWord in	            
 			URLConnection connFromGMap = urlFromGMap.openConnection();
@@ -34,7 +34,7 @@ public class TTest {
 		                  
 		            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat")));
 		            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
-		            
+		            System.out.println((ja.getJSONObject(0).get("address_components")));
 			    } 
 			}
 			

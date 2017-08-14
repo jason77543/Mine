@@ -30,22 +30,22 @@
 <html lang="">
 
 <head>
-    <%@ include file="/front_end/files/actFrontCss.file" %>
+    <%@ include file="/front_end/actFiles/actFrontCss.file" %>
 </head>
 
 <body>
-	<%@ include file="/front_end/files/overflow.file" %>
-    <%@ include file="/front_end/files/actFrontNav.file" %>
+	<%@ include file="/front_end/actFiles/overflow.file" %>
+    <%@ include file="/front_end/actFiles/actFrontNav.file" %>
     <div class="container-fluid">
         <div class="row">
-            <%@ include file="/front_end/files/actFrontList.file" %>
+            <%@ include file="/front_end/actFiles/actFrontList.file" %>
             
             <div class="col-xs-12 col-sm-8 ">
 
             <div class="panel-group col-sm-offset-2 col-sm-8">
 	
 
-			<%@ include file="/front_end/files/activityAll.file" %>
+			<%@ include file="/front_end/actFiles/activityAll.file" %>
 	
 
 		

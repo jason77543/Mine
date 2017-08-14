@@ -1,3 +1,7 @@
+rest-restLocate 
+rest-RESTINTRO CLOB
+ACTIVITY-ACTCONTENT CLOB
+
 Drop Table Albumimg;
 Drop Table Album;
 drop table ORDERLIST;
@@ -160,18 +164,23 @@ empNo NUMBER(10) Constraint EMP_EMPNO_Pk Primary Key,
 empName VARCHAR2(30) NOT NULL,
 empJob VARCHAR2(50) NOT NULL,
 empId VARCHAR2(50) NOT NULL CONSTRAINT EMP_EMPID_UK UNIQUE,
-empPwd VARCHAR2(32) NOT NULL,
-empStatus NUMBER(2) NOT NULL);
+empPwd VARCHAR2(1000) NOT NULL,
+empPwdSalt VARCHAR2(1000) NOT NULL,
+empStatus NUMBER(2) NOT NULL,
+empHireDate Date NOT NULL,
+empEmail VARCHAR2(100) NOT NULL
+);
 
 Create Sequence EMPNO_SQ  Increment By 1 Start With 6001 Nocache Nocycle;
 
-INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'周樊綱','工讀生','CHOUFAN','CHOODW213',0);
-INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'吳永志','總經理','DQWDH','EQWEDW213',0);
-INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'王阿鈞','協理','TYHYTAN','EWFWEF213',0);
-INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'陳興','打工仔','HYTHUFAN','CHOWEF213',0);
-INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'李宗霖','副理','CQWEAN','WEFEW213',0);
-
-
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'吳永志','總經理','petym1','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2005-10-17','YYYY-MM-DD'),'chrisyen8341@gmail.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'黃彬華','協理','petym2','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2007-12-17','YYYY-MM-DD'),'chrisyen8341@gmail.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'吳永志','總經理','petym3','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2005-10-17','YYYY-MM-DD'),'chrisyen8341@gmail.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'王阿鈞','協理','petym4','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2007-05-17','YYYY-MM-DD'),'QWdqwcasd@IIw.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'梁育誠','工讀生','petym5','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2002-09-17','YYYY-MM-DD'),'cawerasd@qQWEdqw.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'梁小城','專員','petym6','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2002-09-17','YYYY-MM-DD'),'cawerasd@qQWEdqw.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'卜小哥','協理','petym7','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2002-09-17','YYYY-MM-DD'),'cawerasd@qQWEdqw.com');
+INSERT INTO EMP VALUES (EMPNO_SQ.NEXTVAL,'廖國賓','專員','petym8','0a04bc40cc87d5d9bb5f83c1f5c059ddcfbc324627d696e70ebdd8f905eacc46','b283af',0,TO_DATE('2002-09-17','YYYY-MM-DD'),'cawerasd@qQWEdqw.com');
 
 Create Table Auth(
 AuthNo Number(10) Constraint Auth_Authno_Pk Primary Key,
@@ -179,12 +188,14 @@ AuthName VARCHAR2(100));
 
 Create Sequence AuthNO_Sq Increment By 1 Start With 4001 Nocache Nocycle;
 
-Insert Into Auth Values(AuthNo_Sq.Nextval,'商城商品上架審核');
-Insert Into Auth Values(AuthNo_Sq.Nextval,'約會商品上架審核');
-Insert Into Auth Values(AuthNo_Sq.Nextval,'活動發起審核');
-Insert Into Auth Values(AuthNo_Sq.Nextval,'餐廳會員註冊審核');
-Insert Into Auth Values(AuthNo_Sq.Nextval,'約會商品檢舉審核');
-insert into auth values(AuthNo_sq.nextval,'約會商品申訴審核');
+Insert Into Auth Values(AuthNo_Sq.Nextval,'前端看板管理');
+Insert Into Auth Values(AuthNo_Sq.Nextval,'會員帳號管理');
+Insert Into Auth Values(AuthNo_Sq.Nextval,'商城管理');
+Insert Into Auth Values(AuthNo_Sq.Nextval,'檢舉申訴管理');
+Insert Into Auth Values(AuthNo_Sq.Nextval,'權限管理');
+insert into auth values(AuthNo_sq.nextval,'活動管理');
+insert into auth values(AuthNo_sq.nextval,'餐廳管理');
+insert into auth values(AuthNo_sq.nextval,'站內信管理');
 
 
 Create Table Empauth(
@@ -195,17 +206,22 @@ Constraint Auth_Empno_Fk Foreign Key(Empno) References Emp(Empno),
 constraint Auth_authno_Fk foreign key(AuthNo) references auth(authno)
 );
 
+Insert Into Empauth Values(6001,4001);
+Insert Into Empauth Values(6001,4002);
+Insert Into Empauth Values(6001,4003);
+Insert Into Empauth Values(6001,4004);
+Insert Into Empauth Values(6001,4005);
+Insert Into Empauth Values(6001,4006);
+Insert Into Empauth Values(6001,4007);
+Insert Into Empauth Values(6001,4008);
 Insert Into Empauth Values(6002,4001);
 Insert Into Empauth Values(6002,4002);
-Insert Into Empauth Values(6002,4003);
 Insert Into Empauth Values(6002,4004);
 Insert Into Empauth Values(6002,4005);
 Insert Into Empauth Values(6002,4006);
 Insert Into Empauth Values(6003,4002);
 Insert Into Empauth Values(6003,4004);
 Insert Into Empauth Values(6003,4006);
-Insert Into Empauth Values(6001,4001);
-Insert Into Empauth Values(6001,4002);
 
 CREATE TABLE FAQ(
 faqNo NUMBER(10) CONSTRAINT FAQ_faqNo_PK PRIMARY KEY,
@@ -438,7 +454,7 @@ RESTNAME VARCHAR2(200) NOT NULL,
 RESTADD VARCHAR2(600) NOT NULL,
 RESTLOCATE VARCHAR2(60) NOT NULL,
 RESTPHONE VARCHAR2(60) NOT NULL,
-RESTINTRO VARCHAR2(3000) NOT NULL,
+RESTINTRO CLOB NOT NULL,
 RESTKIND NUMBER(5) NOT NULL,
 RESTREVIEWSTATUS NUMBER(2) NOT NULL ,
 RESTLONGTITUDE NUMBER(9,6) NOT NULL,
@@ -508,7 +524,7 @@ CREATE TABLE ACTIVITY (
 ACTNO NUMBER(10) NOT NULL,
 RESTMEMID VARCHAR2(60) NOT NULL, 
 ACTNAME VARCHAR2(100) NOT NULL,
-ACTCONTENT VARCHAR2(500) NOT NULL,
+ACTCONTENT CLOB NOT NULL,
 ACTDATE DATE NOT NULL,
 ACTFDATE DATE NOT NULL,
 ACTSTATUS NUMBER(5) NOT NULL,

@@ -98,6 +98,17 @@ public class RestMemberServlet extends HttpServlet {
 				}
 				
 				
+				
+				
+			
+				if(!errorMsgs.isEmpty()){
+					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
+					requestDispatcher.forward(req, res) ;
+					return;
+				}
+				
+				///////////////////////////登入成功///////////////////////////////
+				
 				if(allowUser(restMemId, restMemPsw)==null){
 					errorMsgs.put("","會員帳號、密碼錯誤");
 					
@@ -123,25 +134,13 @@ public class RestMemberServlet extends HttpServlet {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
+					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
 					requestDispatcher.forward(req, res);
 				}
 				
 				
-			
-				if(!errorMsgs.isEmpty()){
-					RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
-					requestDispatcher.forward(req, res) ;
-					return;
-				}
-				
-				///////////////////////////登入成功///////////////////////////////
 				
 				
-				
-				
-				RequestDispatcher requestDispatcher =req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
-				requestDispatcher.forward(req, res);
 				
 				
 				

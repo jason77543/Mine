@@ -31,6 +31,8 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 			+ ",ACTFDATE=?,ACTSTATUS=?,ACTULIMIT=?,ACTLLIMIT=?,ACTKIND=?,ACTANOTHERKIND=?,ACTINITIMG=? WHERE ACTNO=?";
 	private static final String DELETE_ACTIVITY = "DELETE FROM ACTIVITY WHERE ACTNO=?";
 	
+	private static final String UPDATE_ACTIVITY_BACK = "UPDATE ACTIVITY SET ACTSTATUS=? WHERE ACTNO=?";
+	
 	private static final String FIND_BY_PK = "SELECT * FROM ACTIVITY WHERE ACTNO=?";
 	private static final String FIND_BY_PK_STATUS = "SELECT * FROM ACTIVITY WHERE ACTNO=? AND ACTSTATUS=?";
 	
@@ -347,20 +349,9 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 //		activity.setActInitImg(actInitImg);
 //		activityJDBCDAO.add(activity);
 		
-//		activity.setRestMemId("qq");
-//		activity.setActName("À\ÆU¦WºÙ2");
-//		activity.setActContent("À\ÆU¤º®e2");
-//		activity.setActDate(java.sql.Date.valueOf("2017-07-17"));
-//		activity.setActFDate(java.sql.Date.valueOf("2017-07-24"));
-//		activity.setActStatus(1);
-//		activity.setActULimit(new Integer(200));
-//		activity.setActLLimit(new Integer(20));
-//		activity.setActKind(0);
-//		activity.setActAnotherKind("");
-//		byte[] actInitImg = getPictureByteArray("C:\\BA102_WebApp\\eclipse_WTP_WorkSpace\\BA102G1\\WebContent\\img\\2.jpg");
-//		activity.setActInitImg(actInitImg);
-//		activity.setActNo(8006);
-//		activityJDBCDAO.update(activity);
+		
+		
+		activityJDBCDAO.updateBack(1, 8005);
 		
 //		activityJDBCDAO.delete(3);
 		
@@ -787,6 +778,44 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 			}
 		}
 		return activityList;
+	}
+
+
+	@Override
+	public void updateBack(Integer actStatus, Integer actNo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			
+			pstmt = conn.prepareStatement(UPDATE_ACTIVITY_BACK);
+			pstmt.setInt(1, actStatus);
+			pstmt.setInt(2, actNo);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 

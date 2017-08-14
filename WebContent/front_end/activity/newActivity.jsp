@@ -47,18 +47,18 @@
 
 </head>
 <body>
-	<%@ include file="/front_end/files/restMemberNavBar.file" %>
-	<%@ include file="/front_end/files/activity.file" %>
+	<%@ include file="/front_end/actFiles/restMemberNavBar.file" %>
+	<%@ include file="/front_end/actFiles/activity.file" %>
 	
 	<div class="container-fluid">
         <div class="row"> 
-        	<%@ include file="/front_end/files/restMemberList.file" %>
+        	<%@ include file="/front_end/actFiles/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
     <div class="panel-group col-sm-offset-2 col-sm-8">
     
     
-	<h5 class=" page-header text-right">目前位置:新增餐廳活動</h5>
+	<h5 class="page-header text-right">目前位置:新增餐廳活動</h5>
 	
 		<h1 class="text-center">新增餐廳活動</h1>
 
@@ -87,7 +87,7 @@
 									活動內容
 								</label>
 								<div class="col-sm-9">
-									<textarea class="form-control" name="actContent" rows="3" cols="54" placeholder="請輸入活動內容" wrap="hard"></textarea>
+									<textarea class="form-control" name="actContent" rows="3" cols="54" placeholder="請輸入活動內容" wrap="hard" style="resize:none"></textarea>
 								</div>
 							</div>
 

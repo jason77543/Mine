@@ -49,6 +49,14 @@ public class ActivityService {
 			return activity;
 		}
 	
+	public Activity updateBack(Integer actStatus,Integer actNo){
+		Activity activity = new Activity();
+		activity.setActStatus(actStatus);
+		activity.setActNo(actNo);
+		activityDao.updateBack(actStatus, actNo);
+		return activity;
+	}
+	
 	public void deleteActivity(Integer actNo){
 		activityDao.delete(actNo);
 	}

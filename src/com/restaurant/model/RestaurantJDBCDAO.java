@@ -31,6 +31,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			+ ",RESTINTRO=?,RESTKIND=?,RESTREVIEWSTATUS=?,RESTLONGTITUDE=?,RESTLATITUDE=? WHERE RESTNO=?";
 	private static final String UPDATE_REST_MEMBER = "UPDATE REST SET RESTNAME=?,RESTADD=?,RESTPHONE=?"
 			+ ",RESTINTRO=?,RESTKIND=? WHERE RESTNO=?";
+	private static final String UPDATE_REST_BACK = "UPDATE REST SET RESTREVIEWSTATUS=? WHERE RESTNO=?";
 	private static final String DELETE_REST = "DELETE FROM REST WHERE RESTNO=?";
 	private static final String FIND_BY_PK = "SELECT * FROM REST WHERE RESTNO=?";
 	private static final String GET_ALL = "SELECT * FROM REST";
@@ -301,9 +302,11 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 	}
 
 	public static void main(String[] args) throws IOException {
-//		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
-//		
-//		Restaurant rest = new Restaurant();
+		RestaurantJDBCDAO restJDBCDAO = new RestaurantJDBCDAO();
+		
+		Restaurant rest = new Restaurant();
+		
+		
 //		rest.setRestNo(2);
 //		rest.setRestName("À\ÆU¦WºÙ1");
 //		rest.setRestAdd("À\ÆU¦a§}1");
@@ -315,7 +318,7 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //		rest.setRestLongtitude( 1.111111);
 //		rest.setRestLatitude( 2.22222);
 //		restJDBCDAO.add(rest);
-		
+		restJDBCDAO.updateBack(7007, 0);
 		
 //		rest.setRestNo(1);
 //		rest.setRestName("À\ÆU¦WºÙ1up");
@@ -350,6 +353,46 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 //			System.out.println(restE.getRestIntro());
 //			System.out.println(restE.getRestKind());
 //		}
+	}
+
+	@Override
+	public void updateBack(Integer restNo, Integer restReviewStatus) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, userid, passwd);
+			pstmt = conn.prepareStatement(UPDATE_REST_BACK);
+
+			
+			pstmt.setInt(2, restNo);
+			pstmt.setInt(1, restReviewStatus);
+			
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 }

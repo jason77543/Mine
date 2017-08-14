@@ -48,7 +48,18 @@ public class RestaurantService {
 		return rest;
 	}
 	
-	
+	public Restaurant updateBack(Integer restReviewStatus,Integer restNo){
+		
+		Restaurant rest = new Restaurant();
+		
+		rest.setRestReviewStatus(restReviewStatus);
+		rest.setRestNo(restNo);
+		
+		
+		restaurantDao.updateBack(restReviewStatus, restNo);
+		
+		return rest;
+	}
 	
 	public void deleteRest(Integer restNo){
 		restaurantDao.delete(restNo);
