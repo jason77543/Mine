@@ -67,7 +67,8 @@
 								<th>審核餐廳</th>
 							</tr>
 						</thead>
-							<c:forEach var="restauranBack" items="${restauranBacktList}" >
+						
+						<c:forEach var="restauranBack" items="${restauranBacktList}" >
 								<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController">
 									<tr>
 										<td>${restauranBack.restNo}</td>
@@ -87,7 +88,7 @@
 											</c:if>
 										<td>
 											<select name="restReviewStatus">    
-											  <option value="0" ${(restauranBack.restReviewStatus=='0')?'selected':''} >已審核通過</option>
+											  <option value="0" ${(restauranBack.restReviewStatus=='0')?'selected':''} ><font color="green">已審核通過</font></option>
 											  <option value="1" ${(restauranBack.restReviewStatus=='1')?'selected':''} >審核未通過</option>
 											  <option value="2" ${(restauranBack.restReviewStatus=='2')?'selected':''} >未審核</option>
 											</select>
@@ -104,6 +105,7 @@
 							
 						
 						</table>
+						
 					</div>
 				</div>
 			</div> 

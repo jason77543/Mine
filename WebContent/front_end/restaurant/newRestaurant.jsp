@@ -88,7 +88,7 @@
 								</label>
 								<div class="col-sm-9">
 									<textarea rows="3" cols="54" name="restIntro" class="form-control" 
-									 placeholder="½Ð¿é¤JÀ\ÆU¤¶²Ð" ></textarea>
+									 placeholder="½Ð¿é¤JÀ\ÆU¤¶²Ð" style="resize:none"></textarea>
 									
 								</div>
 							</div>

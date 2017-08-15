@@ -40,6 +40,7 @@
 			background: #8CEA00;
 		}
 		
+		
 </style>
 <body>
     <%@ include file="/back_end/actFiles/actBackNav.file" %>
@@ -66,23 +67,29 @@
 							<c:forEach var="activityBack" items="${activityBackList}" >
 								<form method="post" action="<%=request.getContextPath()%>/activity/activityController">
 									<tr>
-										<td>${activityBack.actInitImg}</td>
-										<td>${activityBack.actNo}</td>
-										<td>${activityBack.actName}</td>
-										<td>${activityBack.actDate}</td>
-										<td>${activityBack.actFDate}</td>
-										<td>${activityBack.actULimit}</td>
-										<td>${activityBack.actLLimit}</td>
+										<td>
+											<div class="imgimg">
+												<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activityBack.actNo}" 
+													class="img-rounded" width="100" height="100" " />                          
+											</div>
+										</td>
+										
+										<td><br><br>${activityBack.actNo}</td>
+										<td><br><br>${activityBack.actName}</td>
+										<td><br><br>${activityBack.actDate}</td>
+										<td><br><br>${activityBack.actFDate}</td>
+										<td><br><br>${activityBack.actULimit}</td>
+										<td><br><br>${activityBack.actLLimit}</td>
 											<c:if test="${activityBack.actKind=='0'}">
-												<td>貓</td>
+												<td><br><br>貓</td>
 											</c:if>
 											<c:if test="${activityBack.actKind=='1'}">
-												<td>狗</td>
+												<td><br><br>狗</td>
 											</c:if>
 											<c:if test="${activityBack.actKind=='2'}">
-												<td>其他</td>
+												<td><br><br>其他</td>
 											</c:if>
-										<td>
+										<td><br><br>
 											<select name="actStatus">    
 											  <option value="0" ${(activityBack.actStatus=='0')?'selected':''} >發起活動</option>
 											  <option value="1" ${(activityBack.actStatus=='1')?'selected':''} >審核未通過</option>
@@ -90,7 +97,7 @@
 											  <option value="3" ${(activityBack.actStatus=='3')?'selected':''} >餐廳取消活動</option>
 											</select>
 										</td>
-										<td>
+										<td><br><br>
 											<input type="hidden" name="actNo" value="${activityBack.actNo}">
 											<input type="hidden" name="action" value="actManagement">
 											<input type="submit" value="修改">

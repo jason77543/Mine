@@ -34,7 +34,9 @@ public class TTest {
 		                  
 		            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat")));
 		            System.out.println((ja.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
-		            System.out.println((ja.getJSONObject(0).get("address_components")));
+		            JSONObject jsonObject =(JSONObject)ja.getJSONObject(0).getJSONArray("address_components").get(3);
+//		            System.out.println((ja.getJSONObject(0).getJSONArray("address_components").get(3)));
+		            System.out.println(jsonObject.get("short_name"));
 			    } 
 			}
 			

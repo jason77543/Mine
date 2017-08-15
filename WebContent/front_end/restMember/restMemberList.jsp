@@ -14,98 +14,137 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+		<title>Title Page</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<!--[if lt IE 9]>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
 <head>
 <title>餐廳一覽表</title>
 </head>
-
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script>
+	$(document).ready(function(){
+		$("tr:even").css("background-color","white");
+		$("tr:odd").css("background-color","#D9FFFF");
+		
+	})
+	</script>
+	<style type="text/css">
+		.actTable{
+			margin-top: 50px;
+		}
+		th{
+			text-align: center;
+			font-size: 16px;
+			background: #8CEA00;
+		}
+		
+</style>
 
 <body bgcolor='white'>
-<table border='1' cellpadding='5' cellspacing='0' width='800'>
-	<tr bgcolor='#CCFFFF' align='center' valign='middle' height='20' >
-		<td><h1>友善寵物餐廳一覽表</h1>
-		          <a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">回登入頁面</a></td></tr></table>
-
-
-
-<table border='1' bordercolor='#CCCCFF' width='800'>
-	<tr>
-		
-		<th>餐廳名稱</th>
-		<th>餐廳地址</th>
-		<th>餐廳電話</th>
-		
-		<th>餐廳種類</th>
-		<th>餐廳審核狀態</th>
-		
-		
-	</tr>
-	<%@ include file="/front_end/actFiles/page1.file" %> 
-	<c:forEach var="restaurant" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<tr align='center' valign='middle'>
+<div class="container-fluid">
+	<div class="row ">
+	<div class="col-sm-offset-3">
+		<div class="col-xs-12 col-sm-6 text-center">
+			<table class="table table-hover table-striped table-bordered" >
+					<tr bgcolor='#CCFFFF' align='center' valign='middle' height='20' >
+						<td><h1>友善寵物餐廳一覽表</h1>
+							 <a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">回登入頁面</a>
+						</td>
+					</tr>
+				</table>
 			
-			<td>${restaurant.restName}</td>
-			<td>${restaurant.restAdd}</td>
-			<td>${restaurant.restPhone}</td>
 			
-			<td>
-		
-					<c:if test="${restaurant.restKind=='0'}">
-						<input type="hidden" name="restKind" class="form-control" value="0" >貓餐廳
-					</c:if>
-					<c:if test="${restaurant.restKind=='1'}">
-						<input type="hidden" name="restKind" class="form-control" value="1" >狗餐廳
-					</c:if>
-					<c:if test="${restaurant.restKind=='2'}">
-						<input type="hidden" name="restKind" class="form-control" value="2" >其他餐廳
-					</c:if>
-								
-			</td>
-			<td>
-					<c:if test="${restaurant.restReviewStatus=='0'}">
-						<input type="hidden" name="restReviewStatus" class="form-control" value="0" >已審核通過
-					</c:if>
-					<c:if test="${restaurant.restReviewStatus=='1'}">
-						<input type="hidden" name="restReviewStatus" class="form-control" value="1" >審核未通過
-					</c:if>
-					<c:if test="${restaurant.restReviewStatus=='2'}">
-						<input type="hidden" name="restReviewStatus" class="form-control" value="2" >未審核
-					</c:if>
-			</td>
-			<td>
-			<c:if test="${restaurant.restReviewStatus=='0'}">
-				<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front_end/restMember/restMemberRegister.jsp">
-			     <input type="submit" value="註冊">
-			     <input type="hidden" name="restNo" value="${restaurant.restNo}">
-			     <input type="hidden" name="restName" value="${restaurant.restName}">
-			     <input type="hidden" name="restAdd" value="${restaurant.restAdd}">
-			     <input type="hidden" name="restPhone" value="${restaurant.restPhone}">
-			     <input type="hidden" name="restIntro" value="${restaurant.restIntro}">
-			     <input type="hidden" name="restKind" value="${restaurant.restKind}">
-			     <input type="hidden" name="restReviewStatus" value="${restaurant.restReviewStatus}">
-			     <input type="hidden" name="restLongtitude" class="form-control" value="<%=restaurant.getRestLongtitude() %>" >
-				 <input type="hidden" name="restLatitude" class="form-control" value="<%=restaurant.getRestLatitude() %>" >
-				 <input type="hidden" name="restLocate" class="form-control" value="<%=restaurant.getRestLocate() %>" >
-			 </FORM>
-			</c:if>
-			
-			<c:if test="${restaurant.restReviewStatus=='1'}">
-				<input type="submit" value="註冊" disabled>
-			</c:if>
-			<c:if test="${restaurant.restReviewStatus=='2'}">
-				<input type="submit" value="註冊" disabled>
-			</c:if>
-			
-			  
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="/front_end/actFiles/page2.file" %>
-<br>
-	
-		<div  >
-			沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
+				
+				
+				<table border='1' bordercolor='#CCCCFF' width='800'>
+					<tr>
+						
+						<th>餐廳名稱</th>
+						<th>餐廳地址</th>
+						<th>餐廳電話</th>
+						
+						<th>餐廳種類</th>
+						<th>餐廳審核狀態</th>
+						
+						
+					</tr>
+					<%@ include file="/front_end/actFiles/page1.file" %> 
+					<c:forEach var="restaurant" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+						<tr align='center' valign='middle'>
+							
+							<td>${restaurant.restName}</td>
+							<td>${restaurant.restAdd}</td>
+							<td>${restaurant.restPhone}</td>
+							
+							<td>
+						
+									<c:if test="${restaurant.restKind=='0'}">
+										<input type="hidden" name="restKind" class="form-control" value="0" >貓餐廳
+									</c:if>
+									<c:if test="${restaurant.restKind=='1'}">
+										<input type="hidden" name="restKind" class="form-control" value="1" >狗餐廳
+									</c:if>
+									<c:if test="${restaurant.restKind=='2'}">
+										<input type="hidden" name="restKind" class="form-control" value="2" >其他餐廳
+									</c:if>
+												
+							</td>
+							<td>
+									<c:if test="${restaurant.restReviewStatus=='0'}">
+										<input type="hidden" name="restReviewStatus" class="form-control" value="0" >已審核通過
+									</c:if>
+									<c:if test="${restaurant.restReviewStatus=='1'}">
+										<input type="hidden" name="restReviewStatus" class="form-control" value="1" >審核未通過
+									</c:if>
+									<c:if test="${restaurant.restReviewStatus=='2'}">
+										<input type="hidden" name="restReviewStatus" class="form-control" value="2" >未審核
+									</c:if>
+							</td>
+							<td>
+							<c:if test="${restaurant.restReviewStatus=='0'}">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front_end/restMember/restMemberRegister.jsp">
+							     <input type="submit" value="註冊">
+							     <input type="hidden" name="restNo" value="${restaurant.restNo}">
+							     <input type="hidden" name="restName" value="${restaurant.restName}">
+							     <input type="hidden" name="restAdd" value="${restaurant.restAdd}">
+							     <input type="hidden" name="restPhone" value="${restaurant.restPhone}">
+							     <input type="hidden" name="restIntro" value="${restaurant.restIntro}">
+							     <input type="hidden" name="restKind" value="${restaurant.restKind}">
+							     <input type="hidden" name="restReviewStatus" value="${restaurant.restReviewStatus}">
+							     <input type="hidden" name="restLongtitude" class="form-control" value="<%=restaurant.getRestLongtitude() %>" >
+								 <input type="hidden" name="restLatitude" class="form-control" value="<%=restaurant.getRestLatitude() %>" >
+								 <input type="hidden" name="restLocate" class="form-control" value="<%=restaurant.getRestLocate() %>" >
+							 </FORM>
+							</c:if>
+							
+							<c:if test="${restaurant.restReviewStatus=='1'}">
+								<input type="submit" value="註冊" disabled>
+							</c:if>
+							<c:if test="${restaurant.restReviewStatus=='2'}">
+								<input type="submit" value="註冊" disabled>
+							</c:if>
+							
+							  
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+				<%@ include file="/front_end/actFiles/page2.file" %>
+				<br>
+					
+					<div >
+						沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
+					</div>
+			</div>
 		</div>
-		
+	</div>
+</div>	
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

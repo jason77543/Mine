@@ -283,7 +283,7 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 	}
 
 	@Override
-	public void updateBack(Integer restNo, Integer restReviewStatus) {
+	public void updateBack(Integer restReviewStatus,Integer restNo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {

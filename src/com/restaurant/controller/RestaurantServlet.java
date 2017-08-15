@@ -344,6 +344,7 @@ public class RestaurantServlet extends HttpServlet {
 				}
 				
 				if(!reatManeErr.isEmpty()){
+					System.out.println("000");
 					RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/restMemberManagement/restMemberManagement.jsp");
 					requestDispatcher.forward(req, res);
 					return;
