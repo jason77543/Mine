@@ -205,7 +205,7 @@ public class ActivityServlet extends HttpServlet {
 			req.setAttribute("activity", activity);
 			
 			////////////////////////Âà¦s////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
 			requestDispatcher.forward(req, res);
 		}
 		
