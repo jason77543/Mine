@@ -14,10 +14,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<%@ include file="/front_end/actFiles/actFrontCss.file" %>	
 <title>Title Page</title>
 <style type="text/css">
 .pwd {
@@ -32,31 +29,29 @@
    color: red;
 }
 </style>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<!--[if lt IE 9]>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-			<![endif]-->
 
 </head>
 <body>
+<%@ include file="/front_end/actFiles/restMemberNavBar2.file" %>
 
+	
+	
 	<div class="container">
 		<div class="row">
+        	
+    
 			<div class="col-sm-6 col-sm-offset-3">
-
-				<div align="center">
-					<Img src="<%=request.getContextPath()%>/img/1.jpg" height="250px" width="400px" />
-				</div>
-
-				<form class="" action="<%=request.getContextPath()%>/restMember/restMemberController"  method="post">
-							<c:if test="${not empty errorMsgs}">
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-									
-										<li>${message.value}</li>
+				<div class="col-sm-12">
+					<div align="center">
+						<Img src="<%=request.getContextPath()%>/front_end/images/logo.png" height="250px" width="400px" />
+					</div>
+	
+					<form class="" action="<%=request.getContextPath()%>/restMember/restMemberController"  method="post">
+								<c:if test="${not empty errorMsgs}">
+									<ul>
+										<c:forEach var="message" items="${errorMsgs}">
+										
+											<li>${message.value}</li>
 									</c:forEach>
 									
 								</ul>
@@ -101,10 +96,7 @@
 						</div>
 					</div>
 
-					<div class="checkbox">
-						<label> <input type="checkbox"> °O¦í§Ú
-						</label>
-					</div>
+					
 					<input type="hidden" name="action" value="login">
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
@@ -119,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-
+</div>
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

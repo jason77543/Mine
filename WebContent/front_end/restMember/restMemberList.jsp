@@ -14,14 +14,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<title>Title Page</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<!--[if lt IE 9]>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+<%@ include file="/front_end/actFiles/actFrontCss.file" %>
 <head>
 <title>餐廳一覽表</title>
 </head>
@@ -45,36 +38,26 @@
 		
 </style>
 
-<body bgcolor='white'>
+<body>
+<%@ include file="/front_end/actFiles/restMemberNavBar2.file" %>
 <div class="container-fluid">
-	<div class="row ">
-	<div class="col-sm-offset-3">
-		<div class="col-xs-12 col-sm-6 text-center">
-			<table class="table table-hover table-striped table-bordered" >
-					<tr bgcolor='#CCFFFF' align='center' valign='middle' height='20' >
-						<td><h1>友善寵物餐廳一覽表</h1>
-							 <a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">回登入頁面</a>
-						</td>
-					</tr>
-				</table>
-			
-			
-				
-				
-				<table border='1' bordercolor='#CCCCFF' width='800'>
-					<tr>
-						
+			<div class="row">
+				<div class="col-xs-12 col-sm-offset-3">
+					<div class="col-xs-12 col-sm-6">
+					<table class="table table-striped">
+						<tr>
+							
 						<th>餐廳名稱</th>
 						<th>餐廳地址</th>
 						<th>餐廳電話</th>
 						
 						<th>餐廳種類</th>
-						<th>餐廳審核狀態</th>
-						
+						<th>審核狀態</th>
+						<th></th>
 						
 					</tr>
-					<%@ include file="/front_end/actFiles/page1.file" %> 
-					<c:forEach var="restaurant" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+					
+					<c:forEach var="restaurant" items="${list}">
 						<tr align='center' valign='middle'>
 							
 							<td>${restaurant.restName}</td>
@@ -134,16 +117,21 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<%@ include file="/front_end/actFiles/page2.file" %>
+				
 				<br>
-					
-					<div >
-						沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">	
+						
+							沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
+						</div>
 					</div>
+				</div>	
 			</div>
 		</div>
-	</div>
-</div>	
+	</div>	
+</div>
+
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

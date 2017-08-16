@@ -192,7 +192,7 @@
 						         			
 </div>
 				
-		
+					
 			
 					
 					
@@ -203,4 +203,10 @@
 				</div>
 			     
 			</c:forEach>
-					
+			
+			
+					<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">
+						<div class="" id="fixedbutton-talk">
+							<button class="button btn-lg btn-primary active">發起活動</button>
+						</div>
+					</a>	
