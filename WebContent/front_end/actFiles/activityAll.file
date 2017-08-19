@@ -141,26 +141,33 @@
 							</div>			
 				<div class="modal-footer">
 					
-					<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+					
 					
 					
 					
 					<% 
-					ActDetialService actDetialService=new ActDetialService();
-					Map<Integer,Integer> map = actDetialService.getOneActDetialMap(member.getMemNo()); 
-					boolean showAttend=true;
-						if(map!=null){
-							try{
-								if(map.get(act.getActNo())==null){
-									showAttend=true;
-								}
-								if(map.get(act.getActNo())==0){
-									showAttend=false;
-								}
-							}catch (Exception e){
-								showAttend=true;
+					        Map<Integer,Integer> map=null;
+							if(session.getAttribute("member")!=null){
+								Member member = (Member)session.getAttribute("member");
+								ActDetialService actDetialService=new ActDetialService();
+								map =actDetialService.getOneActDetialMap(member.getMemNo()); 
 							}
-						}		
+							
+							
+							boolean showAttend=true;
+								if(map!=null){
+									try{
+										if(map.get(act.getActNo())==null){
+											showAttend=true;
+										}
+										if(map.get(act.getActNo())==0){
+											showAttend=false;
+										}
+									}catch (Exception e){
+										showAttend=true;
+									}
+								}
+									
 					%>
 					<% if(showAttend){  %>
 					
@@ -180,10 +187,10 @@
 						<input type="hidden" name="actNo" value="${activityFront.actNo}">
 						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 						<input type="hidden" name="action" value="cancelActivity">
-						<button type="submit" class="btn btn-primary">取消活動</button>
+						<button type="submit" class="btn btn-danger">取消活動</button>
 					
 					<% } %>
-					
+					<button type="button" class="btn btn-warning" data-dismiss="modal">關閉</button>
 				</div>
 													
 			</div>

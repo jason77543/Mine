@@ -112,6 +112,12 @@
 		</div>
 	</div>
 </div>
+
+					<a href="<%=request.getContextPath()%>/front_end/activityFront/activityIndex.jsp">
+						<div class="" id="fixedbutton-talk">
+							<button class="button btn-lg btn-primary active">回到活動</button>
+						</div>
+					</a>	
 <%@ include file="/front_end/frontEndButtomFixed.file" %>      
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script

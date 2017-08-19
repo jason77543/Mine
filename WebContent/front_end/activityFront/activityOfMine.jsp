@@ -12,7 +12,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	Member member = (Member)session.getAttribute("member");
+	Member member = null;
+	Map<Integer,Integer> map=null;
+	
+	if(session.getAttribute("member")!=null){
+		member = (Member)session.getAttribute("member");
+		ActDetialService actDetialService=new ActDetialService();
+		map =actDetialService.getOneActDetialMap(member.getMemNo()); 
+	}else{
+		request.getRequestDispatcher("/front_end/member/login.jsp").forward(request, response);
+		
+	}
 
 	ActivityService activityService = new ActivityService();
 	List<Activity> activityFrontList = activityService.getAllOfMine(member.getMemNo());
@@ -42,9 +52,9 @@
             <div class="col-xs-12 col-sm-8 ">
 
             <div class="panel-group col-sm-offset-2 col-sm-8">
-	
+			<h1 class=" page-header text-left">我的活動</h1>
 
-			<%@ include file="/front_end/actFiles/activityAll.file" %>
+			<%@ include file="/front_end/actFiles/activityAll1.file" %>
 	
 
 		

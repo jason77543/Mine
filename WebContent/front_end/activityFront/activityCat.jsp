@@ -24,7 +24,7 @@
 	
 	
 	
-	Member member = (Member)session.getAttribute("member");
+	
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -43,7 +43,7 @@
             <div class="col-xs-12 col-sm-8 ">
 
             <div class="panel-group col-sm-offset-2 col-sm-8">
-	
+			<h1 class=" page-header text-left">¿ß«}ªººÛ</h1>
 
 			<%@ include file="/front_end/actFiles/activityAll.file" %>
 	

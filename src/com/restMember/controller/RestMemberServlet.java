@@ -71,7 +71,7 @@ public class RestMemberServlet extends HttpServlet {
 		
 		/////////////////////////////////登入/////////////////////////////
 		if("login".equals(action)){
-			System.out.println("11");
+			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
@@ -124,7 +124,7 @@ public class RestMemberServlet extends HttpServlet {
 					try {
 						String location = (String)session.getAttribute("location");
 							if(location!=null){
-								System.out.println("正確有來源");
+								
 								session.removeAttribute("location");
 								res.sendRedirect(location);
 								return;
@@ -213,7 +213,7 @@ public class RestMemberServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			
 			session.removeAttribute("restMember");
-			session.invalidate();
+//			System.out.println("ddddddd::::"+req.getAttribute("restMember"));
 		
 			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");
 			requestDispatcher3.forward(req, res);
@@ -281,7 +281,7 @@ public class RestMemberServlet extends HttpServlet {
 			
 			
 			//////////////////轉交//////////////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
 			requestDispatcher.forward(req, res);
 		}
 		

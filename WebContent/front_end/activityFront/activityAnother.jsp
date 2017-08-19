@@ -35,16 +35,17 @@
 
 <body>
 	<%@ include file="/front_end/actFiles/overflow.file" %>
-	<%@ include file="/front_end/frontEndNavBar.file" %>    
+	<%@ include file="/front_end/frontEndNavBar.file" %> 
 	<div class="container-fluid">
         <div class="row">
+
             <%@ include file="/front_end/actFiles/actFrontList.file" %>
             
             <div class="col-xs-12 col-sm-8 ">
 
             <div class="panel-group col-sm-offset-2 col-sm-8">
-	
-
+			<h1 class=" page-header text-left">其他寵物活動</h1>
+		
 			<%@ include file="/front_end/actFiles/activityAll.file" %>
 	
 

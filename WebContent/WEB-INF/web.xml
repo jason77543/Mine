@@ -59,9 +59,8 @@
     <url-pattern>/front_end/restMember/restMemberManagement.jsp</url-pattern>
     <url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
     <url-pattern>/front_end/restMember/restMemberChangePsw.jsp</url-pattern>
-    <url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
     <url-pattern>/front_end/activity/newActivity.jsp</url-pattern>
-    
+    <url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>FilterForLogin</filter-name>

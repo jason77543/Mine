@@ -221,7 +221,7 @@ public class RestaurantServlet extends HttpServlet {
 			
 			
 			//////////////////ТрЅц//////////////////////////////////////////
-			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMember.jsp");
+			RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/activity/activityManagent.jsp");
 			requestDispatcher.forward(req, res);
 			
 			}

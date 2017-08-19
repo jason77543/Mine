@@ -8,6 +8,9 @@
 
 
 <%
+	if(session.getAttribute("restMember")==null){
+		request.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp").forward(request, response);
+	}
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Activity activity = (Activity)request.getAttribute("activity");
 	
@@ -15,6 +18,7 @@
 	List<Activity> activitiyList = activityService.getAllById(restMember.getRestMemId());
 	request.setAttribute("activitiyList", activitiyList);
 	
+			
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd");
 	String actDateMin  = simpleDateFormat.format(new Date());
 %>
