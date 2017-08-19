@@ -7,7 +7,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -358,7 +360,26 @@ public class RestaurantServlet extends HttpServlet {
 				requestDispatcher.forward(req, res);
 			}
 			
-			
+			else if("CompositeQuery".equals(action)){
+				
+				List<String> queryError = new LinkedList<String>();
+				req.setAttribute("queryError", queryError);
+				
+				/////////////////資料轉MAP//////////////////////////
+				Map<String, String[]> map = req.getParameterMap();
+				
+				////////////////複合查詢///////////////////////////
+				RestaurantService restaurantService = new RestaurantService();
+				List<Restaurant> restaurantList = restaurantService.getAll(map);
+				req.setAttribute("list", restaurantList);
+				
+				///////////////轉交//////////////////////////////
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/front_end/restMember/restMemberList.jsp");
+				requestDispatcher.forward(req, res);
+				
+				
+				
+			}
 			
 		}
 }

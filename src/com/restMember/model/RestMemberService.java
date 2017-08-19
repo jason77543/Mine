@@ -1,6 +1,7 @@
 package com.restMember.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestMemberService {
 	private RestMemberDAO_Interface restMemDao;

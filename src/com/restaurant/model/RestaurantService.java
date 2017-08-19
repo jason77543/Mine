@@ -1,6 +1,7 @@
 package com.restaurant.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantService {
 	private RestaurantDAO_Interface restaurantDao;
@@ -71,5 +72,9 @@ public class RestaurantService {
 	
 	public List<Restaurant> getAll(){
 		return restaurantDao.getAll();
+	}
+	
+	public List<Restaurant> getAll(Map<String, String[]> map){
+		return restaurantDao.getAll(map);
 	}
 }

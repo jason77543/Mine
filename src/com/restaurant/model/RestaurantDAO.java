@@ -8,10 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import another.CompositeQuery;
 
 
 
@@ -318,6 +321,66 @@ public class RestaurantDAO implements RestaurantDAO_Interface {
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Restaurant> getAll(Map<String, String[]> map) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Restaurant rest = null;
+		List<Restaurant> restList = new ArrayList<Restaurant>();
+		try {
+			conn = ds.getConnection();
+			String restaurantQuery = "select * from rest "
+					+ CompositeQuery.get_WhereCondition(map)
+					+"order by restNo";
+			pstmt = conn.prepareStatement(restaurantQuery);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				rest = new Restaurant();
+				rest.setRestNo(rs.getInt("restNO"));
+				rest.setRestName(rs.getString("restNAME"));
+				rest.setRestAdd(rs.getString("restADD"));
+				rest.setRestLocate(rs.getString("RESTLOCATE"));
+				rest.setRestPhone(rs.getString("RestPHONE"));
+				rest.setRestIntro(rs.getString("restINTRO"));
+				rest.setRestKind(rs.getInt("restKIND"));
+				rest.setRestReviewStatus(rs.getInt("RESTREVIEWSTATUS"));
+				rest.setRestLongtitude(rs.getDouble("RESTLONGTITUDE"));
+				rest.setRestLatitude(rs.getDouble("RESTLATITUDE"));
+				restList.add(rest);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return restList;
 	}
 	
 	

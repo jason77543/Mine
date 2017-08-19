@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ListModel;
 
@@ -393,6 +394,12 @@ public class RestaurantJDBCDAO implements RestaurantDAO_Interface {
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Restaurant> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

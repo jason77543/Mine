@@ -244,21 +244,16 @@
 		     
 			</c:forEach>
         
-       </div>
-     </div>
-
-	
-
-
-
+		       </div>
+		     </div>
         </div>
-        </div>
+    </div>
 
 
 
 
     
-  
+<%@ include file="/front_end/frontEndButtomFixed.file" %>        
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>

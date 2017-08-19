@@ -35,7 +35,7 @@
 
 <body>
 	<%@ include file="/front_end/actFiles/overflow.file" %>
-    <%@ include file="/front_end/actFiles/actFrontNav.file" %>
+    <%@ include file="/front_end/frontEndNavBar.file" %>
     <div class="container-fluid">
         <div class="row">
             <%@ include file="/front_end/actFiles/actFrontList.file" %>
@@ -50,15 +50,12 @@
 			
 		
 			</div>
-
-
 		</div>
-    
 	</div>
 </div>
+<%@ include file="/front_end/frontEndButtomFixed.file" %>
          				
 
-						
 						   
             <script src="https://code.jquery.com/jquery.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -11,10 +11,7 @@
 	List<Restaurant> restauranBacktList = restaurantService.getAll();
 	pageContext.setAttribute("restauranBacktList", restauranBacktList);
 
-	Emp emp = (Emp) session.getAttribute("emp");
-	pageContext.setAttribute("emp", emp);
-	List<Integer> auth = (List<Integer>) session.getAttribute("auth");
-	pageContext.setAttribute("auth", auth);
+	
 %>
 <!DOCTYPE html>
 <html lang="">
@@ -42,8 +39,8 @@
 		
 </style>
 <body>
-    <%@ include file="/back_end/actFiles/actBackNav.file" %>
-	<%@ include file="/back_end/actFiles/actBackList.file" %>
+    <%@ include file="/back_end/backEndNavBar.file" %>
+	<%@ include file="/back_end/backEndLSide.file" %>
 
     	<div class="container">
 				<div class="row">
@@ -88,7 +85,7 @@
 											</c:if>
 										<td>
 											<select name="restReviewStatus">    
-											  <option value="0" ${(restauranBack.restReviewStatus=='0')?'selected':''} ><font color="green">已審核通過</font></option>
+											  <option value="0" ${(restauranBack.restReviewStatus=='0')?'selected':''} >已審核通過</option>
 											  <option value="1" ${(restauranBack.restReviewStatus=='1')?'selected':''} >審核未通過</option>
 											  <option value="2" ${(restauranBack.restReviewStatus=='2')?'selected':''} >未審核</option>
 											</select>

@@ -44,10 +44,31 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-offset-3">
 					<div class="col-xs-12 col-sm-6">
+					<h1 class=" page-header text-left">狗狗貓貓友善餐廳</h1>
+					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController" >
+						<div class="form-group row">
+							<div class="col-xs-3">
+								餐廳名稱:<input class="form-control" type="text" name="restName" value="">
+							</div>
+							<div class="col-xs-3">	
+								餐廳地址:<input class="form-control" type="text" name="restAdd" value="">
+							</div>	
+							<div class="col-xs-3">	
+								餐廳電話:<input class="form-control" type="text" name="restPhone" value="">
+							</div>
+								<br>
+								
+							<input type="submit" class="btn btn-primary text-rigth" value="搜尋"> 
+							<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberList.jsp">
+								<input type="button" class="btn btn-primary text-rigth" value="全部餐廳">
+							</a>
+							<input type="hidden" name="action" value="CompositeQuery">	
+						</div>		
+					</form>
 					<table class="table table-striped">
 						<tr>
 							
-						<th>餐廳名稱</th>
+						<th width="200px">餐廳名稱</th>
 						<th>餐廳地址</th>
 						<th>餐廳電話</th>
 						
@@ -121,9 +142,8 @@
 				<br>
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-xs-12 col-sm-6">	
-						
-							沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" value="新增餐廳"></a>
+						<div class="col-xs-12 col-sm-6 text-center">	
+							沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" class="btn btn-primary" value="新增餐廳"></a>
 						</div>
 					</div>
 				</div>	
@@ -131,7 +151,7 @@
 		</div>
 	</div>	
 </div>
-
+<%@ include file="/front_end/frontEndButtomFixed.file" %>      
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

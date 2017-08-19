@@ -11,10 +11,7 @@
 	List<Activity> activityBackList = activityService.getAll();
 	pageContext.setAttribute("activityBackList", activityBackList);
 	
-	Emp emp = (Emp) session.getAttribute("emp");
-	pageContext.setAttribute("emp", emp);
-	List<Integer> auth = (List<Integer>) session.getAttribute("auth");
-	pageContext.setAttribute("auth", auth);
+	
 	
 %>
 <!DOCTYPE html>
@@ -43,8 +40,8 @@
 		
 </style>
 <body>
-    <%@ include file="/back_end/actFiles/actBackNav.file" %>
-	<%@ include file="/back_end/actFiles/actBackList.file" %>
+    <%@ include file="/back_end/backEndNavBar.file" %>
+	<%@ include file="/back_end/backEndLSide.file" %>
 
 	    	<div class="container">
 				<div class="row">
