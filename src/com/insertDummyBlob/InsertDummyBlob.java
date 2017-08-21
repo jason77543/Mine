@@ -41,19 +41,19 @@ public class InsertDummyBlob {
 
 
 	// 會員照片修改
-	int i=5001;
-    for (File file : new File("WebContent/DummyImg/member").listFiles()) { 
-    	MemberJDBCDAO dao=new MemberJDBCDAO();
-        Member member=dao.findByPk(i++);
-        try {
-        	byte[] b = getPictureByteArrayNoChangeSize(file);
-			member.setMemImg(b);
-			dao.update(member);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}    
-    }
-    System.out.println("=============會員新增完畢================");
+//	int i=5001;
+//    for (File file : new File("WebContent/DummyImg/member").listFiles()) { 
+//    	MemberJDBCDAO dao=new MemberJDBCDAO();
+//        Member member=dao.findByPk(i++);
+//        try {
+//        	byte[] b = getPictureByteArrayNoChangeSize(file);
+//			member.setMemImg(b);
+//			dao.update(member);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}    
+//    }
+//    System.out.println("=============會員新增完畢================");
 
     //修改寵物照片
 	int p=1001;

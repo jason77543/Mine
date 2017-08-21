@@ -24,7 +24,7 @@
 	
 	
 	
-	Member member = (Member)session.getAttribute("member");
+	
 %>
 <!DOCTYPE html>
 <html lang="">

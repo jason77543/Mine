@@ -39,67 +39,67 @@ public class InsertDummyBlob2 {
 	public static void main(String[] args) {
 
 	// 餐廳會員照片修改
-	int r = 7001;
-    for (File file : new File("WebContent/DummyImg/restImg").listFiles()) { 
-    	RestImgJDBCDAO restImgJDBCDAO=new RestImgJDBCDAO();
-        RestImg restImg=restImgJDBCDAO.findByPK(r++);
-        try {
-			byte[] b = getPictureByteArray(file);
-			restImg.setRestImg(b);
-			restImgJDBCDAO.update(restImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}    
-    }
-    System.out.println("=============餐廳會員照片新增完畢================");
-
-    
-    // 發起活動照片修改
-    int j = 8001;
-    for (File file : new File("WebContent/DummyImg/activityInitImg").listFiles()) { 
-    	ActivityJDBCDAO activityDAO=new ActivityJDBCDAO();
-    	Activity activity=activityDAO.findByPK(j++);
-        try {
-			byte[] b = getPictureByteArray(file);
-			activity.setActInitImg(b);
-			activityDAO.update(activity);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}    
-    }
-    System.out.println("=============發起活動照片新增完畢================");
-
-
- // 活動照片修改
-    int k = 8001;
-    for (File file : new File("WebContent/DummyImg/actImg").listFiles()) { 
-    	ActImgJDBCDAO actImgJDBCDAO=new ActImgJDBCDAO();
-    	ActImg actImg=actImgJDBCDAO.findByPK(k++);
-        try {
-			byte[] b = getPictureByteArray(file);
-			actImg.setActImg(b);
-			actImgJDBCDAO.update(actImg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}    
-    }
-    System.out.println("=============活動照片新增完畢================");
-    
-    
-	// 廣告圖片修改
-	int aa = 1;
-	for (File file : new File("WebContent/DummyImg/ad").listFiles()) {
-		AdJDBCDAO dao = new AdJDBCDAO();
-		Ad ad = dao.findByPrimaryKey(aa++);
-		try {
-			byte[] b = getPictureByteArray(file);
-			ad.setAdImg(b);
-			dao.update(ad);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	System.out.println("=============廣告圖片修改完了================");
+//	int r = 7001;
+//    for (File file : new File("WebContent/DummyImg/restImg").listFiles()) { 
+//    	RestImgJDBCDAO restImgJDBCDAO=new RestImgJDBCDAO();
+//        RestImg restImg=restImgJDBCDAO.findByPK(r++);
+//        try {
+//			byte[] b = getPictureByteArray(file);
+//			restImg.setRestImg(b);
+//			restImgJDBCDAO.update(restImg);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}    
+//    }
+//    System.out.println("=============餐廳會員照片新增完畢================");
+//
+//    
+//    // 發起活動照片修改
+//    int j = 8001;
+//    for (File file : new File("WebContent/DummyImg/activityInitImg").listFiles()) { 
+//    	ActivityJDBCDAO activityDAO=new ActivityJDBCDAO();
+//    	Activity activity=activityDAO.findByPK(j++);
+//        try {
+//			byte[] b = getPictureByteArray(file);
+//			activity.setActInitImg(b);
+//			activityDAO.update(activity);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}    
+//    }
+//    System.out.println("=============發起活動照片新增完畢================");
+//
+//
+// // 活動照片修改
+//    int k = 8001;
+//    for (File file : new File("WebContent/DummyImg/actImg").listFiles()) { 
+//    	ActImgJDBCDAO actImgJDBCDAO=new ActImgJDBCDAO();
+//    	ActImg actImg=actImgJDBCDAO.findByPK(k++);
+//        try {
+//			byte[] b = getPictureByteArray(file);
+//			actImg.setActImg(b);
+//			actImgJDBCDAO.update(actImg);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}    
+//    }
+//    System.out.println("=============活動照片新增完畢================");
+//    
+//    
+//	// 廣告圖片修改
+//	int aa = 1;
+//	for (File file : new File("WebContent/DummyImg/ad").listFiles()) {
+//		AdJDBCDAO dao = new AdJDBCDAO();
+//		Ad ad = dao.findByPrimaryKey(aa++);
+//		try {
+//			byte[] b = getPictureByteArray(file);
+//			ad.setAdImg(b);
+//			dao.update(ad);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	System.out.println("=============廣告圖片修改完了================");
 
 	// 幻燈片修改
 	int s = 1;
