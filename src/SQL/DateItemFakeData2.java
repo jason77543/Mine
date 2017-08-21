@@ -1,4 +1,5 @@
 package SQL;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -60,6 +61,11 @@ public class DateItemFakeData2 extends HttpServlet {
 		dText.add("你在看我嗎，沒錯就是妳，還不快來吃飯交個朋友，我家可愛的寵物正在等著你呢");
 		dText.add("我家的寵物最近很孤單呢，她正在等著你喔，鳩咪");
 		dText.add("我最近在教我家狗狗學習Hibernate，她已經開始會建組態擋了，或許我們可以邊吃飯邊聊Java喔");
+		dText.add("青山、綠樹、鮮花就是一道美麗的風景，遠處那白色的小樓房掩映其中，猶如走進了美麗的童話世界，讓人忘卻工作的疲勞，心中的煩惱。");
+		dText.add("春天，美麗著，開著嫩綠的芽樹——已經可以活蹦亂跳的年齡，在灰色的枝杈上生生地長著、翠綠著、鮮活而清盈著");
+		dText.add("似乎有了無味，無了新鮮、無了生機與還有的鮮活；甚至內心還摻攪一份或重或輕顛的刺激性漣漪");
+		dText.add("有著大樹的沉穩，透著涼爽；有著瑣碎、枝葉飄零的輕盈與悲憫");
+		dText.add("有著個體（性）的存在，平等地來到這個世界上、平等地擁有生命、平等地被放置于這個地平面");
 		
 		
 		List<String> dTitle=new ArrayList<String>();
@@ -68,7 +74,11 @@ public class DateItemFakeData2 extends HttpServlet {
 		dTitle.add("Yo this is your best chance");
 		dTitle.add("天氣超好的 明天一起吃個飯吧");
 		dTitle.add("我想妳了，再者寒冷的天氣裡");
-		
+		dTitle.add("我什麼都不要，只要你");
+		dTitle.add("這畫面太美我不敢看");
+		dTitle.add("寂寞讓人盲，失念讓人慌");
+		dTitle.add("但那個人已經不是我");
+		dTitle.add("一顆恆久遠，真愛永流傳");
 		
 		
 		List<java.sql.Timestamp> dateTime=new ArrayList<java.sql.Timestamp>();
