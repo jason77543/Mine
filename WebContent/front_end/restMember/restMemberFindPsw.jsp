@@ -16,7 +16,7 @@
 	margin-top: 5%
 }
 </style>
-<%@ include file="/front_end/actFiles/actFrontCss.file" %>	
+<%@ include file="/front_end/actFiles/restFrontCss.file" %>	
 </head>
 <body>
 <%@ include file="/front_end/actFiles/restMemberNavBar2.file" %>

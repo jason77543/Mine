@@ -8,7 +8,7 @@
 
 <%
 	ActivityService activityService = new ActivityService();
-	List<Activity> activityBackList = activityService.getAll();
+	List<Activity> activityBackList = (request.getAttribute("activityBackList")==null)?activityService.getAll():(List<Activity>)request.getAttribute("activityBackList");
 	pageContext.setAttribute("activityBackList", activityBackList);
 	
 	
@@ -34,7 +34,7 @@
 		th{
 			text-align: center;
 			font-size: 16px;
-			background: #8CEA00;
+			background: #40E0D0;
 		}
 		
 		
@@ -42,10 +42,37 @@
 <body>
     <%@ include file="/back_end/backEndNavBar.file" %>
 	<%@ include file="/back_end/backEndLSide.file" %>
-
+	
 	    	<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-center">
+					<form method="post" action="<%=request.getContextPath()%>/activity/activityController" >
+						<div class="form-group row ">
+							<div class="col-xs-2">
+								活動編號:<input class="form-control" type="text" name="actNo" value="">
+							</div>
+							<div class="col-xs-2">	
+								活動名稱:<input class="form-control" type="text" name="actName" value="">
+							</div>	
+							<div class="col-xs-2">	
+								活動日期:<input class="form-control" type="text" name="actDate" value="">
+							</div>
+							<div class="col-xs-2">	
+								活動截止日期:<input class="form-control" type="text" name="actFDate" value="">
+							</div>
+								<br>
+								
+							<input type="submit" class="btn btn-primary text-rigth" value="搜尋"> 
+							
+							<a href="<%=request.getContextPath()%>/back_end/activityManagement/activityManagement.jsp">
+								<input type="button" class="btn btn-primary text-rigth" value="全部活動">
+							</a>
+							
+							
+							
+							<input type="hidden" name="action" value="CompositeQueryBackAct">	
+						</div>		
+					</form>
 						<table class="table table-hover table-striped table-condensed table-bordered actTable">
 						<thead>
 							<tr>
@@ -97,7 +124,7 @@
 										<td><br><br>
 											<input type="hidden" name="actNo" value="${activityBack.actNo}">
 											<input type="hidden" name="action" value="actManagement">
-											<input type="submit" value="修改">
+											<input type="submit" class="btn btn-primary" value="修改">
 										</td>
 									</tr>
 								</form>	

@@ -2,6 +2,7 @@ package com.activity.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityService {
 	private ActivityDAO_Interface activityDao;
@@ -73,6 +74,9 @@ public class ActivityService {
 		return activityDao.getAll();
 	}
 	
+	public List<Activity> getAll(Map<String, String[]> map){
+		return activityDao.getAll(map);
+	}
 	
 	public List<Activity> getAllById(String restMemId){
 		return activityDao.getAllById(restMemId);

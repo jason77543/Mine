@@ -31,7 +31,7 @@
 						
 						
 						<div class="col-xs-12 col-sm-8 ">
-							<textarea class="overflow form-control" rows="8" cols="40" wrap="hard" style="resize:none" readonly>${activityFront.actContent}</textarea>
+							<textarea class="overflow form-control" rows="8" cols="40" style="resize:none;border:0px;background-color:white" readonly>${activityFront.actContent}</textarea>
 							
 						</div>
 					
@@ -45,7 +45,7 @@
 							<div class="panel-body text-right" >
 			         			<a href='#${activityFront.actNo}' data-toggle="modal" class="btn btn-primary">活動詳情</a>
 									<div class="modal fade" id="${activityFront.actNo }">
-										<div class="modal-dialog">
+										<div class="modal-dialog modal-lg">
 											<div class="modal-content">
 												
 						<div class="modal-header">
@@ -56,84 +56,89 @@
 					<div class="modal-body">
 						<div class="container">
 							<div class="row">
-								<div class="col-sm-5">
-									<div class="form-horizontal">
+								<div class="col-sm-3">
+									
 										<div class="form-group">
-													<div class="col-xs-12 col-sm-4">
+												<div class="col-xs-12 col-sm-12">
 														<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activityFront.actNo}" 
-														class="img-responsive" >
+														id="actInitImg" height="200px" width="100%" class="img-circle">
 														
 													</div>
 												</div>
-												
+								</div>
+								<div class="col-sm-6">		
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														活動名稱
+														活動名稱:
 													</label>
-													<div class="col-sm-9">
-														<input type="text" name="actName" class="form-control" value="${activityFront.actName }" readonly>	
+													<div class="col-sm-9 text-left">
+														${activityFront.actName }	
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														活動內容
+														活動內容:
 													</label>
-													<div class="col-sm-9">
-														<textarea class="overflow form-control" name="actContent" rows="3" cols="43" wrap="hard" style="resize:none" readonly>${activityFront.actContent }</textarea>	
+													<div class="col-sm-9 text-left">
+														<textarea style="resize:none;border:0px;background-color:white" rows="3" cols="47" readonly>${activityFront.actContent }</textarea>
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														活動日期
+														活動日期:
 													</label>
-													<div class="col-sm-9">
-														<input type="date" name="actDate" class="form-control" value="${activityFront.actDate }" readonly>	
+													<div class="col-sm-9 text-left">
+														${activityFront.actDate}	
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														報名截止日期
+														報名截止日期:
 													</label>
-													<div class="col-sm-9">
-														<input type="date" name="actFDate" class="form-control" value="${activityFront.actFDate}" readonly>	
+													<div class="col-sm-9 text-left">
+														${activityFront.actFDate}	
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														人數上限
+														人數上限:
 													</label>
-													<div class="col-sm-9">
-														<input type="text" name="actULimit" class="form-control" value="${activityFront.actULimit }" readonly>	
+													<div class="col-sm-9 text-left">
+														${activityFront.actULimit }人	
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														人數下限
+														人數下限:
 													</label>
-													<div class="col-sm-9">
-														<input type="text" name="actLLimit" class="form-control" value="${activityFront.actLLimit }" readonly>	
+													<div class="col-sm-9 text-left">
+														${activityFront.actLLimit }人
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
-														種類限制
+														種類限制:
 													</label>
-													<div class="col-sm-9">
-														<select id="testModal" name="actKind" class="form-control" disabled="true">
+													<div class="col-sm-9 text-left">
 															
-																<option value="0" ${(activityFront.actKind=="0")?'selected':''}>貓</option>
-																<option value="1" ${(activityFront.actKind=="1")?'selected':''}>狗</option>
-																<option value="2" ${(activityFront.actKind=="2")?'selected':''}>其他</option>
-															
-														</select>	
+															<c:if test="${activityFront.actKind=='0'}">
+																貓
+															</c:if>	
+															<c:if test="${activityFront.actKind=='1'}">
+																狗
+															</c:if>
+															<c:if test="${activityFront.actKind=='2'}">
+																其他
+															</c:if>
+														
 													</div>
-												</div>			
+															
 											</div>		
 										</div>
 									</div>

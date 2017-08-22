@@ -12,13 +12,14 @@
 		    };		    
 		    reader.readAsDataURL(input.files[0]);		   
 		};
+		
+		
+		
 
 
 	$(function() {
 			
-			
-		
- 
+	
  		$("#test").change(function(){
 			
 			if($("#test").val()=="0"||$("#test").val()=="1"){

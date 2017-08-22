@@ -8,9 +8,9 @@
 
 <%
 	RestaurantService restaurantService = new RestaurantService();
-	List<Restaurant> restauranBacktList = restaurantService.getAll();
+	List<Restaurant> restauranBacktList = (request.getAttribute("restauranBacktList")==null)?restaurantService.getAll():(List<Restaurant>)request.getAttribute("restauranBacktList");
+	
 	pageContext.setAttribute("restauranBacktList", restauranBacktList);
-
 	
 %>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
 		th{
 			text-align: center;
 			font-size: 16px;
-			background: #8CEA00;
+			background: #40E0D0;
 		}
 		
 </style>
@@ -45,6 +45,30 @@
     	<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-center">
+					<form method="post" action="<%=request.getContextPath()%>/activity/activityController" >
+						<div class="form-group row">
+							<div class="col-xs-3">
+								餐廳名稱:<input class="form-control" type="text" name="restName" value="">
+							</div>
+							<div class="col-xs-3">	
+								餐廳地址:<input class="form-control" type="text" name="restAdd" value="">
+							</div>	
+							<div class="col-xs-3">	
+								餐廳電話:<input class="form-control" type="text" name="restPhone" value="">
+							</div>
+								<br>
+								
+							<input type="submit" class="btn btn-primary text-rigth" value="搜尋"> 
+							
+							<a href="<%=request.getContextPath()%>/back_end/restMemberManagement/restMemberManagement.jsp">
+								<input type="button" class="btn btn-primary text-rigth" value="全部餐廳">
+							</a>
+							
+							
+							
+							<input type="hidden" name="action" value="CompositeQueryBack">	
+						</div>		
+					</form>
 						<table class="table table-hover table-striped table-condensed table-bordered actTable">
 						<c:if test="${not empty reatManeErr}">
 							${reatManeErr } 
@@ -93,7 +117,7 @@
 										<td>
 											<input type="hidden" name="restNo" value="${restauranBack.restNo}">
 											<input type="hidden" name="action" value="restManagement">
-											<input type="submit" value="修改">
+											<input type="submit" class="btn btn-primary" value="修改">
 										</td>
 									</tr>
 								</form>	

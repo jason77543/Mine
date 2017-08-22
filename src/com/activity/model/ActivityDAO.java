@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 
 import com.restMember.model.RestMember;
 
+import another.CompositeQuery2;
+
 
 
 public class ActivityDAO implements ActivityDAO_Interface{
@@ -894,6 +896,69 @@ public class ActivityDAO implements ActivityDAO_Interface{
 			}
 		}
 		
+	}
+
+	@Override
+	public List<Activity> getAll(Map<String, String[]> map) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		Activity activity = null;
+		ResultSet rs = null;
+		List<Activity> activityList = new ArrayList<Activity>();
+		try {
+			conn = ds.getConnection();
+			String finalSQL = "select * from activity "
+			          + CompositeQuery2.get_WhereCondition(map)
+			          + "order by actNo";
+			pstmt = conn.prepareStatement(finalSQL);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				activity = new Activity();
+				activity.setActNo(rs.getInt("ACTNO"));
+				activity.setRestMemId(rs.getString("RESTMEMID"));
+				activity.setActName(rs.getString("ACTNAME"));
+				activity.setActContent(rs.getString("ACTCONTENT"));
+				activity.setActDate(rs.getDate("ACTDATE"));
+				activity.setActFDate(rs.getDate("ACTFDATE"));
+				activity.setActStatus(rs.getInt("ACTSTATUS"));
+				activity.setActULimit(rs.getInt("ACTULIMIT"));
+				activity.setActLLimit(rs.getInt("ACTLLIMIT"));
+				activity.setActKind(rs.getInt("ACTKIND"));
+				activity.setActAnotherKind(rs.getString("ACTANOTHERKIND"));
+				activity.setActInitImg(rs.getBytes("ACTINITIMG"));
+				activityList.add(activity);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(rs!=null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt!=null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return activityList;
 	}
 
 }

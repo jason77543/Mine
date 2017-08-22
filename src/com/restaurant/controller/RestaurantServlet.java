@@ -381,5 +381,26 @@ public class RestaurantServlet extends HttpServlet {
 				
 			}
 			
+			else if("CompositeQueryBack".equals(action)){
+				
+				List<String> queryError = new LinkedList<String>();
+				req.setAttribute("queryError", queryError);
+				
+				/////////////////資料轉MAP//////////////////////////
+				Map<String, String[]> map = req.getParameterMap();
+				
+				////////////////複合查詢///////////////////////////
+				RestaurantService restaurantService = new RestaurantService();
+				List<Restaurant> restaurantList = restaurantService.getAll(map);
+				
+				req.setAttribute("restauranBacktList", restaurantList);
+				
+				///////////////轉交//////////////////////////////
+				RequestDispatcher requestDispatcher = req.getRequestDispatcher("/back_end/restMemberManagement/restMemberManagement.jsp");
+				requestDispatcher.forward(req, res);
+				
+				
+				
+			}
 		}
 }

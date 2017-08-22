@@ -40,6 +40,7 @@ public class FilterForRestMember implements Filter{
 		HttpSession session = req.getSession();
 		
 		Object restMemId = session.getAttribute("restMemId");
+		
 		if(restMemId==null){
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/front_end/restMember/restMemberLogin.jsp");

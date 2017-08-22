@@ -14,7 +14,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%@ include file="/front_end/actFiles/actFrontCss.file" %>
+<%@ include file="/front_end/actFiles/restFrontCss.file" %>
 <head>
 <title>餐廳一覽表</title>
 </head>
@@ -33,7 +33,7 @@
 		th{
 			text-align: center;
 			font-size: 16px;
-			background: #8CEA00;
+			background: #40E0D0;
 		}
 		
 </style>
@@ -59,16 +59,22 @@
 								<br>
 								
 							<input type="submit" class="btn btn-primary text-rigth" value="搜尋"> 
+							
 							<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberList.jsp">
 								<input type="button" class="btn btn-primary text-rigth" value="全部餐廳">
 							</a>
+							
+							<a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp">
+								<input type="button" class="btn btn-primary" value="新增餐廳">
+							</a>
+							
 							<input type="hidden" name="action" value="CompositeQuery">	
 						</div>		
 					</form>
 					<table class="table table-striped">
 						<tr>
 							
-						<th width="200px">餐廳名稱</th>
+						<th width="150px" >餐廳名稱</th>
 						<th>餐廳地址</th>
 						<th>餐廳電話</th>
 						
@@ -112,7 +118,7 @@
 							<td>
 							<c:if test="${restaurant.restReviewStatus=='0'}">
 								<FORM METHOD="post" ACTION="<%=request.getContextPath() %>/front_end/restMember/restMemberRegister.jsp">
-							     <input type="submit" value="註冊">
+							     <input type="submit" class="btn btn-primary" value="註冊">
 							     <input type="hidden" name="restNo" value="${restaurant.restNo}">
 							     <input type="hidden" name="restName" value="${restaurant.restName}">
 							     <input type="hidden" name="restAdd" value="${restaurant.restAdd}">
@@ -127,10 +133,10 @@
 							</c:if>
 							
 							<c:if test="${restaurant.restReviewStatus=='1'}">
-								<input type="submit" value="註冊" disabled>
+								<input type="submit" class="btn btn-primary" value="審核未通過" disabled>
 							</c:if>
 							<c:if test="${restaurant.restReviewStatus=='2'}">
-								<input type="submit" value="註冊" disabled>
+								<input type="submit" class="btn btn-primary" value="未審核" disabled>
 							</c:if>
 							
 							  
@@ -139,14 +145,8 @@
 					</c:forEach>
 				</table>
 				
-				<br>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6 text-center">	
-							沒有你的寵物餐廳嗎?? <a href="<%=request.getContextPath() %>/front_end/restaurant/newRestaurant.jsp"><input type="button" class="btn btn-primary" value="新增餐廳"></a>
-						</div>
-					</div>
-				</div>	
+				
+				
 			</div>
 		</div>
 	</div>	

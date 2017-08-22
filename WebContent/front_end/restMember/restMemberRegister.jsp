@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-<%@ include file="/front_end/actFiles/actFrontCss.file" %>
+<%@ include file="/front_end/actFiles/restFrontCss.file" %>
 <title>Title Page</title>
 <style type="text/css">
 .aa {

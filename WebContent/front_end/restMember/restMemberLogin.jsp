@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-<%@ include file="/front_end/actFiles/actFrontCss.file" %>	
+<%@ include file="/front_end/actFiles/restFrontCss.file" %>	
 <title>Title Page</title>
 <style type="text/css">
 .pwd {
@@ -101,7 +101,7 @@
 					<input class="btn btn-primary btn-lg btn-block login-button login"
 						type="submit" value="µn¿ý">
 					<div>
-						<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberFindPsw.jsp" class="btn btn-link">§Ñ°O±K½X</a> 
+						
 						
 						<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberList.jsp" class="btn btn-link">µù¥U</a>
 					</div>

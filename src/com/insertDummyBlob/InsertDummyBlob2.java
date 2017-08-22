@@ -81,7 +81,7 @@ public class InsertDummyBlob2 {
     	
     	Activity activity = dao.findByPK(i);
         try {
-        	byte[] b = getPictureByteArrayNoChangeSize(file);
+        	byte[] b = getPictureByteArray(file);
         	activity.setActInitImg(b);
 			dao.update(activity);
 		} catch (IOException e) {

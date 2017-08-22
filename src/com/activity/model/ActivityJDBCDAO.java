@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.restaurant.model.Restaurant;
 
@@ -816,6 +817,13 @@ public class ActivityJDBCDAO implements ActivityDAO_Interface{
 			}
 		}
 		
+	}
+
+
+	@Override
+	public List<Activity> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

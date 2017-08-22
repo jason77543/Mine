@@ -2,6 +2,7 @@ package com.activity.controller;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.InputStream;
 import java.util.*;
 
 import javax.imageio.ImageIO;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.activity.model.Activity;
@@ -43,6 +46,9 @@ public class ActivityServlet extends HttpServlet {
 		baos.close();
 		return baos.toByteArray();
 	}
+	
+	
+	
 
 	private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
 		BufferedImage resizedImage = new BufferedImage(400, 300, type);
@@ -310,16 +316,74 @@ public class ActivityServlet extends HttpServlet {
 			byte[] actInitImg = null;
 			Collection<Part> parts = req.getParts();
 			
+//			Part img = req.getPart("actInitImg");
+			
 			try {
 				for(Part part:parts){
 					
 					
-					if(getFileNameFromPart(part)!=null && part.getName().equals("actInitImg")){
-						
+					
+					if(part.getName().equals("actInitImg") && getFileNameFromPart(part) != null
+							&& part.getContentType().startsWith("image")){
 						actInitImg = getPictureByteArray(part.getInputStream());
+						System.out.println("222222");
+					}else{
+						System.out.println("1111111");
 						
+						ActivityService activityService = new ActivityService();
+						Activity activityImg = activityService.getOneActivity(actNo);
+						req.setAttribute("activityImg", activityImg);
 					}
+						
+
+					
+//					if(part.getSize()==0){
+//						ActivityService activityService = new ActivityService();
+//						Activity activity = activityService.getOneActivity(actNo);
+//						actInitImg = activity.getActInitImg();
+//					}
 				}
+//				
+//				HttpSession session = req.getSession();
+//				
+//				if(img.getSize() !=0){ //如果有放新圖
+//					
+//					BufferedInputStream bi = new BufferedInputStream(img.getInputStream());
+//					byte[] actInitImg = new byte[bi.available()];
+//					bi.read(actInitImg);
+//					bi.close();
+//					
+//					Activity activity = new Activity();
+//					activity.setActInitImg(actInitImg);
+//					
+//					
+//                   // 這邊要更新資料
+//					ActivityService activityService = new ActivityService();
+//					activity = activityService.updateActivity(actNo, restMemId, actName, actContent, actDate,
+//							actFDate, actStatus, actULimit, actLLimit, actKind, null, actInitImg);
+//					session.removeAttribute("activity");
+//					req.setAttribute("activity", activity);
+//
+//					
+//				}else if(img.getSize() == 0){
+//					
+//					
+//					Activity imgs = (Activity) session.getAttribute("activity"); // 從session取VO
+//					
+//					byte[] actInitImg = imgs.getActInitImg();//拿回原本的圖
+//					
+//					Activity activity = new Activity();
+//					activity.setActInitImg(actInitImg);//SET
+//					
+//					ActivityService activityService = new ActivityService();
+//					activity = activityService.updateActivity(actNo, restMemId, actName, actContent, actDate,
+//							actFDate, actStatus, actULimit, actLLimit, actKind, null, actInitImg);
+//					
+//					session.removeAttribute("activity");//移除這個SESSION
+//					req.setAttribute("activity", activity);
+//				}
+				
+				
 			} catch (Exception e) {
 				
 				updateErr.add("照片錯誤");
@@ -338,8 +402,10 @@ public class ActivityServlet extends HttpServlet {
 			
 			/////////////////////////更新此筆資料/////////////////////////////
 			ActivityService activityService = new ActivityService();
+			Activity activityImg = (Activity)req.getAttribute("activityImg");
 			Activity activity = activityService.updateActivity(actNo, restMemId, actName, actContent, actDate,
-					actFDate, actStatus, actULimit, actLLimit, actKind, actAnotherKind, actInitImg);
+					actFDate, actStatus, actULimit, actLLimit, actKind, actAnotherKind,
+					(actInitImg!=null)?actInitImg:activityImg.getActInitImg());
 			
 			req.setAttribute("activity", activity);
 			
@@ -385,7 +451,17 @@ public class ActivityServlet extends HttpServlet {
 			requestDispatcher.forward(req, res);
 		}
 		
-		
+		else if("CompositeQueryBackAct".equals(action)){
+			
+			Map<String, String[]> map = req.getParameterMap();
+			
+			ActivityService activityService = new ActivityService();
+			List<Activity> activitieList = activityService.getAll(map);
+			
+			req.setAttribute("activityBackList", activitieList);
+			
+			req.getRequestDispatcher("/back_end/activityManagement/activityManagement.jsp").forward(req, res);
+		}
 		
 	}
 

@@ -1,6 +1,7 @@
 package com.activity.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.restaurant.model.Restaurant;
 
@@ -15,6 +16,7 @@ public interface ActivityDAO_Interface {
 	void delete(Integer actNo);
 	Activity findByPK(Integer actNo);
 	Activity findByPKStatus(Integer actNo,Integer actStatus);
+	
 	List<Activity> getAll();
 	List<Activity> getAllById(String restMemId);
 	List<Activity> getAllByStatus(Integer actStatus);
@@ -26,4 +28,6 @@ public interface ActivityDAO_Interface {
 	List<Activity> getAllBySouth();
 	
 	List<Activity> getAllOfMine(Integer memNo);
+	
+	List<Activity> getAll(Map<String, String[]> map);
 }

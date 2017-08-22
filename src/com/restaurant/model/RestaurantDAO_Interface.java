@@ -11,4 +11,5 @@ public interface RestaurantDAO_Interface {
 	 Restaurant findByPK(Integer restNo);
 	 List<Restaurant> getAll();
 	 List<Restaurant> getAll(Map<String, String[]> map);
+	
 }

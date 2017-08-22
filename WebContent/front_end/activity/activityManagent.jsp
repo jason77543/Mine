@@ -14,6 +14,8 @@
 	RestMember restMember = (RestMember)session.getAttribute("restMember");
 	Activity activity = (Activity)request.getAttribute("activity");
 	
+// 	session.setAttribute("activity", activity);
+	
 	ActivityService activityService = new ActivityService();
 	List<Activity> activitiyList = activityService.getAllById(restMember.getRestMemId());
 	request.setAttribute("activitiyList", activitiyList);
@@ -26,20 +28,55 @@
 <html lang="">
 
 <head>
-    
+
+    <script src="https://code.jquery.com/jquery.js"></script> 	
     <!--[if lt IE 9]>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
-	<style type="text/css">
+	
+	 
+	<script>
+		$(function() {
+			
+			$("#actDate").datetimepicker({
+			format: 'Y-m-d',
+			 minDate:'+1970/01/02',
+			 allowTimes:[
+	'11:00','11:30', '12:00', '12:30','13:00', '13:30','14:00','14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
+			  '19:30', '20:00', '21:00', '22:00', '23:00'
+			 ],
+			 defaultDate: '17/09/01',
+	// 		 step: 30 
+			timepicker:false,
+			             });
+			             
+			             
+			 $("#actFDate").datetimepicker({
+			format: 'Y-m-d',
+			 minDate:'+1970/01/02',
+			 allowTimes:[
+	'11:00','11:30', '12:00', '12:30','13:00', '13:30','14:00','14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
+			  '19:30', '20:00', '21:00', '22:00', '23:00'
+			 ],
+			 defaultDate: '17/09/01',
+	// 		 step: 30 
+				timepicker:false,
+			             });            	
+			
+			
+       });
+	</script> 
+    <style type="text/css">
 			.btn123{
 				margin-top: 10px;
 			}
 			
-	</style>	
-	
+	</style>  
 </head>
-
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <body>
 
     <%@ include file="/front_end/actFiles/restMemberNavBar.file" %>
@@ -47,7 +84,7 @@
 	
 	
     <div class="container-fluid">
-        <div class="row"> 
+        <div class="row">
         	<%@ include file="/front_end/actFiles/restMemberList.file" %>
         <div class="col-xs-12 col-sm-8">       
    
@@ -90,7 +127,7 @@
 					
 					
 					<div class="col-xs-12 col-sm-8 ">
-						<textarea class="overflow form-control" rows="8" cols="40" wrap="hard" style="resize:none" readonly>${activity.actContent}</textarea>
+						<textarea class="overflow form-control" rows="8" cols="40"  style="resize:none;border:0px;background-color:white" readonly>${activity.actContent}</textarea>
 						
 					</div>
 					
@@ -104,7 +141,7 @@
 						<div class="panel-body text-right" >
 		         			<a href='#${activity.actNo}' data-toggle="modal" class="btn btn-primary">活動詳情</a>
 								<div class="modal fade" id="${activity.actNo }">
-									<div class="modal-dialog">
+									<div class="modal-dialog modal-lg">
 										<div class="modal-content">
 											
 					<div class="modal-header">
@@ -115,28 +152,27 @@
 				<div class="modal-body">
 					<div class="container">
 						<div class="row">
-				
-							<div class="col-sm-5">
-									
-				
-								<div class="form-horizontal">
-								
+							<div class="col-sm-3">
 									
 											<%@ include file="/front_end/actFiles/activity.file" %>
+											
+											
 											<input type="hidden" name="actNo" value="${activity.actNo}">
 											<input type="hidden" name="restMemId" value="${restMember.restMemId }">
 											<input type="hidden" name="actStatus" value="${activity.actStatus }">
 									
 											<div class="form-group">
-												<div class="col-xs-12 col-sm-4">
+												<div class="col-xs-12 col-sm-12">
 													<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activity.actNo}" 
-													class="img-responsive" id="outputIMG">
+													class="img-circle" id="outputIMG" height="200px" width="100%" style="margin-top:50px;">
 													<input type="file" name="actInitImg" class="form-control"
 													 onchange="openFile(event)">
 													
 												</div>
 											</div>
-											
+							</div>	
+								
+							<div class="col-sm-6">		
 											<div class="form-group">
 												<label class="col-sm-3 control-label">
 													活動名稱
@@ -151,7 +187,7 @@
 													活動內容
 												</label>
 												<div class="col-sm-9">
-													<textarea name="actContent" rows="3" cols="47" wrap="hard" class="overflow form-control" style="resize:none">${activity.actContent }</textarea>	
+													<textarea name="actContent" rows="3" cols="47" class="overflow form-control" style="resize:none">${activity.actContent }</textarea>	
 												</div>
 											</div>
 											
@@ -160,8 +196,8 @@
 													活動日期
 												</label>
 												<div class="col-sm-9">
-													<input type="date" name="actDate" class="form-control" value="${activity.actDate }"
-															min="<%=actDateMin%>">	
+													<input type="text" name="actDate" id="actDate" class="form-control" value="${activity.actDate }"
+															min="<%=actDateMin %>">	
 												</div>
 											</div>
 											
@@ -170,8 +206,8 @@
 													報名截止日期
 												</label>
 												<div class="col-sm-9">
-													<input type="date" name="actFDate" class="form-control" value="${activity.actFDate}"
-													   min="<%=actDateMin%>">	
+													<input type="text" name="actFDate" id="actFDate" class="form-control" value="${activity.actFDate}"
+													   min="<%=actDateMin %>">	
 												</div>
 											</div>
 											
@@ -217,26 +253,27 @@
 													value="${activity.actAnotherKind}">	
 												</div>
 											</div>
+
 											
 											<input type="hidden" name="action" value="updateActivity">
+									</div>
 								</div>		
 							</div>
 						</div>
-					</div>
 								
-				</div>
+				
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
 				<button type="submit" class="btn btn-primary">更改資料</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">關閉</button>
+				
 			</div>
 												
+						</div>
 					</div>
-				</div>
-			</div>
-					         			
+				</div>	         			
 		   </div>
 		</div>	
-	</div>
+	
 				
 				
 				
@@ -255,12 +292,11 @@
 
 
 
-
     
 <%@ include file="/front_end/frontEndButtomFixed.file" %>        
-    <script src="https://code.jquery.com/jquery.js"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
 </body>
 
 </html>

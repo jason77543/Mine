@@ -12,6 +12,13 @@
     <!-- Custom Fonts -->
     <link href="<%=request.getContextPath() %>/front_end/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath() %>/front_end/css/restend.css" rel="stylesheet">
+    <script src="<%=request.getContextPath() %>/front_end/js/jquery.datetimepicker.full.min.js"></script>
+	<link href="<%=request.getContextPath() %>/front_end/css/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.structure.css" rel="stylesheet" type="text/css"> 
+    
+    
+    
     
     <div class="col-xs-12 col-sm-2 postion-left-group-b">
              	<div id="menu">

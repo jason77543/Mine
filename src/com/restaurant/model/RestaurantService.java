@@ -77,4 +77,6 @@ public class RestaurantService {
 	public List<Restaurant> getAll(Map<String, String[]> map){
 		return restaurantDao.getAll(map);
 	}
+	
+	
 }

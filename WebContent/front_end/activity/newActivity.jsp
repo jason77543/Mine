@@ -28,14 +28,48 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <title>Title Page</title>
+<script src="https://code.jquery.com/jquery.js"></script>
+
+
+	
+
+<script>
+
+$(function(){
+	
+	$("#actDate").datetimepicker({
+		format: 'Y-m-d',
+		 minDate:'+1970/01/02',
+		 allowTimes:[
+'11:00','11:30', '12:00', '12:30','13:00', '13:30','14:00','14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
+		  '19:30', '20:00', '21:00', '22:00', '23:00'
+		 ],
+		 defaultDate: '17/09/01',
+// 		 step: 30 
+		 timepicker:false,
+		});
+	
+	$("#actFDate").datetimepicker({
+		format: 'Y-m-d',
+		 minDate:'+1970/01/02',
+		 allowTimes:[
+'11:00','11:30', '12:00', '12:30','13:00', '13:30','14:00','14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00',
+		  '19:30', '20:00', '21:00', '22:00', '23:00'
+		 ],
+		 defaultDate: '17/09/01',
+// 		 step: 30 
+		 timepicker:false,
+		});
+})	;
+
+</script>
+
+
+
 <style type="text/css">
 .aa {
 	margin-top: 20px;
 }
-
-
-
-
 </style>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
@@ -76,7 +110,7 @@
 									活動名稱
 								</label>
 								<div class="col-sm-9">
-									<input type="text" name="actName" class="form-control" 
+									<input type="text" name="actName" id="actName" class="form-control" 
 									value="" placeholder="請輸入活動名稱" />
 									
 								</div>
@@ -87,7 +121,7 @@
 									活動內容
 								</label>
 								<div class="col-sm-9">
-									<textarea class="form-control" name="actContent" rows="3" cols="54" placeholder="請輸入活動內容" wrap="hard" style="resize:none"></textarea>
+									<textarea class="form-control" name="actContent" id="actContent" rows="3" cols="54" placeholder="請輸入活動內容" style="resize:none"></textarea>
 								</div>
 							</div>
 
@@ -96,8 +130,8 @@
 									活動日期
 								</label>
 								<div class="col-sm-9">
-									<input type="date" name="actDate" class="form-control" 
-									value="" min="<%=actDateMin %>" >	
+									<input  type="text" id="actDate" name="actDate" class="form-control" 
+									value="" min="<%=actDateMin %>">
 								</div>
 							</div>
 
@@ -106,9 +140,8 @@
 									報名截止日期	
 								</label>
 								<div class="col-sm-9">
-									<input type="date" name="actFDate" class="form-control" value="" 
-											min="<%=actDateMin %>" >
-									
+									<input  type="text" id="actFDate" name="actFDate"  class="form-control" 
+									value="" min="<%=actDateMin %>">
 								</div>
 							</div>
 
@@ -172,14 +205,14 @@
 									
 								
 						</form>	
-								
+						<button onclick="newAct()" >快速活動</button>		
 					</div>	
 				</div>
 			</div>	
 		</div>	
 	</div>
 	<%@ include file="/front_end/frontEndButtomFixed.file" %>      	
-	<script src="https://code.jquery.com/jquery.js"></script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

@@ -66,8 +66,10 @@ public class ActDetialServlet extends HttpServlet {
 			try {
 				memNo = Integer.parseInt(req.getParameter("memNo"));
 				
+				
 			} catch (Exception e) {
 				joinErr.add("參加活動錯誤_會員編號");
+				
 			}
 			
 			Integer memActStatus = null;
@@ -76,6 +78,11 @@ public class ActDetialServlet extends HttpServlet {
 				
 			} catch (Exception e) {
 				joinErr.add("參加活動錯誤_會員參加編號");
+			}
+			
+			if(memNo==null){
+				req.getRequestDispatcher("/front_end/member/login.jsp").forward(req, res);
+				return;
 			}
 			
 			if(!joinErr.isEmpty()){
