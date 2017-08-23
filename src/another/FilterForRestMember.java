@@ -40,12 +40,15 @@ public class FilterForRestMember implements Filter{
 		HttpSession session = req.getSession();
 		
 		Object restMemId = session.getAttribute("restMemId");
-		
+		System.out.println("come to FilterForRestMember");
+		System.out.println("restMemId"+restMemId);
 		if(restMemId==null){
+			System.out.println("session裡存了一個location For rest mem:"+req.getRequestURI());
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/front_end/restMember/restMemberLogin.jsp");
 			return;
 		}else{
+			System.out.println("succes F fOR MEM");
 			chain.doFilter(request, response);
 		}
 	}

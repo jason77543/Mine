@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Title Page</title>
     <link href="<%=request.getContextPath() %>/front_end/css/bootstrap.css" rel="stylesheet">
-    <link href="<%=request.getContextPath() %>/front_end/css/nav.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/front_end/css/restEndNav.css" rel="stylesheet">
    
     <link href="<%=request.getContextPath() %>/front_end/css/colorplan.css" rel="stylesheet">
     <!-- Custom CSS -->

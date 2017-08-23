@@ -61,15 +61,7 @@
     <url-pattern>/front_end/activity/newActivity.jsp</url-pattern>
     <url-pattern>/front_end/activity/activityManagent.jsp</url-pattern>
   </filter-mapping>
-  <filter>
-    <filter-name>FilterForLogin</filter-name>
-    <filter-class>another.FilterForLogin</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>FilterForLogin</filter-name>
-    <url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
-    <url-pattern>/front_end/restMember/restMemberLogin.jsp</url-pattern>
-  </filter-mapping>
+  
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.filters.LoginFilter</filter-class>

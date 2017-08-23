@@ -38,13 +38,16 @@ public class FilterForLogin implements Filter{
 		HttpServletResponse res = (HttpServletResponse)response;
 		
 		HttpSession session = req.getSession();
-		
+		System.out.println("come to filterForLoing");
 		Object restMemId = session.getAttribute("restMemId");
+		System.out.println("restMemId : "+restMemId);
 		if(restMemId!=null){
+			System.out.println("session裡存了一個location For f:"+req.getRequestURI());
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath()+"/front_end/activity/activityManagent.jsp");
 			return;
 		}else{
+			System.out.println("success f");
 			chain.doFilter(request, response);
 		}
 	}

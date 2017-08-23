@@ -67,6 +67,7 @@
 												</div>
 								</div>
 								<div class="col-sm-6">		
+												<div class="row">
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														活動名稱:
@@ -75,7 +76,8 @@
 														${activityFront.actName }	
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														活動內容:
@@ -84,7 +86,8 @@
 														<textarea style="resize:none;border:0px;background-color:white" rows="3" cols="47" readonly>${activityFront.actContent }</textarea>
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														活動日期:
@@ -93,7 +96,8 @@
 														${activityFront.actDate}	
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														報名截止日期:
@@ -102,7 +106,8 @@
 														${activityFront.actFDate}	
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														人數上限:
@@ -111,7 +116,8 @@
 														${activityFront.actULimit }人	
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														人數下限:
@@ -120,7 +126,8 @@
 														${activityFront.actLLimit }人
 													</div>
 												</div>
-												
+											</div>
+											<div class="row">	
 												<div class="form-group">
 													<label class="col-sm-3 control-label">
 														種類限制:
@@ -138,8 +145,10 @@
 															</c:if>
 														
 													</div>
-															
-											</div>		
+												</div>
+											</div>	
+												<div class="row">
+												</div>
 										</div>
 									</div>
 								</div>
@@ -212,8 +221,4 @@
 			</c:forEach>
 			
 			
-					<a href="<%=request.getContextPath()%>/front_end/restMember/restMemberLogin.jsp">
-						<div class="" id="fixedbutton-talk">
-							<button class="button btn-lg btn-primary active">發起活動</button>
-						</div>
-					</a>	
+						

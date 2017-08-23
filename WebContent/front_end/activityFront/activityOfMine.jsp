@@ -12,18 +12,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	Member member = null;
-	Map<Integer,Integer> map=null;
+	Member member =  (Member)session.getAttribute("member");
 	
-	if(session.getAttribute("member")!=null){
-		member = (Member)session.getAttribute("member");
-		ActDetialService actDetialService=new ActDetialService();
-		map =actDetialService.getOneActDetialMap(member.getMemNo()); 
-	}else{
-		request.getRequestDispatcher("/front_end/member/login.jsp").forward(request, response);
-		
-	}
-
+	ActDetialService actDetialService=new ActDetialService();
+	Map<Integer,Integer> map =actDetialService.getOneActDetialMap(member.getMemNo());
+	
 	ActivityService activityService = new ActivityService();
 	List<Activity> activityFrontList = activityService.getAllOfMine(member.getMemNo());
 	request.setAttribute("activityFrontList", activityFrontList);

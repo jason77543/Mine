@@ -27,7 +27,7 @@ import com.restaurant.model.RestaurantService;
 
 
 
-@WebServlet("/RestMemberServlet")
+
 public class RestMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -219,6 +219,7 @@ public class RestMemberServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 			
 			session.removeAttribute("restMember");
+			
 //			System.out.println("ddddddd::::"+req.getAttribute("restMember"));
 		
 			RequestDispatcher requestDispatcher3 = req.getRequestDispatcher("/front_end/restMember/restMemberLogin.jsp");

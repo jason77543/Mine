@@ -30,7 +30,7 @@ import com.restaurant.model.Restaurant;
 import com.restaurant.model.RestaurantService;
 
 
-@WebServlet("/ActivityServlet")
+
 @MultipartConfig
 public class ActivityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -28,7 +28,7 @@ import com.restaurant.model.Restaurant;
 import com.restaurant.model.RestaurantService;
 
 
-@WebServlet("/RestaurantServlet")
+
 public class RestaurantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -182,14 +182,14 @@ public class RestaurantServlet extends HttpServlet {
 			
 			Double restLongtitude = null;
 			try {
-				restLongtitude = getLongtitude(restAdd);
+				restLongtitude = Double.parseDouble(req.getParameter("restLongtitude"));
 			} catch (Exception e) {
 				updateError.add("À\ÆU¸g«×¿é¤J¿ù»~");
 			}
 			
 			Double restLatitude = null;
 			try {
-				restLatitude = getLatitude(restAdd);
+				restLatitude = Double.parseDouble(req.getParameter("restLatitude"));
 			} catch (Exception e) {
 				updateError.add("À\ÆU½n«×¿é¤J¿ù»~");
 			}

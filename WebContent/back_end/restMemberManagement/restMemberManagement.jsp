@@ -45,7 +45,7 @@
     	<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 text-center">
-					<form method="post" action="<%=request.getContextPath()%>/activity/activityController" >
+					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController" >
 						<div class="form-group row">
 							<div class="col-xs-3">
 								À\ÆU¦WºÙ:<input class="form-control" type="text" name="restName" value="">
