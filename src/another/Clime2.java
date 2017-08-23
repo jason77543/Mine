@@ -145,7 +145,7 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 						builder.append(line);
 						
 					}
-				
+			
 					JSONObject json = new JSONObject(builder.toString()); //轉換json格式
 				    JSONArray ja = json.getJSONArray("results");//取得json的Array物件
 				   
