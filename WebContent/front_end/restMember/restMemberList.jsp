@@ -45,6 +45,8 @@
 				<div class="col-xs-12 col-sm-offset-3">
 					<div class="col-xs-12 col-sm-6">
 					<h1 class=" page-header text-left">狗狗貓貓友善餐廳</h1>
+					
+ 				<!-- 					複合查詢                                                                        -->
 					<form method="post" action="<%=request.getContextPath()%>/restaurant/restaurantController" >
 						<div class="form-group row">
 							<div class="col-xs-3">
@@ -71,6 +73,8 @@
 							<input type="hidden" name="action" value="CompositeQuery">	
 						</div>		
 					</form>
+					
+					
 					<table class="table table-striped">
 						<tr>
 							
@@ -112,7 +116,10 @@
 										<input type="hidden" name="restReviewStatus" class="form-control" value="1" >審核未通過
 									</c:if>
 									<c:if test="${restaurant.restReviewStatus=='2'}">
-										<input type="hidden" name="restReviewStatus" class="form-control" value="2" >未審核
+										<input type="hidden" name="restReviewStatus" class="form-control" value="2" >尚未審核
+									</c:if>
+									<c:if test="${restaurant.restReviewStatus=='3'}">
+										<input type="hidden" name="restReviewStatus" class="form-control" value="2" >已註冊成功
 									</c:if>
 							</td>
 							<td>
@@ -133,12 +140,14 @@
 							</c:if>
 							
 							<c:if test="${restaurant.restReviewStatus=='1'}">
-								<input type="submit" class="btn btn-primary" value="審核未通過" disabled>
+								<input type="submit" class="btn btn-danger" value="審核未通過"  disabled>
 							</c:if>
 							<c:if test="${restaurant.restReviewStatus=='2'}">
-								<input type="submit" class="btn btn-primary" value="未審核" disabled>
+								<input type="submit" class="btn btn-danger" value="未審核"  disabled>
 							</c:if>
-							
+							<c:if test="${restaurant.restReviewStatus=='3'}">
+								<input type="submit" class="btn btn-success" value="已註冊"  disabled>
+							</c:if>
 							  
 							</td>
 						</tr>

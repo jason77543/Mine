@@ -48,23 +48,23 @@ public class Clime implements Runnable{
 		List<String> list2=  new ArrayList<String>();;
 		
 		try {
-			URL url = new URL("http://tinyurl.com/3bp8zf7");
-					
-			Document xmlDoc = Jsoup.parse(url, 3000);
-
+//			URL url = new URL("http://tinyurl.com/3bp8zf7");
+//					
+//			Document xmlDoc = Jsoup.parse(url, 3000);
+//
 			Class.forName(driver);
 			conn = DriverManager.getConnection(oraUrl, userid, passwd);
-			
-
-			FileWriter writer = new FileWriter("D://restname.csv");
-
-			Elements tr = xmlDoc.select("tr");
-			for (int i = 2; i < 85; i++) {
-				String rest = (String) tr.get(i).text();
-				writer.write(rest);
-			}
-			writer.close();
-System.out.println("寫入完畢");
+//			
+//
+//			FileWriter writer = new FileWriter("D://restname.csv");
+//
+//			Elements tr = xmlDoc.select("tr");
+//			for (int i = 2; i < 85; i++) {
+//				String rest = (String) tr.get(i).text();
+//				writer.write(rest);
+//			}
+//			writer.close();
+//System.out.println("寫入完畢");
 			reader = new BufferedReader(new FileReader("D://restname.csv"));
 			String name = reader.readLine().replaceAll("[?]", "");
 			String name0 = name.replace("(誠品中山店內)", "誠品中山店內-");
@@ -162,7 +162,7 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 			Iterator<Double> realLatList = realLat.iterator();
 			Iterator<Double> realLngList = realLng.iterator();
 			Iterator<String> realAddList = realAdd.iterator();
-			Iterator<String> realAddList0 = realAdd.iterator();
+//			Iterator<String> realAddList0 = realAdd.iterator();
 			
 			System.out.println("GOOGLE完畢");
 //			for (int k = 0; k < 77; k++) {
@@ -174,21 +174,21 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 //			}
 			
 			
-			for (int k = 0; k < 77; k++) {
-				pstmt = conn.prepareStatement(INSERT_REST);
-				int kindOfPet = (int) (Math.random() * 3);
-				
-				pstmt.setString(1,restNameList.next());
-				pstmt.setString(2,realAddList.next());
-				pstmt.setString(3, restAddList.next().substring(0,2) +"縣");
-				pstmt.setString(4,realPhone.next());
-				pstmt.setString(5, "petRestaurantIntro"+k);
-				pstmt.setInt(6, kindOfPet);
-				pstmt.setInt(7, 0);
-				pstmt.setDouble(8, realLngList.next());
-				pstmt.setDouble(9, realLatList.next());
-				pstmt.executeUpdate();
-			}
+//			for (int k = 0; k < 77; k++) {
+//				pstmt = conn.prepareStatement(INSERT_REST);
+//				int kindOfPet = (int) (Math.random() * 3);
+//				
+//				pstmt.setString(1,restNameList.next());
+//				pstmt.setString(2,realAddList.next());
+//				pstmt.setString(3, restAddList.next().substring(0,2) +"縣");
+//				pstmt.setString(4,realPhone.next());
+//				pstmt.setString(5, "petRestaurantIntro"+k);
+//				pstmt.setInt(6, kindOfPet);
+//				pstmt.setInt(7, 0);
+//				pstmt.setDouble(8, realLngList.next());
+//				pstmt.setDouble(9, realLatList.next());
+//				pstmt.executeUpdate();
+//			}
 			
 			
 			

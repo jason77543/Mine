@@ -93,12 +93,13 @@
     
 		<h5 class=" page-header text-right">目前位置:管理我的活動</h5>
 		
-       
+<!--      目前跌帶(紀數用)varStatus="activitiyE"  間隔 step="1"   從0開始${activitiyE.index}    從1開始${activitiyE.count} -->
 		
-			<c:forEach var="activity" items="${activitiyList}">
+			<c:forEach var="activity" items="${activitiyList}" varStatus="activitiyE" step="1">
 			 <div class="panel panel-default">
 		       <div class="panel-heading">
 		       	
+				
 						<div class="row">
 							<div class="col-xs-12 col-sm-6">
 								<h3 class="panel-title">活動名稱:${activity.actName}</h3>
@@ -154,8 +155,24 @@
 						<div class="row">
 							<div class="col-sm-3">
 									
+									
+									
 											<%@ include file="/front_end/actFiles/activity.file" %>
-											
+											<script>
+					
+							
+												var openFile${activitiyE.index} = function(e) {
+												    var input = e.target;		
+												    var reader = new FileReader();		    
+												    reader.onload = function(){
+													      var dateURL = reader.result;	      
+														  var output = document.getElementById('outputIMG${activitiyE.index}');			    
+														  output.src = dateURL;			    
+												    };		    
+												    reader.readAsDataURL(input.files[0]);		   
+												};
+												
+											</script>
 											
 											<input type="hidden" name="actNo" value="${activity.actNo}">
 											<input type="hidden" name="restMemId" value="${restMember.restMemId }">
@@ -164,9 +181,10 @@
 											<div class="form-group">
 												<div class="col-xs-12 col-sm-12">
 													<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activity.actNo}" 
-													class="img-circle" id="outputIMG" height="200px" width="100%" style="margin-top:50px;">
+													class="img-circle" id="outputIMG${activitiyE.index}" height="200px" width="100%" style="margin-top:50px;">
+													
 													<input type="file" name="actInitImg" class="form-control"
-													 onchange="openFile(event)">
+													 onchange="openFile${activitiyE.index}(event)">
 													
 												</div>
 											</div>

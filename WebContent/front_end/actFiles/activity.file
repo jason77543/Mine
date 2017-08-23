@@ -2,16 +2,7 @@
 <script>
 
 
-		var openFile = function(e) {
-		    var input = e.target;		
-		    var reader = new FileReader();		    
-		    reader.onload = function(){
-			      var dateURL = reader.result;	      
-				  var output = document.getElementById('outputIMG');			    
-				  output.src = dateURL;			    
-		    };		    
-		    reader.readAsDataURL(input.files[0]);		   
-		};
+		
 		
 		
 		

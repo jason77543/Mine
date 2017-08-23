@@ -326,9 +326,9 @@ public class ActivityServlet extends HttpServlet {
 					if(part.getName().equals("actInitImg") && getFileNameFromPart(part) != null
 							&& part.getContentType().startsWith("image")){
 						actInitImg = getPictureByteArray(part.getInputStream());
-						System.out.println("222222");
+						
 					}else{
-						System.out.println("1111111");
+						
 						
 						ActivityService activityService = new ActivityService();
 						Activity activityImg = activityService.getOneActivity(actNo);
@@ -405,6 +405,7 @@ public class ActivityServlet extends HttpServlet {
 			Activity activityImg = (Activity)req.getAttribute("activityImg");
 			Activity activity = activityService.updateActivity(actNo, restMemId, actName, actContent, actDate,
 					actFDate, actStatus, actULimit, actLLimit, actKind, actAnotherKind,
+					
 					(actInitImg!=null)?actInitImg:activityImg.getActInitImg());
 			
 			req.setAttribute("activity", activity);

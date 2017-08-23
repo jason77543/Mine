@@ -196,6 +196,12 @@ public class RestMemberServlet extends HttpServlet {
 			RestMember restMember = restMemberServicea.addRestMember(restMemId, restNo, restMemPsw);	
 			
 			req.setAttribute("restMember", restMember);
+			
+			RestaurantService restaurantService = new RestaurantService();
+			Restaurant restaurant = restaurantService.updateBack(3, restNo);
+			
+			req.setAttribute("restaurant", restaurant);
+			
 			////////////////////準備轉交////////////////////////////
 			hasAUser.add("恭喜註冊成功");
 			
