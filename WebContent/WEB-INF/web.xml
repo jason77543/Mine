@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>BA102G1</display-name>
+  <display-name>ChiYang</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -42,14 +42,13 @@
     <url-pattern>/activity/DBGifReader5</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>ActDetialServlet</servlet-name>
-  	<servlet-class>com.actDetial.controller.ActDetialServlet</servlet-class>
+    <servlet-name>ActDetialServlet</servlet-name>
+    <servlet-class>com.actDetial.controller.ActDetialServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ActDetialServlet</servlet-name>
-  	<url-pattern>/actDetial/actDetialController</url-pattern>
+    <servlet-name>ActDetialServlet</servlet-name>
+    <url-pattern>/actDetial/actDetialController</url-pattern>
   </servlet-mapping>
-  
   <filter>
     <filter-name>FilterForRestMember</filter-name>
     <filter-class>another.FilterForRestMember</filter-class>
@@ -70,10 +69,7 @@
     <filter-name>FilterForLogin</filter-name>
     <url-pattern>/front_end/restMember/restMember.jsp</url-pattern>
     <url-pattern>/front_end/restMember/restMemberLogin.jsp</url-pattern>
-   
   </filter-mapping>
-  
-  
   <filter>
     <filter-name>loginFilter</filter-name>
     <filter-class>com.filters.LoginFilter</filter-class>

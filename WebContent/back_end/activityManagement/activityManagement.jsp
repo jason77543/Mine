@@ -94,7 +94,7 @@
 										<td>
 											<div class="imgimg">
 												<img src="<%=request.getContextPath()%>/activity/DBGifReader5?actNo=${activityBack.actNo}" 
-													class="img-rounded" width="100" height="100" " />                          
+													class="img-rounded" style="width:100px;height:100px;"   />                          
 											</div>
 										</td>
 										

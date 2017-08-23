@@ -21,7 +21,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class Clime implements Runnable{
+public class Clime2 implements Runnable{
 	
 	
 	private static final String INSERT_REST = "INSERT INTO REST (RESTNO,RESTNAME,RESTADD,RESTLOCATE,RESTPHONE,"
@@ -51,11 +51,11 @@ public class Clime implements Runnable{
 //			URL url = new URL("http://tinyurl.com/3bp8zf7");
 //					
 //			Document xmlDoc = Jsoup.parse(url, 3000);
-//
+
 			Class.forName(driver);
 			conn = DriverManager.getConnection(oraUrl, userid, passwd);
-//			
-//
+			
+
 //			FileWriter writer = new FileWriter("D://restname.csv");
 //
 //			Elements tr = xmlDoc.select("tr");
@@ -112,6 +112,12 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 			Iterator<String> restAddList = list2.iterator();
 			
 			Iterator<String> restAddListGMap = list2.iterator();
+			Iterator<String> restAddListGMap1 = list2.iterator();
+			System.out.println("list2:"+list2.size());
+			
+			while(restAddListGMap1.hasNext()){
+				System.out.println("送出地址:::"+restAddListGMap1.next());
+			}
 			
 			System.out.println("Iterator完畢");
 			
@@ -125,6 +131,7 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 			
 			
 			while(restAddListGMap.hasNext()){
+				
 				String sKeyWord = restAddListGMap.next(); //這是地址
 				URL urlFromGMap  = new URL(String.format("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&language=zh-TW", 
 				URLEncoder.encode(sKeyWord, "UTF-8")));//p=%s is KeyWord in	            
@@ -143,12 +150,13 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 				    JSONArray ja = json.getJSONArray("results");//取得json的Array物件
 				   
 				    
-				        for (int i = 0; i < ja.length(); i++) {
+				        for (int i = 0; i < 1; i++) {
 			                  
 //			            lat.add(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
 //			            lng.add(ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
 			            
 			            realAdd.add(ja.getJSONObject(0).getString("formatted_address"));
+			            System.out.println("回傳地址:::"+ja.getJSONObject(0).getString("formatted_address"));
 			            realLat.add((ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lat")));
 			            realLng.add((ja.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getDouble("lng")));
 				    } 
@@ -162,10 +170,12 @@ Iterator<String> restNameList = list.iterator();//餐廳名稱
 			Iterator<Double> realLatList = realLat.iterator();
 			Iterator<Double> realLngList = realLng.iterator();
 			Iterator<String> realAddList = realAdd.iterator();
-//			Iterator<String> realAddList0 = realAdd.iterator();
+	//		Iterator<String> realAddList0 = realAdd.iterator();
+			
+			System.out.println("realAdd:"+realAdd.size());
 			
 			System.out.println("GOOGLE完畢");
-//			for (int k = 0; k < 77; k++) {
+//			for (int k = 0; k < realAdd.size(); k++) {
 //			
 //				System.out.print(restNameList.next()+" : ");
 //				System.out.print(realAddList.next()+" : ");//這是地址
